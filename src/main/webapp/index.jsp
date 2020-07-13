@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Blog &amp; expérience</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="Découvrez des information sur ghalem maxime son curriculum vitae" />
+
+    <link rel="stylesheet" href="/CSS/accessibiliter.css" type="text/css" />
+    <link rel="stylesheet" href="/CSS/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="/CSS/site.css" type="text/css" />
+
+    <!-- menu petit ecran -->
+    <script src="/js/jquery-3.5.0.js"></script>
+    <script src="/js/menu.js"></script>
+
+    <!-- fonction dynamique  -->
+    <script src="/js/backgroundDynamique.js" defer></script>
+
+</head>
+
+<body>
+
+<header id="mainHearder">
+
+    <a href="/webPage/index.html#mainContant"><img src="/image/icon/max.png" alt="image ico du site" title="retour a la page d'accueil" id="logo" /></a>
+
+    <h1>Le blog du Développeur</h1>
+
+    <nav id="mainNav">
+
+        <h2 class="accessibiliter">Menu principale</h2>
+        <p class="accessibiliter"><a href="#mainContant" title="Accéder directement au contenu principale de cette page ">Passer le menu</a></p>
+        <!-- raccourcie pour l'accessibiter des personne en situation de handicape -->
+
+        <ul>
+            <li> <a href="/webPage/index.html" title="Vers la page d'accueil du site">Accueil</a> </li>
+            <li> <a href="/webPage/galeries.html" title="Vers la page des galeries de photographies">Galeries</a></li>
+            <li> <a href="/webPage/contact.html" title="Vers la page de contact">Contact</a></li>
+            <li> <a href="/webPage/about.html" title="Vers la page de l'à propos">A propos</a></li>
+            <li> <a href="/webPage/blog.html" title="Vers la page de mon Blog">Blog</a></li>
+            <li> <a href="https://github.com/MGNetworking" title="Vers Mon github">My github</a></li>
+            <li> <a href="/webPage/CV.html" title="Vers la page de mon CV">CV</a></li>
+        </ul>
+    </nav>
+    <button id="menuButton"><img src="/image/icon/hamburger.svg" alt="ouvrir / Fermer le menu"/></button>
+</header>
+<!-- fin mainHearder -->
+
+<div id="mainbody" class="colonneMain">
+
+    <main id="mainContant">
+
+        <h2>bienvenu sur le site de Ghalem Maxime</h2>
+        <figure class="imgFigure">
+            <img src="/image/galeries/paris/IMG_7_Paris.jpg" />
+            <figcaption>L'arc de triomphe</figcaption>
+        </figure>
+        <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les activités seront de type informatique principalement mais pas que. Sur site vous avez mes coordonnées ainsi que mon curriculum Vitae au format
+            PDF
+        </p>
+
+        <p>Actuellement ce site est en cours de construction.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque natus reiciendis!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque natus reiciendis!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque natus reiciendis!</p>
+
+
+        <p>
+            <a href="#mainContant">
+                <button class="bpRetour">
+                    <img src="/image/icon/chevrons-up.svg" alt="retour en haut de la page">
+                </button>
+            </a>
+
+        </p>
+        <!-- fin bouton de retour  -->
+
+    </main>
+    <!-- fin colonneGauche-->
+
+
+
+    <aside id="colonneDroitAside">
+
+        <section id="blogRecherche">
+            <h2><label for="search">recherche</label></h2>
+            <input type="search" name="search" id="search" />
+        </section>
+        <!-- fin moteur de blogRecherche -->
+
+        <section id="categories">
+            <h2>categories</h2>
+            <ul>
+                <li><a href="#">matériel&nbsp;<span>11</span></a></li>
+                <li><a href="#">lightroom&nbsp;<span>2</span></a></li>
+                <li><a href="#">technique&nbsp;<span>4</span></a></li>
+                <li><a href="#">voyage&nbsp;<span>8</span></a></li>
+            </ul>
+        </section>
+        <!-- fin Categories -->
+
+        <section id="blogAchives">
+            <h2>archive</h2>
+            <div>
+                <h3><a href="#">années 2019&nbsp;<span>7</span></a></h3>
+                <ul>
+                    <li><a href="#">janvier 2019&nbsp;<span>3</span></a></li>
+                    <li><a href="#">février 2019&nbsp;<span>2</span></a></li>
+                    <li><a href="#">mars 2019&nbsp;<span>1</span></a></li>
+                    <li><a href="#">avril 2019&nbsp;<span>1</span></a></li>
+                </ul>
+            </div>
+            <div>
+                <h3><a href="#">années 2020&nbsp;<span>9</span></a></h3>
+                <ul>
+                    <li><a href="#">janvier 2020&nbsp;<span>2</span></a></li>
+                    <li><a href="#">février 2020&nbsp;<span>4</span></a></li>
+                    <li><a href="#">mars 2020&nbsp;<span>2</span></a></li>
+                    <li><a href="#">avril 2020&nbsp;<span>1</span></a></li>
+                </ul>
+            </div>
+
+        </section>
+        <!-- fin blogAchives -->
+
+
+    </aside>
+    <!-- fin colonneDroit-->
+
+
+</div>
+<!-- fin mainbody -->
+
+
+<footer id="mainFooter">
+    <p>&copy;copyright ghalem maxime - 2020</p>
+</footer>
+<!-- fin mainFooter -->
+
+
+</body>
+
+</html>
