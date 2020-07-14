@@ -1,0 +1,33 @@
+{
+    "ville": [{
+            "image": "IMG_1_Nancy.jpg",
+            "href": "./static/image/galeries/nancy/IMG_1_Nancy.jpg",
+            "title": "image de nancy n°1",
+            "alt": "image 1 nancy",
+            "annees": "2020"
+
+        }, {
+            "image": "IMG_2_Nancy.jpg",
+            "href": "./static/image/galeries/nancy/IMG_2_Nancy.jpg",
+            "title": "image de nancy n°2",
+            "alt": "image 2 nancy",
+            "annees": "2020"
+
+        }, {
+            "image": "IMG_3_Nancy.jpg",
+            "href": "./static/image/galeries/nancy/IMG_3_Nancy.jpg",
+            "title": "image de nancy n°3",
+            "alt": "image 3 nancy",
+            "annees": "2020"
+
+        }, {
+            "image": "IMG_4_Nancy.jpg",
+            "href": "./static/image/galeries/nancy/IMG_4_Nancy.jpg",
+            "title": "image de nancy n°4",
+            "alt": "image 4 nancy",
+            "annees": "2020"
+        }
+
+    ]
+
+}

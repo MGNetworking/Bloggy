@@ -7,6 +7,7 @@
     <title>Blog &amp; expérience</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta name="description" content="Découvrez des information sur mon lieu de formation"/>
 
     <link rel="stylesheet" href="<c:url value="static/CSS/accessibiliter.css" />" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="static/CSS/normalize.css"/>" type="text/css"/>
@@ -16,8 +17,11 @@
     <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
     <script src="<c:url value="static/js/menu.js" />"></script>
 
+
     <!-- fonction dynamique  -->
     <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
+    <script src="<c:url value="/static/js/lienDynamique.js" />"></script>
+
 
 </head>
 
@@ -25,9 +29,11 @@
 
 <header id="mainHearder">
 
-    <a href="<c:url value="/home"/>#mainContant"><img src="<c:url value="/static/image/icon/max.png"/>"
-                                                      alt="image ico du site" title="retour a la page d'accueil"
-                                                      id="logo"/></a>
+    <a href="<c:url value="/home"/>#mainContant">
+        <img src="<c:url value="/static/image/icon/max.png"/>" alt="image ico du site"
+             title="retour a la page d'accueil" id="logo"/>
+    </a>
+
 
     <h1>Le blog du Développeur</h1>
 
@@ -43,32 +49,33 @@
             <li><a href="<c:url value="/cv"/>" title="Vers la page de mon CV">CV</a></li>
         </ul>
     </nav>
-    <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> "
-                                 alt="ouvrir / Fermer le menu"/></button>
+    <button id="menuButton">
+        <img src="<c:url value="/static/image/icon/hamburger.svg"/> "
+                                 alt="ouvrir / Fermer le menu"/>
+    </button>
 </header>
 <!-- fin mainHearder -->
 
-<div id="mainbody">
+<div id="mainbody" class="galleries">
 
-    <main id="mainContant" class="retrourForm">
+    <main id="mainContant">
 
-        <h2>merci</h2>
-        <p>Merci de votre message. notre équipe reprendra contact avec vous dans les 3 jours ouvrables.</p>
-        <p>A très bientôt.</p>
 
     </main>
-    <!-- fin mainContant-->
+    <!-- fin main -->
+
+    <footer id="mainFooter">
+        <p>&copy;Copyright Ghalem Maxime - 2020</p>
+    </footer>
+    <!-- fin mainFooter -->
+
 
 </div>
 <!-- fin mainbody -->
 
-
-<footer id="mainFooter">
-    <p>&copy;Copyright Ghalem Maxime - 2020</p>
-</footer>
-<!-- fin mainFooter -->
-
-
+<figure id="agrandissement">
+    <img src="" alt="agrandissament de l'image click">
+</figure>
 </body>
 
 </html>

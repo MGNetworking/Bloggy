@@ -1,3 +1,5 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,16 +9,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content="Découvrez des information sur le matériel dont je dispose" />
 
-    <link rel="stylesheet" href="/CSS/accessibiliter.css" type="text/css" />
-    <link rel="stylesheet" href="/CSS/normalize.css" type="text/css" />
-    <link rel="stylesheet" href="/CSS/site.css" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="static/CSS/accessibiliter.css" />" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="static/CSS/normalize.css"/>" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="static/CSS/site.css"/> " type="text/css" />
 
     <!-- menu petit ecran -->
-    <script src="/js/jquery-3.5.0.js"></script>
-    <script src="/js/menu.js"></script>
+    <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
+    <script src="<c:url value="static/js/menu.js" />"></script>
 
     <!-- fonction dynamique  -->
-    <script src="/js/backgroundDynamique.js" async></script>
+    <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
 
 </head>
 
@@ -32,16 +34,16 @@
         <nav id="mainNav">
 
             <ul>
-                <li> <a href="/webPage/index.html" title="Vers la page d'accueil du site">Accueil</a> </li>
-                <li> <a href="/webPage/galeries.html" title="Vers la page des galeries de photographies">Galeries</a></li>
-                <li> <a href="/webPage/contact.html" title="Vers la page de contact">Contact</a></li>
-                <li> <a href="/webPage/about.html" title="Vers la page de l'à propos">A propos</a></li>
-                <li> <a href="/webPage/blog.html" title="Vers la page de mon Blog">Blog</a></li>
+                <li> <a href="<c:url value="/home" />" title="Vers la page d'accueil du site">Accueil</a> </li>
+                <li> <a href="<c:url value="/galerie"/>" title="Vers la page des galeries de photographies">Galeries</a></li>
+                <li> <a href="<c:url value="/contact"/>" title="Vers la page de contact">Contact</a></li>
+                <li> <a href="<c:url value="/about" />" title="Vers la page de l'à propos">A propos</a></li>
+                <li> <a href="<c:url value="/blog"/>" title="Vers la page de mon Blog">Blog</a></li>
                 <li> <a href="https://github.com/MGNetworking" title="Vers Mon github">My github</a></li>
-                <li> <a href="/webPage/CV.html" title="Vers la page de mon CV">CV</a></li>
+                <li> <a href="<c:url value="/cv"/>" title="Vers la page de mon CV">CV</a></li>
             </ul>
         </nav>
-        <button id="menuButton"><img src="/image/icon/hamburger.svg" alt="ouvrir / Fermer le menu"/></button>
+        <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> " alt="ouvrir / Fermer le menu"/></button>
     </header>
     <!-- fin mainHearder -->
 

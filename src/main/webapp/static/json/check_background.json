@@ -1,0 +1,84 @@
+ {
+
+     "image": [{
+             "path": "background_image_1.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_2.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_4.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_5.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_6.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_7.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_8.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_9.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_10.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_11.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_12.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_13.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_14.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_15.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_16.jpg",
+             "type": "jpg"
+
+         },
+         {
+             "path": "background_image_17.jpg",
+             "type": "jpg"
+
+         }
+     ]
+ }
