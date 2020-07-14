@@ -7,16 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/about")
-public class AboutServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = "/article")
+public class ArticleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/about.jsp")
-                .forward(req, resp);
+        // renvoie vers la page de création d'article
+        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/webArticle/connectionAdmin.jsp")
+                .forward(req,resp);
     }
-
-
 }

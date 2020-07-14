@@ -18,6 +18,8 @@
     <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
     <script src="<c:url value="static/js/menu.js" />"></script>
 
+    <!-- fonction dynamique  -->
+    <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
 
 </head>
 
@@ -60,42 +62,25 @@
 
         <h2>bienvenu sur le site de Ghalem Maxime</h2>
         <figure class="imgFigure">
-            <img src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
-                 alt="image de l'arc de triomphe"/>
+            <img src="../../../static/image/galeries/paris/IMG_7_Paris.jpg"/>
             <figcaption>L'arc de triomphe</figcaption>
         </figure>
-        <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les activités
-            seront de type informatique principalement mais pas que. Sur ce site vous avez mes coordonnées ainsi que mon
-            curriculum Vitae au format
-            PDF
-        </p>
 
-        <p>Actuellement ce site est en cours de construction.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
+        <form action="">
 
+            <div>
+                <label for="" class="nom">Nom :</label>
+                <input type="text" value="le Nom admin" placeholder="le Nom admin" required autofocus tabindex="1">
+            </div>
+            <div>
+                <label for="" class="nom">Password :</label>
+                <input type="password" placeholder="le mots de passe" required autofocus tabindex="2">
+            </div>
 
-        <p>
-            <a href="#mainContant">
-                <button class="bpRetour">
-                    <img src="<c:url value="/static/image/icon/chevrons-up.svg" />" alt="retour en haut de la page">
-                </button>
-            </a>
+            <button type="submit">Envoyer</button>
 
-        </p>
+        </form>
+
         <!-- fin bouton de retour  -->
 
     </main>
@@ -159,8 +144,6 @@
 </footer>
 <!-- fin mainFooter -->
 
-<!-- fonction dynamique  -->
-<script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
 </body>
 
 </html>

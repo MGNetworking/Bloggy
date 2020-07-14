@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
 
     private Logger LOGGER = LoggerFactory.getLogger(HomeServlet.class);

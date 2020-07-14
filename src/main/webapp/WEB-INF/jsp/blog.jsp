@@ -46,7 +46,7 @@
             <li><a href="<c:url value="/cv"/>" title="Vers la page de mon CV">CV</a></li>
         </ul>
     </nav>
-    <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> "
+    <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/>"
                                  alt="ouvrir / Fermer le menu"/></button>
 </header>
 <!-- fin mainHearder -->
@@ -67,7 +67,9 @@
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p><a href="<c:url value="/static/webPage/webArticle/dellPrecision7520.html" />">Lire la suite</a></p>
+            <p>
+                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+            </p>
         </article>
         <!-- fin de la article 1 -->
 
@@ -84,7 +86,9 @@
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p><a href="<c:url value="/static/webPage/webArticle/dellPrecision7520.html" />">Lire la suite</a></p>
+            <p>
+                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+            </p>
         </article>
         <!-- fin de la article 2-->
 
@@ -94,12 +98,15 @@
                 <h3>Titre 3 du blog</h3>
                 <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
             </header>
-            <p><img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
+            <p>
+                <img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
                 dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p><a href="<c:url value="/static/webPage/webArticle/dellPrecision7520.html" />">Lire la suite</a></p>
+            <p>
+                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+            </p>
         </article>
         <!-- fin de la article 3-->
 
@@ -107,7 +114,7 @@
 
             <a href="#mainContant">
                 <button class="bpRetour">
-                    <img src="<c:url value="/static/image/icon/chevrons-up.svg" />" alt="retour en haut de la page">
+                    <img src="<c:url value="/static/jsp/icon/chevrons-up.svg" />" alt="retour en haut de la page">
                 </button>
             </a>
 
@@ -156,7 +163,9 @@
                     <li><a href="#">Février 2020&nbsp;<span>4</span></a></li>
                     <li><a href="#">Mars 2020&nbsp;<span>2</span></a></li>
                     <li><a href="#">Avril 2020&nbsp;<span>1</span></a></li>
+                    <li><a href="<c:url value="/article"/>" title="connection">Connection User acticle</a></li>
                 </ul>
+
             </div>
 
         </section>

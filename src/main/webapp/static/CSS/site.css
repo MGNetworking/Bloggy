@@ -1,571 +1,631 @@
-    /*===============================================================*/
-    /*parti générale */
-    /*definit au niveau de la racine du document HTML*/
-    /*Creation d'une regle pour la police d'écriture*/
-    
-    @font-face {
-        font-family: "shadows";
-        src: url(/fonts/ShadowsIntoLight-Regular.ttf);
-    }
-    
-    @font-face {
-        font-family: "dancing";
-        src: url(/fonts/DancingScript-VariableFont_wght.ttf);
-    }
-    
-     :root {
-        --black: #333333;
-        --transwhite: hsla(0, 0%, 100%, 0.500);
-        --red: rgb(245, 41, 41);
-        --redSurVol: rgba(245, 41, 41, 0.425);
-        /* cette propriete sera hériter par tout les élément de la page*/
-        /*Modifie le comportement pour inclure la largeur et la hauteur dans le contenu*/
-        box-sizing: border-box;
-    }
-    /* Ici donne a tout les éléments les champs ci-dessous*/
-    
-    * {
-        /* permet de fair hérité tout les élément par défaut de box-sizing */
-        /*Valeurs globales*/
-        box-sizing: inherit;
-    }
-    /*J'applique a tout le contenu dans le body les champs ci-dessous*/
-    
-    body {
-        font-family: 'shadows', Times, serif, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-        /*100% a tout les éléments */
-        font-size: 1rem;
-    }
-    /*Le logo : Pour le fair passé devant les autre éléments je désactive le mode de positionne par defaut qui est le positionnement static */
-    
-    #logo {
-        width: 80px;
-        padding: 5px;
-        /*intervient sur l'ordre d'emplilement: axe de la profondeur ici passe par dessus*/
-        z-index: 1;
-        /*activé le z-index avec la postion relavive */
-        /*garde la posistion relative est non absolut pour cause d'autre éléments sont juxtaposé*/
-        position: relative;
-    }
-    /* gestion du body  */
-    
-    #mainContant h2 {
-        color: var(--red);
-        /*taille du titre*/
-        font-size: 1.8em;
-        /*espace entre les lettre*/
-        letter-spacing: 0.1em;
-        margin-top: 30px;
-        text-align: center;
-        text-transform: capitalize;
-    }
-    
-    #mainContant.retrourForm p {
-        text-align: center;
-    }
-    
-    #mainFooter {
-        background-color: var(--red);
-        height: 40px;
-        font-size: 0.6em;
-        /*fix le footer en base */
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        font-family: 'Times New Roman', Times, serif;
-        /*tranforme en flex pour mettre au centre le contenu
-        sur le plan horizontale est verticale*/
-        display: flex;
-        /*aligne horizontalement*/
-        justify-content: center;
-        /*aligne verticalement*/
-        align-items: center;
-        color: white;
-        text-transform: capitalize;
-    }
-    /*image bp menu en haut */
-    
+/*===============================================================*/
+/*parti générale */
+/*definit au niveau de la racine du document HTML*/
+/*Creation d'une regle pour la police d'écriture*/
+
+@font-face {
+    font-family: "shadows";
+    src: url(/static/fonts/ShadowsIntoLight-Regular.ttf);
+}
+
+@font-face {
+    font-family: "dancing";
+    src: url(/static/fonts/DancingScript-VariableFont_wght.ttf);
+}
+
+:root {
+    --black: #333333;
+    --transwhite: hsla(0, 0%, 100%, 0.500);
+    --red: rgb(245, 41, 41);
+    --redSurVol: rgba(245, 41, 41, 0.425);
+    /* cette propriete sera hériter par tout les élément de la page*/
+    /*Modifie le comportement pour inclure la largeur et la hauteur dans le contenu*/
+    box-sizing: border-box;
+}
+
+/* Ici donne a tout les éléments les champs ci-dessous*/
+
+* {
+    /* permet de fair hérité tout les élément par défaut de box-sizing */
+    /*Valeurs globales*/
+    box-sizing: inherit;
+}
+
+/*J'applique a tout le contenu dans le body les champs ci-dessous*/
+
+body {
+    font-family: 'shadows', Times, serif, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /*100% a tout les éléments */
+    font-size: 1rem;
+}
+
+/*Le logo : Pour le fair passé devant les autre éléments je désactive le mode de positionne par defaut qui est le positionnement static */
+
+#logo {
+    width: 80px;
+    padding: 5px;
+    /*intervient sur l'ordre d'emplilement: axe de la profondeur ici passe par dessus*/
+    z-index: 1;
+    /*activé le z-index avec la postion relavive */
+    /*garde la posistion relative est non absolut pour cause d'autre éléments sont juxtaposé*/
+    position: relative;
+}
+
+/* gestion du body  */
+
+#mainContant h2 {
+    color: var(--red);
+    /*taille du titre*/
+    font-size: 1.8em;
+    /*espace entre les lettre*/
+    letter-spacing: 0.1em;
+    margin-top: 30px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+#mainContant.retrourForm p {
+    text-align: center;
+}
+
+#mainFooter {
+    background-color: var(--red);
+    height: 40px;
+    font-size: 0.6em;
+    /*fix le footer en base */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    /*tranforme en flex pour mettre au centre le contenu
+    sur le plan horizontale est verticale*/
+    display: flex;
+    /*aligne horizontalement*/
+    justify-content: center;
+    /*aligne verticalement*/
+    align-items: center;
+    color: white;
+    text-transform: capitalize;
+}
+
+/*image bp menu en haut */
+
+#menuButton {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    background-color: transparent;
+    border: none;
+}
+
+/*===============================================================*/
+/* gestion du header*/
+
+#mainHearder {
+    background-color: var(--red);
+    /*hauteur du bandeau*/
+    height: 45px;
+    /*position fixe tout en haut*/
+    position: fixed;
+    top: 0;
+    /*fait prende la place en fonction de la taille du device*/
+    width: 100%;
+    /*creation d'un Gird View*/
+    display: grid;
+    /*
+        creation de 3 colonne comportement par défaut
+        il sera modifier par les @media queries
+        */
+    grid-template-columns: 80px 1fr 35px;
+    /*
+        1fr = 1 fraction , ici est prévut le reste de
+        l'espace pour la fraction vu que le reste ne changera pas de taille
+        */
+}
+
+/*le menu de navigation*/
+
+#mainNav {
+    background-color: var(--red);
+    /*sort le menu de navigation du flux de la page*/
+    position: absolute;
+    width: 100%;
+    top: 40px;
+    /*ne sera afficher qu'a partir de 768 grace au media query
+    qui aura pour effet l'annulation de le none ici */
+    display: none;
+}
+
+/*le titre dans le header*/
+
+#mainHearder h1 {
+    font-size: 1.5em;
+    color: white;
+    /*transformé le titre en flex box*/
+    display: flex;
+    /*mettre l'elément au centre */
+    align-items: center;
+    /* la hauteur du texte*/
+    height: 40px;
+    margin: 0;
+}
+
+/*la liste a puce */
+
+#mainNav ul {
+    list-style: none;
+    padding-bottom: 0px;
+    margin: 10px 0px;
+    /*permet de les champs les uns a coté des autres*/
+    display: flex;
+    /*place les éléments en colonne*/
+    flex-direction: column;
+}
+
+/*les liens*/
+
+#mainNav ul li a {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+}
+
+/*Permet d'augementer la taille du toucher sur l'élément a */
+
+#mainNav a {
+    display: block;
+    padding-left: 60px;
+    text-decoration: none;
+}
+
+/*===============================================================*/
+/*cette parti permet d'avoir les images responsive*/
+
+img {
+    /*largeur de 100% pour tout les images*/
+    max-width: 100%;
+    /*hauteur calcul automatiquement*/
+    height: auto;
+}
+
+/*image dans la page d'index*/
+
+.imgFigure img {
+    max-height: 50em;
+}
+
+figure {
+    /*permet de mettre du texte a droit*/
+    float: left;
+}
+
+/*===============================================================*/
+/* gestion de l'image de fond | l'id mainbody a permis de séparé
+la couche d'affichage du font avec le contenu de mainContant */
+
+#mainbody {
+    /*Ajoute l'image de font*/
+    background-image: url(./static/image/background/background_image_1.jpg);
+    /*pas de repétition ici superflu */
+    background-repeat: no-repeat;
+    /* positionne le centre de l'image (trs grand image)*/
+    background-position: center;
+    /* fixed =>  l'image est fait glissé le contenu*/
+    background-attachment: fixed;
+    /*cover => couvre tout la page + redimentionnement avec la page*/
+    background-size: cover;
+    /* permte d'éloigne les bordes est enléve la superosition des élements
+            inclus comme les titres */
+    padding: 100px 20px;
+    /*hauteur min de 100% du viewport (la page totale )*/
+    min-height: 100vh;
+}
+
+/* gestion des élements se trouvant dans le contenu de la page*/
+
+#mainContant {
+    /* couche de couleur transparent dans le main*/
+    background-color: var(--transwhite);
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#mainContant h2,
+#mainContant h3 {
+    font-family: "dancing";
+}
+
+/*===============================================================*/
+/*parti blog*/
+
+#mainContant article header h3 {
+    color: red;
+}
+
+/*bouton de retour en bas a droit de l'écran*/
+
+.bpRetour {
+    /*fixe la position*/
+    position: fixed;
+    /*localisation du bp*/
+    bottom: 3em;
+    right: 0.3em;
+    /*sa taille */
+    width: 2em;
+    height: 2em;
+    /*son design avec border-radius pour arrondir les angles*/
+    border-radius: 20%;
+    border: solid white 0.1em;
+    background-color: var(--redSurVol);
+}
+
+/*permet de mettre le énième enfant avec odd qui veux paire
+est even veux pair*/
+
+#mainContant article:nth-child(odd) {
+    background-color: var(--transwhite);
+}
+
+#mainContant article:nth-child(even) {
+    background-color: var(--redSurVol);
+}
+
+#mainContant article header p {
+    /*la taille de l'ecriture */
+    font-size: 0.8em;
+    /*l'ecriture en italique*/
+    font-style: italic;
+    /*soulignement en dessous avec border*/
+    border-bottom: solid red 1px;
+}
+
+/*===============================================================*/
+/* parti galerie*/
+
+#mainbody.galleries ul {
+    /*supprime l'apparence de la liste puce */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /*utilisation de l'affichage grid pour
+    utilisé grid-gap qui permet un espace de 20px */
+    display: grid;
+    grid-gap: 20px;
+}
+
+#mainbody.galleries ul li {
+    background-color: var(--transwhite);
+    padding: 10px;
+}
+
+/*les liens */
+
+#mainbody.galleries ul li a {
+    color: var(--black);
+    /*retire le soulignement par défaut des listes*/
+    text-decoration: none;
+}
+
+/*ajout d'un effet*/
+
+#mainbody.galleries ul li:hover {
+    background-color: var(--redSurVol);
+}
+
+/*gestion de l'agandissment de l'image click*/
+/*caché l'image ; noté que l'image caché est vide par défaut*/
+
+figure {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: hsla(0, 0%, 0%, 0.850);
+    /*masquer la visibilité */
+    visibility: hidden;
+    /*rendre opaque l'element*/
+    opacity: 0;
+    /*Permet de fair l'affichage ou transistion */
+    /*peut etre utilisé avec margin-right par exemple*/
+    transition: opacity 1s, visibility 1s;
+}
+
+/*Permet de rendre visible l'image*/
+
+figure.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*===============================================================*/
+/*parti formulaire de contact*/
+
+#formContact {
+    border-top: solid 1px var(--red);
+    /*transforme en grid.Dans media query son adapté*/
+}
+
+/*mise forme du formulaire*/
+
+#mainContant.formulaire form {
+    display: grid;
+}
+
+#mainContant.formulaire form div > div,
+#mainContant.formulaire form button {
+    margin: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+/*geston du textarea*/
+
+#message {
+    height: 100%;
+    /*redimentionnement du textarea dans le formualire*/
+    resize: none;
+}
+
+/*gestion du bouton*/
+
+#mainContant.formulaire form button[type=submit] {
+    background-color: red;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+/*suvole du bouton*/
+
+#mainContant.formulaire form button:hover {
+    background-color: white;
+    border: none;
+    color: red;
+    font-weight: bold;
+}
+
+/* taille du champs de saisi*/
+
+#mainContant.formulaire form input,
+#mainContant.formulaire form textarea {
+    height: 100%;
+}
+
+/*gestion du message d'erreur*/
+
+input.invalid,
+textarea.invalid {
+    border: 2px solid var(--red);
+}
+
+/*le champs message valide  utilise la propriete valid du */
+
+main form input:valid,
+main form textarea:valid {
+    border: 2px solid green;
+}
+
+/*le champs message d'erreur*/
+
+#formContact label span {
+    color: var(--red);
+}
+
+/*permet de paramétre les label avec sont contenu
+    de message d'erreur */
+
+#formContact label {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*===============================================================*/
+/*parti navigation de droite*/
+/*séparation entre le menu et le contenu
+création du comportement grid en affichage + ajout de 20px */
+
+.colonneMain {
+    display: grid;
+    grid-gap: 20px;
+}
+
+/*l'ensemble du menu*/
+
+#colonneDroitAside {
+    background-color: red;
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: capitalize;
+}
+
+/*pour tout les section*/
+
+#colonneDroitAside section {
+    border-bottom: 1px solid white;
+    padding: 20px;
+}
+
+/*la barre de recherche*/
+
+#colonneDroitAside section input {
+    width: 100%;
+    border-radius: 2em;
+}
+
+/*les titres h2*/
+
+#colonneDroitAside section h2 {
+    color: white;
+    font-size: 1.3em;
+    letter-spacing: 0.1em;
+}
+
+/*liste a puce */
+
+#categories ul,
+#blogAchives ul {
+    list-style: none;
+    background-color: white;
+    width: 100%;
+    border-radius: 0.5em;
+    /*permet de collé sur la gauche*/
+    padding: 0;
+    margin: 0;
+}
+
+/*les lien dans le titre h3*/
+
+#blogAchives div h3 a {
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border-radius: 0.5em;
+    width: 100%;
+    letter-spacing: 0.1em;
+}
+
+/*les listes avec alternance de couleur*/
+
+#categories li:nth-last-child(odd),
+#blogAchives li:nth-last-child(odd) {
+    background-color: var(--redSurVol);
+}
+
+/*les liens dans la liste*/
+/*sélection tout a dont le parent li*/
+
+#blogAchives h3 > a,
+#blogAchives li > a,
+#categories li > a {
+    text-decoration: none;
+    padding: 2px;
+    width: 100%;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*les span*/
+/*sélection tout span dont le parnet a*/
+
+a > span {
+    background-color: red;
+    /*pour fair les arrondis*/
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    /*la taille a permis de d'avoir des rond est pas ovale */
+    width: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/*===============================================================*/
+/*media Query*/
+/*si l'ecran a au minimun 768 px de large
+les styles css suivant seront appliquer*/
+/*768 est la taille prevut pour les tablettes*/
+
+@media only screen and (min-width: 769px) {
+    /*fait disparaitre le bp menu*/
     #menuButton {
-        width: 35px;
-        height: 35px;
-        border-radius: 8px;
-        background-color: transparent;
-        border: none;
-    }
-    /*===============================================================*/
-    /* gestion du header*/
-    
-    #mainHearder {
-        background-color: var(--red);
-        /*hauteur du bandeau*/
-        height: 45px;
-        /*position fixe tout en haut*/
-        position: fixed;
-        top: 0;
-        /*fait prende la place en fonction de la taille du device*/
-        width: 100%;
-        /*creation d'un Gird View*/
-        display: grid;
-        /*
-            creation de 3 colonne comportement par défaut
-            il sera modifier par les @media queries 
-            */
-        grid-template-columns: 80px 1fr 35px;
-        /*
-            1fr = 1 fraction , ici est prévut le reste de
-            l'espace pour la fraction vu que le reste ne changera pas de taille
-            */
-    }
-    /*le menu de navigation*/
-    
-    #mainNav {
-        background-color: var(--red);
-        /*sort le menu de navigation du flux de la page*/
-        position: absolute;
-        width: 100%;
-        top: 40px;
-        /*ne sera afficher qu'a partir de 768 grace au media query
-        qui aura pour effet l'annulation de le none ici */
         display: none;
     }
-    /*le titre dans le header*/
-    
-    #mainHearder h1 {
-        font-size: 1.5em;
-        color: white;
-        /*transformé le titre en flex box*/
-        display: flex;
-        /*mettre l'elément au centre */
-        align-items: center;
-        /* la hauteur du texte*/
-        height: 40px;
-        margin: 0;
+
+    /*modifie l'espace prevut pour le titre*/
+    #mainHearder {
+        grid-template-columns: 80px 200px 1fr;
     }
-    /*la liste a puce */
-    
-    #mainNav ul {
-        list-style: none;
-        padding-bottom: 0px;
-        margin: 10px 0px;
-        /*permet de les champs les uns a coté des autres*/
-        display: flex;
-        /*place les éléments en colonne*/
-        flex-direction: column;
-    }
-    /*les liens*/
-    
-    #mainNav ul li a {
-        color: white;
-        font-family: 'Times New Roman', Times, serif;
+
+    #mainHearder > h1 {
         font-size: 1.2em;
     }
-    /*Permet d'augementer la taille du toucher sur l'élément a */
-    
-    #mainNav a {
-        display: block;
-        padding-left: 60px;
-        text-decoration: none;
-    }
-    /*===============================================================*/
-    /*cette parti permet d'avoir les images responsive*/
-    
-    img {
-        /*largeur de 100% pour tout les images*/
-        max-width: 100%;
-        /*hauteur calcul automatiquement*/
-        height: auto;
-    }
-    /*image dans la page d'index*/
-    
-    .imgFigure img {
-        max-height: 50em;
-    }
-    
-    figure {
-        /*permet de mettre du texte a droit*/
-        float: left;
-    }
-    /*===============================================================*/
-    /* gestion de l'image de fond | l'id mainbody a permis de séparé
-la couche d'affichage du font avec le contenu de mainContant */
-    
-    #mainbody {
-        /*Ajoute l'image de font*/
-        background-image: url(/image/background/background_image_1.jpg);
-        /*pas de repétition ici superflu */
-        background-repeat: no-repeat;
-        /* positionne le centre de l'image (trs grand image)*/
-        background-position: center;
-        /* fixed =>  l'image est fait glissé le contenu*/
-        background-attachment: fixed;
-        /*cover => couvre tout la page + redimentionnement avec la page*/
-        background-size: cover;
-        /* permte d'éloigne les bordes est enléve la superosition des élements
-                inclus comme les titres */
-        padding: 100px 20px;
-        /*hauteur min de 100% du viewport (la page totale )*/
-        min-height: 100vh;
-    }
-    /* gestion des élements se trouvant dans le contenu de la page*/
-    
-    #mainContant {
-        /* couche de couleur transparent dans le main*/
-        background-color: var(--transwhite);
-        padding: 20px;
-        font-family: 'Times New Roman', Times, serif;
-    }
-    
-    #mainContant h2,
-    #mainContant h3 {
-        font-family: "dancing";
-    }
-    /*===============================================================*/
-    /*parti blog*/
-    
-    #mainContant article header h3 {
-        color: red;
-    }
-    /*bouton de retour en bas a droit de l'écran*/
-    
-    .bpRetour {
-        /*fixe la position*/
-        position: fixed;
-        /*localisation du bp*/
-        bottom: 3em;
-        right: 0.3em;
-        /*sa taille */
-        width: 2em;
-        height: 2em;
-        /*son design avec border-radius pour arrondir les angles*/
-        border-radius: 20%;
-        border: solid white 0.1em;
-        background-color: var(--redSurVol);
-    }
-    /*permet de mettre le énième enfant avec odd qui veux paire
- est even veux pair*/
-    
-    #mainContant article:nth-child(odd) {
-        background-color: var(--transwhite);
-    }
-    
-    #mainContant article:nth-child(even) {
-        background-color: var(--redSurVol);
-    }
-    
-    #mainContant article header p {
-        /*la taille de l'ecriture */
-        font-size: 0.8em;
-        /*l'ecriture en italique*/
-        font-style: italic;
-        /*soulignement en dessous avec border*/
-        border-bottom: solid red 1px;
-    }
-    /*===============================================================*/
-    /* parti galerie*/
-    
+
+    /*change la disposition de la galerie*/
     #mainbody.galleries ul {
-        /*supprime l'apparence de la liste puce */
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        /*utilisation de l'affichage grid pour 
-        utilisé grid-gap qui permet un espace de 20px */
-        display: grid;
-        grid-gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
     }
-    
-    #mainbody.galleries ul li {
-        background-color: var(--transwhite);
-        padding: 10px;
-    }
-    /*les liens */
-    
-    #mainbody.galleries ul li a {
-        color: var(--black);
-        /*retire le soulignement par défaut des listes*/
-        text-decoration: none;
-    }
-    /*ajout d'un effet*/
-    
-    #mainbody.galleries ul li:hover {
-        background-color: var(--redSurVol);
-    }
-    /*gestion de l'agandissment de l'image click*/
-    /*caché l'image ; noté que l'image caché est vide par défaut*/
-    
-    figure {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: hsla(0, 0%, 0%, 0.850);
-        /*masquer la visibilité */
-        visibility: hidden;
-        /*rendre opaque l'element*/
-        opacity: 0;
-        /*Permet de fair l'affichage ou transistion */
-        /*peut etre utilisé avec margin-right par exemple*/
-        transition: opacity 1s, visibility 1s;
-    }
-    /*Permet de rendre visible l'image*/
-    
-    figure.visible {
-        visibility: visible;
-        opacity: 1;
-    }
-    /*===============================================================*/
-    /*parti formulaire de contact*/
-    
-    #formContact {
-        border-top: solid 1px var(--red);
-        /*transforme en grid.Dans media query son adapté*/
-    }
-    /*mise forme du formulaire*/
-    
-    #mainContant.formulaire form {
-        display: grid;
-    }
-    
-    #mainContant.formulaire form div>div,
-    #mainContant.formulaire form button {
-        margin: 10px;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: space-between;
-    }
-    /*geston du textarea*/
-    
-    #message {
-        height: 100%;
-        /*redimentionnement du textarea dans le formualire*/
-        resize: none;
-    }
-    /*gestion du bouton*/
-    
-    #mainContant.formulaire form button[type=submit] {
-        background-color: red;
-        border: none;
-        color: white;
-        font-weight: bold;
-    }
-    /*suvole du bouton*/
-    
-    #mainContant.formulaire form button:hover {
-        background-color: white;
-        border: none;
-        color: red;
-        font-weight: bold;
-    }
-    /* taille du champs de saisi*/
-    
-    #mainContant.formulaire form input,
-    #mainContant.formulaire form textarea {
-        height: 100%;
-    }
-    /*gestion du message d'erreur*/
-    
-    input.invalid,
-    textarea.invalid {
-        border: 2px solid var(--red);
-    }
-    /*le champs message valide  utilise la propriete valid du */
-    
-    main form input:valid,
-    main form textarea:valid {
-        border: 2px solid green;
-    }
-    /*le champs message d'erreur*/
-    
-    #formContact label span {
-        color: var(--red);
-    }
-    /*permet de paramétre les label avec sont contenu
-        de message d'erreur */
-    
-    #formContact label {
-        display: flex;
-        justify-content: space-between;
-    }
-    /*===============================================================*/
-    /*parti navigation de droite*/
-    /*séparation entre le menu et le contenu
-    création du comportement grid en affichage + ajout de 20px */
-    
+
+    /*changer la taille entre menu et la main*/
     .colonneMain {
-        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+    }
+
+    /*modification du positionnement du menu
+    remise en mode static, réintégration dans le flux*/
+    #mainNav {
+        position: static;
+        background-color: transparent;
+        /*permet d'annuler le display : none*/
+        /* !important est utulisé pour le JavaScript*/
+        display: block !important;
+    }
+
+    /*Le menu de navigation en haut */
+    #mainNav ul {
+        /*mettre en ligne le menu de navigation*/
+        flex-direction: row;
+        /*modifi l'espace du contenu : entre les éléments*/
+        justify-content: space-around;
+    }
+
+    /*permet de conserver la taille des élément a */
+    #mainNav a {
+        padding: 0px 5px;
+    }
+}
+
+/*Pour 1024 px de large*/
+
+@media only screen and (min-width: 1024px) {
+    .bpRetour {
+        display: none;
+    }
+
+    #mainHearder {
+        grid-template-columns: 80px repeat(2, 1fr);
+    }
+
+    #mainHearder > h1 {
+        font-size: 1.8em;
+    }
+
+    /*modifie l'espace prevut pour le titre*/
+    #mainHearder {
+        grid-template-columns: 80px 1fr 2fr;
+    }
+
+    #mainbody.galleries ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .colonneMain {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    #mainContant.formulaire form {
+        /*mise sur 2 colonne*/
+        grid-template-columns: repeat(2, 1fr);
+        /*ecart de 20px*/
         grid-gap: 20px;
     }
-    /*l'ensemble du menu*/
-    
-    #colonneDroitAside {
-        background-color: red;
-        padding: 20px;
-        font-family: 'Times New Roman', Times, serif;
-        text-transform: capitalize;
+}
+
+/*les ecran de 1200px*/
+
+@media only screen and (min-width: 1200px) {
+    #mainbody.galleries ul {
+        grid-template-columns: repeat(4, 1fr);
     }
-    /*pour tout les section*/
-    
-    #colonneDroitAside section {
-        border-bottom: 1px solid white;
-        padding: 20px;
+
+    .colonneMain {
+        grid-template-columns: 3fr 1fr;
     }
-    /*la barre de recherche*/
-    
-    #colonneDroitAside section input {
-        width: 100%;
-        border-radius: 2em;
-    }
-    /*les titres h2*/
-    
-    #colonneDroitAside section h2 {
-        color: white;
-        font-size: 1.3em;
-        letter-spacing: 0.1em;
-    }
-    /*liste a puce */
-    
-    #categories ul,
-    #blogAchives ul {
-        list-style: none;
-        background-color: white;
-        width: 100%;
-        border-radius: 0.5em;
-        /*permet de collé sur la gauche*/
-        padding: 0;
-        margin: 0;
-    }
-    /*les lien dans le titre h3*/
-    
-    #blogAchives div h3 a {
-        text-decoration: none;
-        color: black;
-        background-color: white;
-        border-radius: 0.5em;
-        width: 100%;
-        letter-spacing: 0.1em;
-    }
-    /*les listes avec alternance de couleur*/
-    
-    #categories li:nth-last-child(odd),
-    #blogAchives li:nth-last-child(odd) {
-        background-color: var(--redSurVol);
-    }
-    /*les liens dans la liste*/
-    /*sélection tout a dont le parent li*/
-    
-    #blogAchives h3>a,
-    #blogAchives li>a,
-    #categories li>a {
-        text-decoration: none;
-        padding: 2px;
-        width: 100%;
-        color: black;
-        display: flex;
-        justify-content: space-between;
-    }
-    /*les span*/
-    /*sélection tout span dont le parnet a*/
-    
-    a>span {
-        background-color: red;
-        /*pour fair les arrondis*/
-        border-radius: 50%;
-        color: white;
-        font-size: 12px;
-        /*la taille a permis de d'avoir des rond est pas ovale */
-        width: 20px;
-        display: flex;
-        justify-content: center;
-    }
-    /*===============================================================*/
-    /*media Query*/
-    /*si l'ecran a au minimun 768 px de large
-    les styles css suivant seront appliquer*/
-    /*768 est la taille prevut pour les tablettes*/
-    
-    @media only screen and (min-width:769px) {
-        /*fait disparaitre le bp menu*/
-        #menuButton {
-            display: none;
-        }
-        /*modifie l'espace prevut pour le titre*/
-        #mainHearder {
-            grid-template-columns: 80px 200px 1fr;
-        }
-        #mainHearder>h1 {
-            font-size: 1.2em;
-        }
-        /*change la disposition de la galerie*/
-        #mainbody.galleries ul {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        /*changer la taille entre menu et la main*/
-        .colonneMain {
-            grid-template-columns: 1.5fr 1fr;
-        }
-        /*modification du positionnement du menu
-        remise en mode static, réintégration dans le flux*/
-        #mainNav {
-            position: static;
-            background-color: transparent;
-            /*permet d'annuler le display : none*/
-            /* !important est utulisé pour le JavaScript*/
-            display: block !important;
-        }
-        /*Le menu de navigation en haut */
-        #mainNav ul {
-            /*mettre en ligne le menu de navigation*/
-            flex-direction: row;
-            /*modifi l'espace du contenu : entre les éléments*/
-            justify-content: space-around;
-        }
-        /*permet de conserver la taille des élément a */
-        #mainNav a {
-            padding: 0px 5px;
-        }
-    }
-    /*Pour 1024 px de large*/
-    
-    @media only screen and (min-width:1024px) {
-        .bpRetour {
-            display: none;
-        }
-        #mainHearder {
-            grid-template-columns: 80px repeat(2, 1fr);
-        }
-        #mainHearder>h1 {
-            font-size: 1.8em;
-        }
-        /*modifie l'espace prevut pour le titre*/
-        #mainHearder {
-            grid-template-columns: 80px 1fr 2fr;
-        }
-        #mainbody.galleries ul {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .colonneMain {
-            grid-template-columns: 2fr 1fr;
-        }
-        #mainContant.formulaire form {
-            /*mise sur 2 colonne*/
-            grid-template-columns: repeat(2, 1fr);
-            /*ecart de 20px*/
-            grid-gap: 20px;
-        }
-    }
-    /*les ecran de 1200px*/
-    
-    @media only screen and (min-width:1200px) {
-        #mainbody.galleries ul {
-            grid-template-columns: repeat(4, 1fr);
-        }
-        .colonneMain {
-            grid-template-columns: 3fr 1fr;
-        }
-    }
+}

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/galerie")
+@WebServlet(urlPatterns = "/galerie")
 public class GalerieServlet extends HttpServlet {
 
 
