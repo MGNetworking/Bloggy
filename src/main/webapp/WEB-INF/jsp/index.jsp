@@ -25,9 +25,12 @@
 
 <header id="mainHearder">
 
-    <a href="<c:url value="/home"/>#mainContant"><img src="<c:url value="/static/image/icon/max.png"/>"
-                                                      alt="image ico du site" title="retour a la page d'accueil"
-                                                      id="logo"/></a>
+    <a href="<c:url value="/home"/>#mainContant">
+
+        <img src="<c:url value="/static/image/icon/max.png"/>"
+             alt="image ico du site" title="retour a la page d'accueil"
+             id="logo"/>
+    </a>
 
     <h1>Le blog du Développeur</h1>
 
@@ -59,11 +62,11 @@
     <main id="mainContant">
 
         <h2>bienvenu sur le site de Ghalem Maxime</h2>
-        <figure class="imgFigure">
-            <img src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
+        <%--<figure class="imgFigure">--%>
+            <img class="imgFigure" src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
                  alt="image de l'arc de triomphe"/>
             <figcaption>L'arc de triomphe</figcaption>
-        </figure>
+      <%--  </figure>--%>
         <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les activités
             seront de type informatique principalement mais pas que. Sur ce site vous avez mes coordonnées ainsi que mon
             curriculum Vitae au format

@@ -1,14 +1,22 @@
 <Context>
     <Resource
-            name="jdbc/bloggy"
+            name="Myblog"
 
             auth="Container"
             type="javax.sql.DataSource"
             factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
-            driverClassName="com.mysql.jdbc.Driver"
+            driverClassName="org.postgresql.Driver"
 
-            username="${mysql.user}"
-            password="${mysql.password}"
-            url="${mysql.url}bloggy?serverTimezone=UTC"
+            defaultReadOnly="true"
+
+            initialSize="1"
+            maxActive="25"
+            minIdle="2"
+            maxIdle="15"
+            maxWait="-1"
+
+            username="${postgres.database.username}"
+            password="${postgres.database.password}"
+            url="${postgres.database.url}webblog?"
     />
 </Context>

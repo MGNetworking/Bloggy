@@ -1,42 +1,50 @@
--- schema de données du blog
+-- ce schema a était utiliser directemetn dans pgAdmin ( postgres )
+CREATE DATABASE webblog;
+
+DROP SCHEMA IF EXISTS blog CASCADE;
+CREATE SCHEMA blog ;
+
+drop table IF EXISTS blog.role CASCADE;
+drop table IF EXISTS blog.user CASCADE;
+drop table IF EXISTS blog.user_role CASCADE;
 
 -- ---------------------------------------------
 -- - role                                    ---
 -- ---------------------------------------------
-drop table IF EXISTS webblog.role;
-
-CREATE TABLE role
+CREATE TABLE blog.role
 (
-    role    varchar(10) not null primary key
+    role varchar(10) not null primary key
 );
 
-insert into webblog.roles(role)
+insert into blog.role(role)
 values ('ADMIN');
 
 -- ---------------------------------------------
 -- - user                                    ---
 -- ---------------------------------------------
-CREATE TABLE webblog.user
+CREATE TABLE blog.user
 (
+    id_user  serial primary key,
     nom      varchar(50),
     password varchar(250)
 
 );
 
-insert into webblog.user(nom,password)
-values ('maxime','123');
+insert into blog.user(nom, password)
+values ('maxime', '123');
 
 -- ---------------------------------------------
 -- - user_role         table assoicatif      ---
 -- ---------------------------------------------
-CREATE TABLE webblog.user_role(
+CREATE TABLE blog.user_role
+(
 
-    user_role int NOT NULL ,
-    nom int NOT NULL,
+    id_user integer     NOT NULL references blog.user,
+    role    varchar(10) not null references blog.role,
 
-    CONSTRAINT PK_user_role PRIMARY KEY (nom,user_role)
+    CONSTRAINT PK_user_role PRIMARY KEY (id_user, role)
 
 );
 
-insert into webblog.user_roles(nom,user_role)
-values ('maxime','ADMIN');
+insert into blog.user_role(id_user, role)
+values ('1', 'ADMIN');

@@ -190,7 +190,7 @@ img {
 
 /*image dans la page d'index*/
 
-.imgFigure img {
+img .imgFigure{
     max-height: 50em;
 }
 

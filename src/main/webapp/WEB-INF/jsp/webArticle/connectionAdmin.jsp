@@ -60,21 +60,17 @@
 
     <main id="mainContant">
 
-        <h2>bienvenu sur le site de Ghalem Maxime</h2>
-        <figure class="imgFigure">
-            <img src="../../../static/image/galeries/paris/IMG_7_Paris.jpg"/>
-            <figcaption>L'arc de triomphe</figcaption>
-        </figure>
+        <h2>Connextion au compte utilisateur</h2>
 
-        <form action="">
+        <form action="<c:url value="/blog" />" method="post">
 
             <div>
                 <label for="" class="nom">Nom :</label>
-                <input type="text" value="le Nom admin" placeholder="le Nom admin" required autofocus tabindex="1">
+                <input type="text" value="le Nom admin" required autofocus tabindex="1">
             </div>
             <div>
                 <label for="" class="nom">Password :</label>
-                <input type="password" placeholder="le mots de passe" required autofocus tabindex="2">
+                <input type="password" required autofocus tabindex="2">
             </div>
 
             <button type="submit">Envoyer</button>
