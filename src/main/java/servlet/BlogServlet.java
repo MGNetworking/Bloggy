@@ -18,13 +18,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet(urlPatterns = "/blog")
 public class BlogServlet extends HttpServlet {
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final long serialVersionUID = -274469182366198628L;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
     @Resource(name = "Myblog")
     DataSource dataSource;
@@ -70,7 +73,7 @@ public class BlogServlet extends HttpServlet {
                     .forward(req, resp);
         }
 
-
+        // renvoi sur la page des article de blog
         this.getServletContext()
                 .getRequestDispatcher("/WEB-INF/jsp/blog.jsp")
                 .forward(req, resp);
@@ -103,20 +106,17 @@ public class BlogServlet extends HttpServlet {
 
                     System.out.println(user);
                     req.setAttribute("user", user);
+                    req.setAttribute("data", LocalDate.now());
+
+                    // renvoi vers la page de creation de l'article
+                    this.getServletContext()
+                            .getRequestDispatcher("/WEB-INF/jsp/webArticle/articleCreation.jsp")
+                            .forward(req,resp);
 
                 }else{
                     System.out.println("user not found for :" + user.toString());
                 }
             }
-
-
-
-            this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/webArticle/articleCreation.jspbrach")
-                    .forward(req,resp);
-
-
-
 
         }catch (SQLException sqlex){
             System.out.println(sqlex);

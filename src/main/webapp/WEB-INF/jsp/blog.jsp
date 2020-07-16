@@ -163,7 +163,7 @@
                     <li><a href="#">Février 2020&nbsp;<span>4</span></a></li>
                     <li><a href="#">Mars 2020&nbsp;<span>2</span></a></li>
                     <li><a href="#">Avril 2020&nbsp;<span>1</span></a></li>
-                    <li><a href="<c:url value="/article"/>" title="connection">Connection User acticle</a></li>
+                    <li><a href="<c:url value="/article"/>">Connection User acticle</a></li>
                 </ul>
 
             </div>

@@ -23,7 +23,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.1</version>
         </dependency>
 
         <dependency>
@@ -45,6 +45,32 @@
             <version>42.2.14</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.7</version>
+        </dependency>
+
+        <!-- https://logging.apache.org/log4j/2.x/maven-artifacts.html -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.3</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -52,6 +78,7 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -95,42 +122,16 @@
                 </plugin>
 
                 <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <webResources>
-                            <resource>
-                                <directory>src/main/webapp/META-INF</directory>
-                                <!--
-                                  We ask for filtering as we inject the database connection
-                                  properties
-                                -->
-                                <filtering>true</filtering>
-                                <targetPath>META-INF</targetPath>
-                            </resource>
-                        </webResources>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-                <!-- ce plugin sert au deployement direct dans tomcat -->
-                <plugin>
                     <groupId>org.codehaus.cargo</groupId>
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>1.7.11</version>
                     <configuration>
+
                         <container>
                             <containerId>tomcat9x</containerId>
                             <type>remote</type>
                         </container>
+
                         <configuration>
                             <type>runtime</type>
                             <properties>
@@ -141,6 +142,7 @@
                                 <cargo.servlet.port>${tomcat.servlet.port}</cargo.servlet.port>
                             </properties>
                         </configuration>
+
                     </configuration>
                 </plugin>
 

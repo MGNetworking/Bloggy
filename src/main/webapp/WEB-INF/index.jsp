@@ -18,8 +18,6 @@
     <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
     <script src="<c:url value="static/js/menu.js" />"></script>
 
-    <!-- fonction dynamique  -->
-    <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
 
 </head>
 
@@ -28,6 +26,7 @@
 <header id="mainHearder">
 
     <a href="<c:url value="/home"/>#mainContant">
+
         <img src="<c:url value="/static/image/icon/max.png"/>"
              alt="image ico du site" title="retour a la page d'accueil"
              id="logo"/>
@@ -62,33 +61,44 @@
 
     <main id="mainContant">
 
-        <h2>Creation d'un article</h2>
+        <h2>bienvenu sur le site de Ghalem Maxime</h2>
+        <%--<figure class="imgFigure">--%>
+            <img class="imgFigure" src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
+                 alt="image de l'arc de triomphe"/>
+            <figcaption>L'arc de triomphe</figcaption>
+      <%--  </figure>--%>
+        <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les activités
+            seront de type informatique principalement mais pas que. Sur ce site vous avez mes coordonnées ainsi que mon
+            curriculum Vitae au format
+            PDF
+        </p>
 
-        <form action="<c:url value="/article" />" method="post" enctype="multipart/form-data">
+        <p>Actuellement ce site est en cours de construction.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
+            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
+            perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
+            natus reiciendis!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
+            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
+            perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
+            natus reiciendis!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
+            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
+            perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
+            natus reiciendis!</p>
 
-            <div>
-                <p>Nom du createur de l'article : ${user.nom}</p>
-                <p>Date de la creatrion de l'article : ${data}</p>
-            </div>
 
-            <div>
-                <label for="titre" class="nom">Titre de l'article</label>
-                <input name="titre" type="text" required autofocus tabindex="1">
-            </div>
-            <div>
-                <label for="article" class="nom">Article :</label>
-                <textarea name="article" id="article" cols="30" rows="10" required tabindex="2"></textarea>
-            </div>
+        <p>
+            <a href="#mainContant">
+                <button class="bpRetour">
+                    <img src="<c:url value="/static/image/icon/chevrons-up.svg" />" alt="retour en haut de la page">
+                </button>
+            </a>
 
-            <div>
-                <label for="file">Ajouté une image png ou jpeg a votre article </label>
-                <input type="file" name="image-article" accept="image/png, image/jpeg">
-            </div>
-
-            <button type="submit" tabindex="3">Envoyer</button>
-
-        </form>
-
+        </p>
         <!-- fin bouton de retour  -->
 
     </main>
@@ -152,6 +162,8 @@
 </footer>
 <!-- fin mainFooter -->
 
+<!-- fonction dynamique  -->
+<script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
 </body>
 
 </html>
