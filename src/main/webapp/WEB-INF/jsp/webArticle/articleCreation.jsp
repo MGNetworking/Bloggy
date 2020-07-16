@@ -68,14 +68,14 @@
 
             <div>
                 <label for="" class="nom">Nom :</label>
-                <input name="nom" type="text" required autofocus tabindex="1">
+                <input name="" type="text" required autofocus tabindex="1">
             </div>
             <div>
                 <label for="" class="nom">Password :</label>
-                <input name="password" type="password" required autofocus tabindex="2">
+                <input name="" type="password" required autofocus tabindex="2">
             </div>
 
-            <button type="submit" tabindex="3">Envoyer</button>
+            <button type="submit">Envoyer</button>
 
         </form>
 

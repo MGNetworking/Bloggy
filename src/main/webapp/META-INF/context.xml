@@ -9,14 +9,10 @@
 
             defaultReadOnly="true"
 
-            initialSize="1"
-            maxActive="25"
-            minIdle="2"
-            maxIdle="15"
-            maxWait="-1"
 
-            username="${postgres.database.username}"
-            password="${postgres.database.password}"
-            url="${postgres.database.url}webblog?"
+
+            username="postgres"
+            password="root"
+            url="jdbc:postgresql://localhost:5432/postgres?currentSchema=blog"
     />
 </Context>
