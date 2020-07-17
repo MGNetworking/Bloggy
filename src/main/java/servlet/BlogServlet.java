@@ -29,7 +29,7 @@ public class BlogServlet extends HttpServlet {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
-    @Resource(name = "Myblog")
+/*    @Resource(name = "Myblog")*/
     DataSource dataSource;
 
 

@@ -17,11 +17,11 @@ import javax.servlet.http.Part;
 import java.io.*;
 import java.util.List;
 
-/*@MultipartConfig(
+@MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB seuil de la taille du fichier
         maxFileSize = 1024 * 1024 * 10, // 10 MB
         maxRequestSize = 1024 * 1024 * 5 * 5 // 25 MB
-)*/
+)
 @WebServlet(urlPatterns = "/article")
 public class ArticleServlet extends HttpServlet {
 

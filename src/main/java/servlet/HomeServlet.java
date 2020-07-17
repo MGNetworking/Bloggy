@@ -10,19 +10,11 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
 
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("HOME page vers index.jsp");
-
-
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req,resp);
 
     }
-
-
 
 }

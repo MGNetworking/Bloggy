@@ -107,11 +107,19 @@
 
     <aside id="colonneDroitAside">
 
+        <section id="connection">
+            <h2>Connection</h2>
+            <ul>
+                <li><a href="<c:url value="/article"/>">Connection User acticle</a></li>
+            </ul>
+        </section>
+
         <section id="blogRecherche">
             <h2><label for="search">recherche</label></h2>
             <input type="search" name="search" id="search"/>
         </section>
         <!-- fin moteur de blogRecherche -->
+
 
         <section id="categories">
             <h2>categories</h2>
@@ -122,6 +130,8 @@
                 <li><a href="#">voyage&nbsp;<span>8</span></a></li>
             </ul>
         </section>
+
+
         <!-- fin Categories -->
 
         <section id="blogAchives">

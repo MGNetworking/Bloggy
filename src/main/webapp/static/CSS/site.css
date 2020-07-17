@@ -5,12 +5,12 @@
 
 @font-face {
     font-family: "shadows";
-    src: url(/static/fonts/ShadowsIntoLight-Regular.ttf);
+    src: url(./static/fonts/ShadowsIntoLight-Regular.ttf);
 }
 
 @font-face {
     font-family: "dancing";
-    src: url(/static/fonts/DancingScript-VariableFont_wght.ttf);
+    src: url(./static/fonts/DancingScript-VariableFont_wght.ttf);
 }
 
 :root {
@@ -459,6 +459,7 @@ création du comportement grid en affichage + ajout de 20px */
     border-radius: 2em;
 }
 
+
 /*les titres h2*/
 
 #colonneDroitAside section h2 {
@@ -470,7 +471,8 @@ création du comportement grid en affichage + ajout de 20px */
 /*liste a puce */
 
 #categories ul,
-#blogAchives ul {
+#blogAchives ul,
+#connection ul{
     list-style: none;
     background-color: white;
     width: 100%;
@@ -498,12 +500,19 @@ création du comportement grid en affichage + ajout de 20px */
     background-color: var(--redSurVol);
 }
 
+#connection li {
+    background-color: white;
+    border-radius: 0.5em;
+    border: 1px black;
+}
+
 /*les liens dans la liste*/
 /*sélection tout a dont le parent li*/
 
 #blogAchives h3 > a,
 #blogAchives li > a,
-#categories li > a {
+#categories li > a,
+#connection li > a{
     text-decoration: none;
     padding: 2px;
     width: 100%;

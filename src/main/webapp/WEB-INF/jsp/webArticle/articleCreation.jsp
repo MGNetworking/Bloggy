@@ -82,10 +82,10 @@
 
             <div>
                 <label for="file">Ajouté une image png ou jpeg a votre article </label>
-                <input type="file" name="image-article" accept="image/png, image/jpeg">
+                <input type="file" name="image-article" accept="image/png, image/jpeg" tabindex="3">
             </div>
 
-            <button type="submit" tabindex="3">Envoyer</button>
+            <button type="submit" tabindex="4">Envoyer</button>
 
         </form>
 

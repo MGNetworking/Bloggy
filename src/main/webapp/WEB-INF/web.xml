@@ -12,6 +12,16 @@
     <url-pattern>/static/*</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>homepage</servlet-name>
+    <servlet-class>servlet.HomeServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>homepage</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
 </web-app>
 
 
