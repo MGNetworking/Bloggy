@@ -64,7 +64,7 @@
 
         <h2>Connextion au compte utilisateur</h2>
 
-        <form action="<c:url value="/blog" />" method="post">
+        <form action="<c:url value="/connection" />" method="post">
 
             <div>
                 <label for="" class="nom">Nom :</label>

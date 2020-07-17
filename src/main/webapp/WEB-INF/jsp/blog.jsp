@@ -128,6 +128,7 @@
 
     <aside id="colonneDroitAside">
 
+
         <section id="blogRecherche">
             <h2><label for="search">Recherche</label></h2>
             <input type="search" name="search" id="search"/>

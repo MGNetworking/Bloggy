@@ -12,9 +12,12 @@ public class AboutServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/about.jsp")
+        this.getServletContext()
+                .getRequestDispatcher("/WEB-INF/jsp/about.jsp")
                 .forward(req, resp);
     }
 

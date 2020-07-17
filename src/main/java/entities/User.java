@@ -1,10 +1,15 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
-    Long id;
-    String nom;
-    String password;
+    private Long id;
+    private String nom;
+    private String password;
+
+    List<Role> listeRole = new ArrayList();
 
     public User() {
     }
@@ -38,12 +43,21 @@ public class User {
         this.password = password;
     }
 
+    public List<Role> getListeRole() {
+        return listeRole;
+    }
+
+    public void setListeRole(List<Role> listeRole) {
+        this.listeRole = listeRole;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", password='" + password + '\'' +
+                ", listeRole=" + listeRole +
                 '}';
     }
 }

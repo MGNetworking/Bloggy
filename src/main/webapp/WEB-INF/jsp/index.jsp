@@ -110,7 +110,16 @@
         <section id="connection">
             <h2>Connection</h2>
             <ul>
-                <li><a href="<c:url value="/article"/>">Connection User acticle</a></li>
+                <c:if test="${ not empty sessionScope.droit}">
+                    <li>Identité : ${sessionScope.user.nom}</li>
+                    <li>Vos droit : ${sessionScope.droit}</li>
+                    <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un article</a></li>
+                </c:if>
+
+                <c:if test="${ empty sessionScope.droit}">
+                    <li><a href="<c:url value="/connection"/>">Connection User acticle</a></li>
+                </c:if>
+
             </ul>
         </section>
 
