@@ -1,7 +1,7 @@
 package servlet;
 
 import entities.User;
-import model.DaoAuthentification;
+import dao.DaoAuthentification;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet(urlPatterns = "/connection")
@@ -25,6 +25,7 @@ public class ConnectionServlet extends HttpServlet {
     private DataSource dataSource;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
     @Override
     public void init() throws ServletException {
@@ -51,7 +52,7 @@ public class ConnectionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         this.getServletContext()
-                .getRequestDispatcher("/WEB-INF/jsp/webArticle/connectionAdmin.jsp")
+                .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
                 .forward(req, resp);
     }
 
@@ -74,6 +75,7 @@ public class ConnectionServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("droit",user.getListeRole());
             session.setAttribute("user", user);
+            session.setAttribute("timeConnect",LocalDateTime.now());
 
             // renvoi vers la page de retour formulaire
             this.getServletContext()
@@ -83,7 +85,7 @@ public class ConnectionServlet extends HttpServlet {
         } else {
             // renvoir sur la page d'authentification
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/webArticle/connectionAdmin.jsp")
+                    .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
                     .forward(req, resp);
 
             // TODO redirection a voir ce qui est le mieux

@@ -48,3 +48,17 @@ CREATE TABLE blog.user_role
 
 insert into blog.user_role(id_user, role)
 values ('1', 'ADMIN');
+
+-- ---------------------------------------------
+-- - Table article                           ---
+-- ---------------------------------------------
+CREATE table blog.article(
+
+    id_article SERIAL PRIMARY KEY ,
+    date    TIMESTAMP NOT NULL ,
+    page    varchar(20) NOT NULL ,
+    titre   varchar(50) NOT NULL ,
+    article text   NOT NULL ,
+    pathimage varchar(255) NOT NULL ,
+    commentimage varchar(50)NOT NULL
+)

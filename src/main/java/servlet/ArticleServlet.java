@@ -5,7 +5,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import service.ServiceArticle;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,7 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sql.DataSource;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,23 +35,15 @@ import java.util.Map;
 public class ArticleServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1273074928096412095L;
-
-    /*
-     * Chemin dans lequel les images seront sauvegardées.
-     */
     public static final String IMAGES_FOLDER = "/static/image/article";
-
-    public String uploadPath;
-
-    // liste des pages pouvant faire des article
-    Map<String , String> pageListe;
+    Map<String, String> pageListe;
 
     @Override
     public void init() throws ServletException {
 
         pageListe = new HashMap<>(10);
         pageListe.put("indexArticle", "/WEB-INF/jsp/webArticle/indexArticle.jsp");
-        pageListe.put("blogArticle","/WEB-INF/jsp/webArticle/blogArticle.jsp");
+        pageListe.put("blogArticle", "/WEB-INF/jsp/webArticle/blogArticle.jsp");
 
     }
 
@@ -57,13 +55,16 @@ public class ArticleServlet extends HttpServlet {
         String pageArticle = req.getParameter("page");
 
         // si est contenu dans la liste
-        if (pageArticle != null ){
+        if (pageArticle != null) {
 
             System.out.println("Value of Key : " + pageListe.get(pageArticle));
+
             // renvoie vers la page de creation d'un article
             this.getServletContext()
                     .getRequestDispatcher(pageListe.get(pageArticle))
                     .forward(req, resp);
+        } else {
+            // TODO renvoier vers la page index.jsp
         }
 
 
@@ -74,38 +75,34 @@ public class ArticleServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException, IOException {
 
-        User user = (User) req.getAttribute("user");
+        // TODO a modifier
 
-        uploadPath = getServletContext().getRealPath( IMAGES_FOLDER );
-        File uploadDir = new File( uploadPath );
-        if ( ! uploadDir.exists() ) uploadDir.mkdir();
+        try {
+            boolean validatArticle = new ServiceArticle().createArticle(req);
 
-        for ( Part part : req.getParts() ) {
 
-            System.out.println(part.getName());
+            if (validatArticle == true){
+                // TODO page OK
 
-            String fileName = getFileName( part );
-            System.out.println("filName : "+fileName);
-
-            String fullPath = uploadPath + File.separator + fileName;
-            System.out.println("fullPath : "+fullPath);
-
-            part.write( fullPath );
-        }
-
-    }
-
-    /*
-     * Récupération du nom du fichier dans la requête.
-     */
-    private String getFileName( Part part ) {
-        for ( String content : part.getHeader( "content-disposition" ).split( ";" ) ) {
-            if ( content.trim().startsWith( "filename" ) ){
-                System.out.println("file name methode ");
-                return content.substring( content.indexOf( "=" ) + 2, content.length() - 1 );
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/retourformulaire.jsp");
+            }else {
+                System.out.println("pas OK");
+                // TODO page not OK
             }
 
+        } catch (SQLException e) {
+
+            // TODO gestion de retour d'erreur dans les logger et dans la page
+            System.out.println("Une erreur SQl est survenu : " + e.getSQLState());
+
+        } catch (NamingException e) {
+
+            // TODO gestion de retour d'erreur dans les logger et dans la page
+            System.out.println("Un problem est survenu : " + e.getCause());
+
         }
-        return "Default.file";
     }
+
+
 }

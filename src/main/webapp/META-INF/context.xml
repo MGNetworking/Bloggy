@@ -7,7 +7,7 @@
             factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
             driverClassName="org.postgresql.Driver"
 
-            defaultReadOnly="true"
+            defaultReadOnly="false"
 
             username="postgres"
             password="root"

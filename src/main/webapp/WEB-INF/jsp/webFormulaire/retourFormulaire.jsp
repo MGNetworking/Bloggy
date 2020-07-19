@@ -25,9 +25,11 @@
 
 <header id="mainHearder">
 
-    <a href="<c:url value="/home"/>#mainContant"><img src="<c:url value="/static/image/icon/max.png"/>"
-                                                      alt="image ico du site" title="retour a la page d'accueil"
-                                                      id="logo"/></a>
+    <a href="<c:url value="/home"/>#mainContant">
+        <img src="<c:url value="/static/image/icon/max.png"/>"
+             alt="image ico du site" title="retour a la page d'accueil"
+             id="logo"/>
+    </a>
 
     <h1>Le blog du Développeur</h1>
 

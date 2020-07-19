@@ -2,6 +2,8 @@ package servlet;
 
 import com.sun.corba.se.impl.oa.toa.TOA;
 import entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Resource;
 import javax.naming.Context;
@@ -25,6 +27,8 @@ import java.time.format.DateTimeFormatter;
 public class BlogServlet extends HttpServlet {
 
     private static final long serialVersionUID = -274469182366198628L;
+
+    final static Logger LOGGER = LogManager.getLogger(BlogServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req,

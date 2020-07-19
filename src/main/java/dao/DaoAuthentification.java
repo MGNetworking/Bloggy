@@ -1,7 +1,10 @@
-package model;
+package dao;
 
 import entities.Role;
 import entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import servlet.BlogServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +19,18 @@ import java.time.LocalDate;
 
 public class DaoAuthentification {
 
+    final static Logger LOGGER = LogManager.getLogger(DaoAuthentification.class);
     private User user;
 
     public DaoAuthentification(User user) {
         this.user = user;
     }
 
+    /**
+     * Methode permet l'authentification d'un user.
+     * @param dataSource
+     * @return User object
+     */
     public User validation(DataSource dataSource) {
 
 
@@ -29,6 +38,7 @@ public class DaoAuthentification {
         String sqlDroit = "SELECT role FROM blog.user_role where id_user = ?";
 
         // fait la connection et la requette de recherche du user
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statementAuth = connection.prepareStatement(sqlAuthentification);
              PreparedStatement statementDroit = connection.prepareStatement(sqlDroit)) {
@@ -53,7 +63,6 @@ public class DaoAuthentification {
             // mapping des droit si user Mapper
             if (this.user.getId() != null){
 
-                System.out.println("id user : " + this.user.getId() );
                 statementDroit.setLong(1, this.user.getId());
 
                 try (ResultSet resultSet = statementDroit.executeQuery()){

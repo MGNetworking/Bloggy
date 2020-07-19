@@ -64,27 +64,33 @@
 
         <h2>Creation d'un article</h2>
 
-        <form action="<c:url value="/article" />" method="post" enctype="multipart/form-data">
+        <form action="<c:url value="/article"/>?page=indexArticle" method="post" enctype="multipart/form-data">
 
             <div>
                 <p>Nom du createur de l'article : ${sessionScope.user.nom}</p>
             </div>
 
             <div>
-                <label for="titre" class="nom">Titre de l'article</label>
+                <label for="titre" class="nom">Titre de la page de bienvenue</label>
                 <input name="titre" type="text" required autofocus tabindex="1">
             </div>
+
             <div>
-                <label for="article" class="nom">Article :</label>
+                <label for="article" class="nom">Le texte</label>
                 <textarea name="article" id="article" cols="30" rows="10" required tabindex="2"></textarea>
             </div>
 
             <div>
-                <label for="file">Ajouté une image png ou jpeg a votre article </label>
+                <label for="file">Ajouté une image png ou jpeg au Texte</label>
                 <input type="file" name="image-article" accept="image/png, image/jpeg" tabindex="3">
             </div>
 
-            <button type="submit" tabindex="4">Envoyer</button>
+            <div>
+                <label for="file">Ajouté un commentaire a l'image</label>
+                <input type="commentaire" name="image-commentaire" tabindex="4">
+            </div>
+
+            <button type="submit" tabindex="5">Envoyer</button>
 
         </form>
 

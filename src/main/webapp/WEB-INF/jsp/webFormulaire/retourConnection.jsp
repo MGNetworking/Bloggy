@@ -55,7 +55,9 @@
     <main id="mainContant" class="retrourForm">
 
         <h2>Connection Reussi</h2>
-        <p>Vous etez connecter en tant que ${sessionScope.droit}</p>
+        <p>Vous etez connecter en tant que ${sessionScope.droit}<br>
+            Date de la connection ${sessionScope.timeConnect}
+        </p>
 
 
     </main>
