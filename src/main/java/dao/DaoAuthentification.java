@@ -37,12 +37,12 @@ public class DaoAuthentification {
         String sqlAuthentification = "SELECT id_user, nom, password FROM blog.user where nom = ? AND password = ?";
         String sqlDroit = "SELECT role FROM blog.user_role where id_user = ?";
 
-        // fait la connection et la requette de recherche du user
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statementAuth = connection.prepareStatement(sqlAuthentification);
              PreparedStatement statementDroit = connection.prepareStatement(sqlDroit)) {
 
+            // recherche du user
             statementAuth.setString(1, this.user.getNom());
             statementAuth.setString(2, this.user.getPassword());
 

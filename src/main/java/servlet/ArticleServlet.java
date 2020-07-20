@@ -5,6 +5,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import service.ServiceArticle;
 
 import javax.naming.Context;
@@ -35,8 +37,8 @@ import java.util.Map;
 public class ArticleServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1273074928096412095L;
-    public static final String IMAGES_FOLDER = "/static/image/article";
-    Map<String, String> pageListe;
+    private final static Logger LOGGER = LogManager.getLogger(ServiceArticle.class);
+    Map<String, String> pageListe = null;
 
     @Override
     public void init() throws ServletException {
@@ -57,14 +59,17 @@ public class ArticleServlet extends HttpServlet {
         // si est contenu dans la liste
         if (pageArticle != null) {
 
+            LOGGER.info("Value of Key : " + pageListe.get(pageArticle));
             System.out.println("Value of Key : " + pageListe.get(pageArticle));
 
             // renvoie vers la page de creation d'un article
             this.getServletContext()
                     .getRequestDispatcher(pageListe.get(pageArticle))
                     .forward(req, resp);
+
         } else {
-            // TODO renvoier vers la page index.jsp
+            // redirection vers la page d'index
+            resp.sendRedirect(req.getContextPath() + "/WEB-INF/jsp/index.jsp");
         }
 
 
@@ -75,31 +80,24 @@ public class ArticleServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // TODO a modifier
 
         try {
-            boolean validatArticle = new ServiceArticle().createArticle(req);
 
+            if (req.getParameter("article").equals("createArticle")) {
 
-            if (validatArticle == true){
-                // TODO page OK
+                boolean validatArticle = new ServiceArticle().createArticle(req);
 
+                req.setAttribute("validation", validatArticle);
+
+                // TODO dans la page passer la validation
                 this.getServletContext()
                         .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/retourformulaire.jsp");
-            }else {
-                System.out.println("pas OK");
-                // TODO page not OK
             }
 
         } catch (SQLException e) {
 
-            // TODO gestion de retour d'erreur dans les logger et dans la page
             System.out.println("Une erreur SQl est survenu : " + e.getSQLState());
-
-        } catch (NamingException e) {
-
-            // TODO gestion de retour d'erreur dans les logger et dans la page
-            System.out.println("Un problem est survenu : " + e.getCause());
+            LOGGER.error("Une erreur SQl est survenu : " + e.getSQLState());
 
         }
     }

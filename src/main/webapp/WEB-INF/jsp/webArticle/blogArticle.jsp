@@ -64,7 +64,7 @@
 
         <h2>Creation d'un article</h2>
 
-        <form action="<c:url value="/article" />" method="post" enctype="multipart/form-data">
+        <form action="<c:url value="/article"/>?article=createArticle" method="post" enctype="multipart/form-data">
 
             <div>
                 <p>Nom du createur de l'article : ${sessionScope.user.nom}</p>
