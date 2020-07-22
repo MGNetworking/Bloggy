@@ -1,64 +1,100 @@
--- ce schema a était utiliser directemetn dans pgAdmin ( postgres )
-CREATE DATABASE webblog;
+-- this diagram is used for the management of the site
+------------------------------------------------------
+/*DROP DATABASE IF EXISTS webblog;
+-- create to web site database
+------------------------------------------------------
+CREATE DATABASE webblog
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
 
+COMMENT ON DATABASE webblog
+    IS 'Databases for ECF number 3';
+
+
+-- create to schema for webblog
+------------------------------------------------------
 DROP SCHEMA IF EXISTS blog CASCADE;
-CREATE SCHEMA blog ;
+CREATE SCHEMA blog
+    AUTHORIZATION postgres;
 
+COMMENT ON SCHEMA blog
+    IS 'schema to user management and web site article';*/
+
+-- for delete table
+------------------------------------------------------
 drop table IF EXISTS blog.role CASCADE;
 drop table IF EXISTS blog.user CASCADE;
 drop table IF EXISTS blog.user_role CASCADE;
+drop table IF EXISTS blog.article CASCADE;
 
--- ---------------------------------------------
--- - role                                    ---
--- ---------------------------------------------
+
+-- role
+------------------------------------------------------
 CREATE TABLE blog.role
 (
-    role varchar(10) not null primary key
+    role varchar(30) not null primary key
 );
 
 insert into blog.role(role)
-values ('ADMIN');
+values ('ADMIN'),
+       ('USER_ARTICLE');
 
--- ---------------------------------------------
--- - user                                    ---
--- ---------------------------------------------
+
+-- user
+------------------------------------------------------
 CREATE TABLE blog.user
 (
-    id_user  serial primary key,
-    nom      varchar(50),
-    password varchar(250)
+    id_user       serial primary key,
+    nom           varchar(255) NOT NULL,
+    prenom        varchar(255) NOT NULL,
+    surnom        varchar(30)  NOT NULL,
+    password_user varchar(255) NOT NULL,
+    email         varchar(255) NOT NULL
 
 );
 
-insert into blog.user(nom, password)
-values ('maxime', '123');
+insert into blog.user(nom, prenom, surnom, password_user, email)
+values ('maxime', 'ghalem', 'MG-netWork', '123', 'maxime@gmail.com'),
+       ('sylvain', 'syl-prenom', 'sy-net', '456', 'sylvain@gmail.com'),
+       ('fabien', 'fa-prenom', 'fa-net', '789', 'fabien@gmail.com'),
+       ('ernestas', 'er-prenom', 'er-net', '321', 'ernestas@gmail.com');
 
--- ---------------------------------------------
--- - user_role         table assoicatif      ---
--- ---------------------------------------------
+
+-- user_role : associtive table
+------------------------------------------------------
 CREATE TABLE blog.user_role
 (
 
-    id_user integer     NOT NULL references blog.user,
-    role    varchar(10) not null references blog.role,
+    id_user   integer     NOT NULL references blog.user (id_user),
+    role_name varchar(30) NOT NULL references blog.role (role),
 
-    CONSTRAINT PK_user_role PRIMARY KEY (id_user, role)
+    CONSTRAINT PK_user_role PRIMARY KEY (id_user, role_name)
 
 );
 
-insert into blog.user_role(id_user, role)
-values ('1', 'ADMIN');
+insert into blog.user_role(id_user, role_name)
+values ('1', 'ADMIN'),
+       ('1', 'USER_ARTICLE'),
+       ('2', 'USER_ARTICLE'),
+       ('3', 'USER_ARTICLE'),
+       ('4', 'USER_ARTICLE');
 
--- ---------------------------------------------
--- - Table article                           ---
--- ---------------------------------------------
-CREATE table blog.article(
 
-    id_article SERIAL PRIMARY KEY ,
-    date    TIMESTAMP NOT NULL ,
-    page    varchar(20) NOT NULL ,
-    titre   varchar(50) NOT NULL ,
-    article text   NOT NULL ,
-    pathimage varchar(255) NOT NULL ,
-    commentimage varchar(50)NOT NULL
-)
+-- - Table article
+------------------------------------------------------
+CREATE table blog.article
+(
+
+    id_article   SERIAL PRIMARY KEY,
+    id_user      INTEGER NOT NULL ,
+    date         TIMESTAMP    NOT NULL check ( date > '2020-07-20' ),
+    page         varchar(30)  NOT NULL,
+    titre        varchar(50)  NOT NULL,
+    article      text         NOT NULL,
+    pathimage    varchar(255) NOT NULL,
+    commentimage varchar(50)  NOT NULL,
+
+CONSTRAINT FK_id_user_ARTICLE FOREIGN KEY (id_user) REFERENCES blog.user(id_user)
+);
