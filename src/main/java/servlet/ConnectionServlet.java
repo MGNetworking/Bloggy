@@ -48,6 +48,13 @@ public class ConnectionServlet extends HttpServlet {
 
     }
 
+    /**
+     * Renvoie vers le formulaire de connection
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

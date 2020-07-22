@@ -26,7 +26,7 @@ public class DaoArticle implements IDAO {
     /**
      * Chemin dans lequel les images seront sauvegardées.
      */
-    public static final String IMAGES_FOLDER = "static\\image\\article\\";
+    public static final String IMAGES_FOLDER = "/static/image/article/";
 
     private static String INSERT_ARTICLE =
             "insert into blog.article (date,page,titre,article,pathimage,commentimage)VALUES(?,?,?,?,?,?)";
@@ -42,6 +42,9 @@ public class DaoArticle implements IDAO {
             "SET date = ?,page = ?, titre = ?,article = ?,pathimage = ?,commentimage = ? where id_article = ?";
 
     private static String DELETE_ARTILCE = "DELETE FROM blog.article where id_article = ?";
+
+    private static String SELECT_OFFSET = "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
+            "FROM blog.article order by id_article limit ? offset ?";
 
     public DaoArticle(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -87,15 +90,16 @@ public class DaoArticle implements IDAO {
             preparedStatement.setString(6, articleBlog.getCommentImage());
 
             Collection<Part> parts = request.getParts();
+            System.out.println(request.getServletContext().getRealPath("")+ IMAGES_FOLDER );
 
             parts.forEach(part -> {
 
                 if (part.getName().equals("image-article")) {
 
-                    articleBlog.setPathImage(IMAGES_FOLDER + getFileName(part));    // add path
+                    articleBlog.setPathImage( IMAGES_FOLDER + getFileName(part));    // add path
 
                     try {
-                        part.write(articleBlog.getPathImage());                     // add image to folder
+                        part.write(request.getServletContext().getRealPath("")+ articleBlog.getPathImage());                     // add image to folder
                     } catch (IOException ioe) {
                         System.out.println("erreur ioe" + ioe.getStackTrace() + " | " + ioe.getMessage());
                     }
@@ -334,6 +338,53 @@ public class DaoArticle implements IDAO {
 
         }
         return "fichier.txt";
+    }
+
+    /**
+     * Methode permet la gestion d'une pagination. La pagination demande le nombre d'article limite
+     * ainsi que le décalage de la liste.
+     * <p>
+     * Exemple : la liste des 10 premier article => limite = 10 , offset = 0;
+     *
+     * @param request
+     * @param limite
+     * @param offset
+     * @return
+     */
+    public List<ArticleBlog> findPaginate(HttpServletRequest request, int limite, int offset)
+            throws SQLException {
+
+        List<ArticleBlog> listArticle = new ArrayList<>(limite);
+
+        try (Connection connection = this.dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_OFFSET)) {
+
+            preparedStatement.setInt(1, limite);
+            preparedStatement.setInt(2, offset);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    ArticleBlog articleBlog = new ArticleBlog();
+
+                    articleBlog.setId(resultSet.getLong(1));
+                    articleBlog.setTimestamp(resultSet.getTimestamp(2));
+                    articleBlog.setPage(resultSet.getString(3));
+                    articleBlog.setTitre(resultSet.getString(4));
+                    articleBlog.setArticle(resultSet.getString(5));
+                    articleBlog.setPathImage(resultSet.getString(6));
+                    articleBlog.setCommentImage(resultSet.getString(7));
+
+                    listArticle.add(articleBlog);
+
+
+                }
+
+            }
+
+
+        }
+        return listArticle;
     }
 
 }

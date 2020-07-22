@@ -117,7 +117,8 @@
                 </c:if>
 
                 <c:if test="${ empty sessionScope.droit}">
-                    <li><a href="<c:url value="/connection"/>">Connection User acticle</a></li>
+                    <li><a href="<c:url value="/connection"/>">Connection</a></li>
+                    <li><a href="<c:url value="/connection"/>">Déconnexion</a></li>
                 </c:if>
 
             </ul>

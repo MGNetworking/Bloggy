@@ -80,12 +80,16 @@ public class ArticleServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException, IOException {
 
+        boolean val = req.getParameter("page").equals("indexArticle");
+        System.out.println("val : " + val);
 
         try {
 
-            if (req.getParameter("article").equals("createArticle")) {
+            if (req.getParameter("page").equals("indexArticle")) {
 
                 boolean validatArticle = new ServiceArticle().createArticle(req);
+
+
 
                 req.setAttribute("validation", validatArticle);
 

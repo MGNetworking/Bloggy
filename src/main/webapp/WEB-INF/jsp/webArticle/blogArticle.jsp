@@ -53,8 +53,10 @@
             <li><a href="<c:url value="/cv"/>" title="Vers la page de mon CV">CV</a></li>
         </ul>
     </nav>
-    <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> "
-                                 alt="ouvrir / Fermer le menu"/></button>
+    <button id="menuButton">
+        <img src="<c:url value="/static/image/icon/hamburger.svg"/> "
+                                 alt="ouvrir / Fermer le menu"/>
+    </button>
 </header>
 <!-- fin mainHearder -->
 
