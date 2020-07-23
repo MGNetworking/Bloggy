@@ -1,41 +1,33 @@
 package dao;
 
-import entities.Role;
+import entities.RoleUser;
 import entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import servlet.BlogServlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class DaoAuthentification {
 
     final static Logger LOGGER = LogManager.getLogger(DaoAuthentification.class);
-    private User user;
-
-    public DaoAuthentification(User user) {
-        this.user = user;
-    }
 
     /**
      * Methode permet l'authentification d'un user.
+     *
      * @param dataSource
      * @return User object
      */
-    public User validation(DataSource dataSource) {
+    public static User validation(DataSource dataSource, User user) {
 
 
-        String sqlAuthentification = "SELECT id_user, nom, password FROM blog.user where nom = ? AND password = ?";
-        String sqlDroit = "SELECT role FROM blog.user_role where id_user = ?";
+        String sqlAuthentification = "SELECT id_user, nom,prenom , surnom,password_user,email" +
+                " FROM blog.user where nom = ? AND password_user = ?";
+
+        String sqlDroit = "SELECT role_name FROM blog.user_role where id_user = ?";
 
 
         try (Connection connection = dataSource.getConnection();
@@ -43,45 +35,50 @@ public class DaoAuthentification {
              PreparedStatement statementDroit = connection.prepareStatement(sqlDroit)) {
 
             // recherche du user
-            statementAuth.setString(1, this.user.getNom());
-            statementAuth.setString(2, this.user.getPassword());
+            statementAuth.setString(1, user.getNom());
+            statementAuth.setString(2, user.getPassword());
 
             // Si il existe on mappe les valeurs du user
-            try (ResultSet resultSet = statementAuth.executeQuery()) {
+            try (ResultSet resultSetAut = statementAuth.executeQuery()) {
 
-                if (resultSet.next()) {
+                if (resultSetAut.next()) {
 
-                    this.user.setId(resultSet.getLong(1));
-/*                    this.user.setNom(resultSet.getString(2));
-                    this.user.setPassword(resultSet.getString(3));*/
+                    user.setId(resultSetAut.getLong(1));
+                    user.setPrenom(resultSetAut.getString(3));
+                    user.setSurnom(resultSetAut.getString(4));
+                    user.setEmail(resultSetAut.getString(6));
 
                 } else {
                     System.out.println("user not found for :" + user.toString());
+                    LOGGER.info("user not found for : " + user.toString());
                 }
             }
 
-            // mapping des droit si user Mapper
-            if (this.user.getId() != null){
+            // mapping des droit du user
+            if (user.getId() != null) {
 
-                statementDroit.setLong(1, this.user.getId());
+                // recherche des droits du user par son ID
+                statementDroit.setInt(1, (int)(long) user.getId());
 
-                try (ResultSet resultSet = statementDroit.executeQuery()){
+                try (ResultSet resultSetDroit = statementDroit.executeQuery()) {
 
-                    // ajout des roles user
-                    for (int i = 1 ; resultSet.next() != false ;i++){
+                    while (resultSetDroit.next()) {
 
-                        this.user.getListeRole().add(new Role(resultSet.getString(i)));
+                        user.getListeRole().add(
+                                new RoleUser(resultSetDroit.
+                                        getString("role_name")));
+
                     }
+                    System.out.println("user : " + user.toString());
                 }
             }
 
+        } catch (SQLException e) {
 
-        }catch (SQLException e) {
-
-            // TODO ercire un log d'erreur
-            System.out.println("Enter refuser "+ e.getMessage() + " | " + e.getSQLState());
+            LOGGER.warn("Enter refuser " + e.getMessage() + " | " + e.getSQLState());
+            System.out.println("Enter refuser " + e.getMessage() + " | " + e.getSQLState());
         }
 
-        return this.user;
+        return user;
     }
 }

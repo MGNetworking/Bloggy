@@ -49,7 +49,8 @@ public class ConnectionServlet extends HttpServlet {
     }
 
     /**
-     * Renvoie vers le formulaire de connection
+     * Refert to the connection form
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -58,31 +59,59 @@ public class ConnectionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        this.getServletContext()
-                .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
-                .forward(req, resp);
+
+        String connect = req.getParameter("connect") ;
+
+        if (connect == null){
+
+            this.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
+                    .forward(req, resp);
+
+        }else if (connect.equals("deconnexion")) {
+
+            if (req.getSession().getAttribute("user") != null){
+
+                req.getSession().removeAttribute("user");
+                // TODO supprimer le token des cookies
+                // TODO le cookies doit etre dans l'objet USER
+                System.out.println("connection : " + req.getParameter("connect"));
+
+            }
+
+            System.out.println("passe ici ");
+
+            this.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/jsp/index.jsp")
+                    .forward(req, resp);
+        }
+
+
     }
 
+    /**
+     * Responsible for creating the user session.
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        User user = new User();
-        user.setNom(req.getParameter("nom"));
-        user.setPassword(req.getParameter("password"));
 
-        DaoAuthentification daoValidForm = new DaoAuthentification(user);
-        user = daoValidForm.validation(this.dataSource);
+        User user = new User(
+                req.getParameter("nom"),
+                req.getParameter("password"));
 
-        // Si trouver dans la base
+
+        user = DaoAuthentification.validation(this.dataSource, user);
+
+        // Create user to session
         if (user.getId() != null) {
 
-            req.setAttribute("data", LocalDate.now());
-
-            // ajout des droit a la session
-            HttpSession session = req.getSession();
-            session.setAttribute("droit",user.getListeRole());
-            session.setAttribute("user", user);
-            session.setAttribute("timeConnect",LocalDateTime.now());
+            req.getSession().setAttribute("user", user);
 
             // renvoi vers la page de retour formulaire
             this.getServletContext()

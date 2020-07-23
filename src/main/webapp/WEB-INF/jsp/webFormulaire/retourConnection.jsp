@@ -55,11 +55,11 @@
     <main id="mainContant" class="retrourForm">
 
         <h2>Connection Reussi</h2>
-        <p>Vous etez connecter en tant que ${sessionScope.droit}<br>
-            Date de la connection ${sessionScope.timeConnect}
+        <p>Vous etez connecter en tant que :
+            <c:forEach var="role" items="${sessionScope.user.listeRole}">
+                <c:out value="${role}"></c:out>
+            </c:forEach>
         </p>
-
-
     </main>
     <!-- fin mainContant-->
 

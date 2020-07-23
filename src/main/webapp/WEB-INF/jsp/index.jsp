@@ -110,16 +110,27 @@
         <section id="connection">
             <h2>Connection</h2>
             <ul>
-                <c:if test="${ not empty sessionScope.droit}">
+                <c:if test="${ not empty sessionScope.user.listeRole}">
+
                     <li>Identité : ${sessionScope.user.nom}</li>
-                    <li>Vos droit : ${sessionScope.droit}</li>
-                    <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un article</a></li>
+
+                    <c:if test="${sessionScope.user.listeRole == '[ADMIN, USER_ARTICLE]'}">
+                        <li>Vos droit : ADMIN</li>
+                        <li><a href="<c:url value="/A faire ...."/>">Gestion ADMIN</a></li>
+                    </c:if>
+
+                    <c:if test="${sessionScope.user.listeRole == '[USER_ARTICLE]'}">
+                        <li>Vos droit : ${sessionScope.user.listeRole}</li>
+                    </c:if>
+
+                    <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un article de blog</a></li>
+                    <li><a href="<c:url value="/connection"/>?connect=deconnexion">Déconnexion</a></li>
                 </c:if>
 
-                <c:if test="${ empty sessionScope.droit}">
+                <c:if test="${ empty sessionScope.user.listeRole}">
                     <li><a href="<c:url value="/connection"/>">Connection</a></li>
-                    <li><a href="<c:url value="/connection"/>">Déconnexion</a></li>
                 </c:if>
+
 
             </ul>
         </section>

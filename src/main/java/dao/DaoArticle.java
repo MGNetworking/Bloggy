@@ -1,21 +1,19 @@
 package dao;
 
 import entities.ArticleBlog;
-import entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class DaoArticle implements IDAO {
@@ -26,10 +24,10 @@ public class DaoArticle implements IDAO {
     /**
      * Chemin dans lequel les images seront sauvegardées.
      */
-    public static final String IMAGES_FOLDER = "/static/image/article/";
+    public static final String IMAGES_FOLDER = "static\\image\\article\\";
 
     private static String INSERT_ARTICLE =
-            "insert into blog.article (date,page,titre,article,pathimage,commentimage)VALUES(?,?,?,?,?,?)";
+            "insert into blog.article (id_user, date, page, titre, article, pathimage, commentimage)VALUES(?,?,?,?,?,?,?)";
 
     private static String SELECT_ARTICLE =
             "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
@@ -63,8 +61,8 @@ public class DaoArticle implements IDAO {
 
         boolean execute = false;
 
+        Connection connection = connection = dataSource.getConnection();
         try (
-                Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(
                         INSERT_ARTICLE,
                         Statement.RETURN_GENERATED_KEYS)
@@ -73,42 +71,52 @@ public class DaoArticle implements IDAO {
             connection.setAutoCommit(false);                    // gestion de la transaction
             ArticleBlog articleBlog = new ArticleBlog();
 
+            System.out.println("local date time  : " + LocalDateTime.now());
+            System.out.println("local date time to valof Time stamps : " + Timestamp.valueOf(LocalDateTime.now()));
+            System.out.println("ID : " +Long.parseLong(request.getParameter("id")));
+
+            articleBlog.setId(Long.parseLong(request.getParameter("id")));
+            preparedStatement.setLong(1, articleBlog.getId());
+
             // add to values article and data
             articleBlog.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
-            preparedStatement.setTimestamp(1, articleBlog.getTimestamp());
+            preparedStatement.setTimestamp(2, articleBlog.getTimestamp());
 
             articleBlog.setPage(request.getParameter("page"));
-            preparedStatement.setString(2, articleBlog.getPage());
+            preparedStatement.setString(3, articleBlog.getPage());
 
             articleBlog.setTitre(request.getParameter("titre"));
-            preparedStatement.setString(3, articleBlog.getTitre());
+            preparedStatement.setString(4, articleBlog.getTitre());
 
             articleBlog.setArticle(request.getParameter("article"));
-            preparedStatement.setString(4, articleBlog.getArticle());
-
-            articleBlog.setCommentImage(request.getParameter("image-commentaire"));
-            preparedStatement.setString(6, articleBlog.getCommentImage());
+            preparedStatement.setString(5, articleBlog.getArticle());
 
             Collection<Part> parts = request.getParts();
-            System.out.println(request.getServletContext().getRealPath("")+ IMAGES_FOLDER );
-
             parts.forEach(part -> {
 
                 if (part.getName().equals("image-article")) {
 
-                    articleBlog.setPathImage( IMAGES_FOLDER + getFileName(part));    // add path
-
                     try {
-                        part.write(request.getServletContext().getRealPath("")+ articleBlog.getPathImage());                     // add image to folder
+
+                        articleBlog.setPathImage(IMAGES_FOLDER + getFileName(part));
+
+                        part.write(request.getServletContext().getRealPath("") +
+                                articleBlog.getPathImage());
+
                     } catch (IOException ioe) {
                         System.out.println("erreur ioe" + ioe.getStackTrace() + " | " + ioe.getMessage());
                     }
-
                 }
             });
 
-            preparedStatement.setString(5, articleBlog.getPathImage());
 
+            preparedStatement.setString(6, articleBlog.getPathImage());
+
+            articleBlog.setCommentImage(request.getParameter("image-commentaire"));
+            preparedStatement.setString(7, articleBlog.getCommentImage());
+
+
+            // excution de la requete
             int resultatOperation = preparedStatement.executeUpdate();
 
             if (resultatOperation == 0) {
@@ -127,6 +135,7 @@ public class DaoArticle implements IDAO {
             }
 
             connection.commit();
+
             connection.setAutoCommit(true);
 
             execute = true;
@@ -140,6 +149,9 @@ public class DaoArticle implements IDAO {
                     sql.getCause();
 
             LOGGER.error(message);
+            System.out.println(message);
+            connection.rollback();
+
             throw new SQLException(message);
 
         } catch (Exception ioe) {
@@ -150,7 +162,18 @@ public class DaoArticle implements IDAO {
                     ioe.getCause();
 
             LOGGER.error(message);
+            System.out.println(message);
+            connection.rollback();
+
             throw new RuntimeException(message);
+
+        } finally {
+
+            if (connection != null) {
+
+                connection.close();
+                System.out.println("Fermeture de la connection a la base de données");
+            }
         }
 
         return execute;

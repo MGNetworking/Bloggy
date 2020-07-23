@@ -68,6 +68,7 @@
 
             <div>
                 <p>Nom du createur de l'article : ${sessionScope.user.nom}</p>
+                <input  type="hidden" name="id" value="${sessionScope.user.id}">
             </div>
 
             <div>

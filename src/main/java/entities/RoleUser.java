@@ -1,14 +1,13 @@
 package entities;
 
-public class Role {
+public class RoleUser {
 
     private String role;
 
-    public Role() {
+    public RoleUser() {
     }
 
-    public Role( String role) {
-
+    public RoleUser(String role) {
         this.role = role;
     }
 
@@ -22,6 +21,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return role;
+        return this.role;
     }
 }
