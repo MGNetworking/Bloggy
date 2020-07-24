@@ -71,12 +71,12 @@
                 <div>
                     <label for="nomFamille">Nom de Famille</label>
                     <input type="text" name="nomFamille" id="nomFamille" required autofocus tabindex="1"
-                           placeholder="votre nom"/>
+                           placeholder="votre name"/>
 
                 </div>
                 <div>
-                    <label for="prenom">Prénom</label>
-                    <input type="text" name="prenom" id="prenom" required tabindex="2" placeholder="Votre prenom"/>
+                    <label for="firstName">Prénom</label>
+                    <input type="text" name="firstName" id="firstName" required tabindex="2" placeholder="Votre firstName"/>
                 </div>
                 <div>
                     <label for="email">Adresse e-mail</label>

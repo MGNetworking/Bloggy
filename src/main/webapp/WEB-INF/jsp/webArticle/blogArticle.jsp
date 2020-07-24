@@ -69,16 +69,16 @@
         <form action="<c:url value="/article"/>?article=blogArticle" method="post" enctype="multipart/form-data">
 
             <div>
-                <p>Nom du createur de l'article : ${sessionScope.user.nom}</p>
+                <p>Nom du createur de l'article : ${sessionScope.user.name}</p>
                 <input  type="hidden" name="id" value="${sessionScope.user.id}">
             </div>
 
             <div>
-                <label for="titre" class="nom">Titre de l'article</label>
+                <label for="titre" class="name">Titre de l'article</label>
                 <input name="titre" type="text" required autofocus tabindex="1">
             </div>
             <div>
-                <label for="article" class="nom">Article :</label>
+                <label for="article" class="name">Article :</label>
                 <textarea name="article" id="article" cols="30" rows="10" required tabindex="2"></textarea>
             </div>
 

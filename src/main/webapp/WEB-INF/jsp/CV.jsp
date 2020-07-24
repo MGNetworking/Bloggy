@@ -21,7 +21,7 @@
             </a>
         </div>
         <div>
-            <h1><span class="nom">Maxime&nbsp;</span>Ghalem</h1>
+            <h1><span class="name">Maxime&nbsp;</span>Ghalem</h1>
             <h2>concepteur développeur d'application</h2>
         </div>
     </header>

@@ -47,19 +47,19 @@ values ('ADMIN'),
 CREATE TABLE blog.user
 (
     id_user       serial primary key,
-    nom           varchar(255) NOT NULL,
-    prenom        varchar(255) NOT NULL,
-    surnom        varchar(30)  NOT NULL,
+    name           varchar(255) NOT NULL,
+    firstName        varchar(255) NOT NULL,
+    avatar        varchar(30)  NOT NULL,
     password_user varchar(255) NOT NULL,
     email         varchar(255) NOT NULL
 
 );
 
-insert into blog.user(nom, prenom, surnom, password_user, email)
+insert into blog.user(name, firstName, avatar, password_user, email)
 values ('maxime', 'ghalem', 'MG-netWork', '123', 'maxime@gmail.com'),
-       ('sylvain', 'syl-prenom', 'sy-net', '456', 'sylvain@gmail.com'),
-       ('fabien', 'fa-prenom', 'fa-net', '789', 'fabien@gmail.com'),
-       ('ernestas', 'er-prenom', 'er-net', '321', 'ernestas@gmail.com');
+       ('sylvain', 'syl-firstName', 'sy-net', '456', 'sylvain@gmail.com'),
+       ('fabien', 'fa-firstName', 'fa-net', '789', 'fabien@gmail.com'),
+       ('ernestas', 'er-firstName', 'er-net', '321', 'ernestas@gmail.com');
 
 
 -- user_role : associtive table

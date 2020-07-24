@@ -67,11 +67,11 @@
         <form action="<c:url value="/connection" />" method="post">
 
             <div>
-                <label for="" class="nom">Nom :</label>
-                <input name="nom" type="text" required autofocus tabindex="1">
+                <label for="" class="name">Nom :</label>
+                <input name="name" type="text" required autofocus tabindex="1">
             </div>
             <div>
-                <label for="" class="nom">Password :</label>
+                <label for="" class="name">Password :</label>
                 <input name="password" type="password" required autofocus tabindex="2">
             </div>
 

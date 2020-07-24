@@ -35,7 +35,7 @@ public class DaoAuthentification {
              PreparedStatement statementDroit = connection.prepareStatement(sqlDroit)) {
 
             // recherche du user
-            statementAuth.setString(1, user.getNom());
+            statementAuth.setString(1, user.getName());
             statementAuth.setString(2, user.getPassword());
 
             // Si il existe on mappe les valeurs du user
@@ -44,8 +44,8 @@ public class DaoAuthentification {
                 if (resultSetAut.next()) {
 
                     user.setId(resultSetAut.getLong(1));
-                    user.setPrenom(resultSetAut.getString(3));
-                    user.setSurnom(resultSetAut.getString(4));
+                    user.setFirstName(resultSetAut.getString(3));
+                    user.setAvatar(resultSetAut.getString(4));
                     user.setEmail(resultSetAut.getString(6));
 
                 } else {

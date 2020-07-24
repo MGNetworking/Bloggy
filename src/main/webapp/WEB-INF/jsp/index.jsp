@@ -112,7 +112,7 @@
             <ul>
                 <c:if test="${ not empty sessionScope.user.listeRole}">
 
-                    <li>Identité : ${sessionScope.user.nom}</li>
+                    <li>Identité : ${sessionScope.user.name}</li>
 
                     <c:if test="${sessionScope.user.listeRole == '[ADMIN, USER_ARTICLE]'}">
                         <li>Vos droit : ADMIN</li>
