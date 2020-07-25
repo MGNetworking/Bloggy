@@ -4,6 +4,7 @@ import entities.ArticleBlog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
@@ -24,7 +25,7 @@ public class DaoArticle implements IDAO {
     /**
      * Chemin dans lequel les images seront sauvegardées.
      */
-    public static final String IMAGES_FOLDER = "static\\image\\article\\";
+
 
     private static String INSERT_ARTICLE =
             "insert into blog.article (id_user, date, page, titre, article, pathimage, commentimage)VALUES(?,?,?,?,?,?,?)";
@@ -91,24 +92,8 @@ public class DaoArticle implements IDAO {
             articleBlog.setArticle(request.getParameter("article"));
             preparedStatement.setString(5, articleBlog.getArticle());
 
-            Collection<Part> parts = request.getParts();
-            parts.forEach(part -> {
-
-                if (part.getName().equals("image-article")) {
-
-                    try {
-
-                        articleBlog.setPathImage(IMAGES_FOLDER + getFileName(part));
-
-                        part.write(request.getServletContext().getRealPath("") +
-                                articleBlog.getPathImage());
-
-                    } catch (IOException ioe) {
-                        System.out.println("erreur ioe" + ioe.getStackTrace() + " | " + ioe.getMessage());
-                    }
-                }
-            });
-
+            // add image to server
+            DaoFile.createFile(request, articleBlog);
 
             preparedStatement.setString(6, articleBlog.getPathImage());
 
@@ -135,9 +120,7 @@ public class DaoArticle implements IDAO {
             }
 
             connection.commit();
-
             connection.setAutoCommit(true);
-
             execute = true;
 
         } catch (SQLException sql) {
@@ -152,11 +135,10 @@ public class DaoArticle implements IDAO {
             System.out.println(message);
             connection.rollback();
 
-            throw new SQLException(message);
 
-        } catch (Exception ioe) {
+        }catch (IOException ioe) {
 
-            String message = "erreur ioe" +
+            String message = "erreur ioe : " +
                     ioe.getStackTrace() + "\n" +
                     ioe.getMessage() + "\n" +
                     ioe.getCause();
@@ -165,7 +147,16 @@ public class DaoArticle implements IDAO {
             System.out.println(message);
             connection.rollback();
 
-            throw new RuntimeException(message);
+        } catch (ServletException se) {
+
+            String message = "erreur Servlet Exception : " +
+                    se.getStackTrace() + "\n" +
+                    se.getMessage() + "\n" +
+                    se.getCause();
+
+            LOGGER.error(message);
+            System.out.println(message);
+            connection.rollback();
 
         } finally {
 
@@ -336,32 +327,7 @@ public class DaoArticle implements IDAO {
         return listArticle;
     }
 
-    /**
-     * Methode qui récupération du nom du fichier, utilisé esclusivment pour les fichier type image.
-     *
-     * @param part
-     * @return String le nom du fichier
-     */
-    private static String getFileName(Part part) {
 
-        System.out.println("getHeaderNames() : " + part.getHeaderNames());
-
-        for (String content : part.getHeader("content-disposition").split(";")) {
-
-            System.out.println("Contenu : " + content);
-            if (content.trim().startsWith("filename")) {
-
-                String contente = content.substring(content.indexOf("=") + 2, content.length() - 1);
-                System.out.println("content susbstring : " + content);
-                return content.substring(content.indexOf("=") + 2, content.length() - 1);
-
-            } else {
-                LOGGER.error("Erreur file name " + part.getName());
-            }
-
-        }
-        return "fichier.txt";
-    }
 
     /**
      * Methode permet la gestion d'une pagination. La pagination demande le nombre d'article limite

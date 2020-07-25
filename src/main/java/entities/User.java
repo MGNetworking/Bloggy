@@ -16,7 +16,7 @@ public class User {
     private String avatar;
     private String password;
     private String email;
-    private String tentative;               // connection attemp
+    private int attemp;
 
     private String cooki;
 
@@ -74,7 +74,8 @@ public class User {
      * Mutator for the name value.
      *
      * @param name String type
-     * @throws RuntimeException     if the name is empty and non matching expression.
+     * @throws RuntimeException     if the name is empty and non matching with
+     *                              regular expression '<'^[a-z A-Z]{4,}$'>'
      * @throws NullPointerException if the name is null.
      */
     public void setName(String name) throws RuntimeException, NullPointerException {
@@ -110,7 +111,8 @@ public class User {
      * Mutator for the first name value.
      *
      * @param firstName String type
-     * @throws RuntimeException     if first name is empty and non matching expression.
+     * @throws RuntimeException     if first name is empty and non matching with
+     *                              regular expression '<'^[a-z A-Z]{4,}$'>'
      * @throws NullPointerException if first name is null.
      */
     public void setFirstName(String firstName) throws RuntimeException, NullPointerException {
@@ -146,8 +148,9 @@ public class User {
      * Mutator for the avatar value.
      * Test avatar value with 6 character minimum
      *
-     * @param avatar    String type
-     * @throws RuntimeException     if first name is empty and non matching expression.
+     * @param avatar String type
+     * @throws RuntimeException     if first name is empty and non matching with
+     *                              regular expression '<'^[a-z A-Z]{4,}$'>'
      * @throws NullPointerException if first name is null.
      */
     public void setAvatar(String avatar) throws RuntimeException, NullPointerException {
@@ -183,7 +186,9 @@ public class User {
      * Test password with 6 character minimum
      *
      * @param password String type
-     * @throws RuntimeException     if password is empty and non matching expression.
+     * @throws RuntimeException     if password is empty and non matching with
+     *                              regular expression :
+     *                              '<'^[A-Za-z0-9 @ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]{6,}$'>'
      * @throws NullPointerException if password is null.
      */
     public void setPassword(String password) throws RuntimeException, NullPointerException {
@@ -217,10 +222,10 @@ public class User {
 
     /**
      * Mutator for the email value.
-     * Test email to format
      *
-     * @param email  String type
-     * @throws RuntimeException     if password is empty and non matching expression.
+     * @param email String type
+     * @throws RuntimeException     if password is empty and non matching with
+     *                              regular expression '<'^(.+)@(.+)$'>'
      * @throws NullPointerException if password is null.
      */
     public void setEmail(String email) throws RuntimeException, NullPointerException {
@@ -247,20 +252,32 @@ public class User {
      *
      * @return String type
      */
-    public String getTentative() {
-        return tentative;
+    public int getAttemp() {
+        return attemp;
     }
 
-    public void setTentative(String tentative) {
-        this.tentative = tentative;
+    /**
+     * Allows to add attempts connect.
+     *
+     * @param attemp int primitive type
+     * @throws RuntimeException if attemp less than or equal to zero.
+     */
+    public void setAttemp(int attemp) throws RuntimeException {
+
+        if (attemp <= 0) {
+            throw new RuntimeException("la value of tentavie " + attemp + " is not good");
+        }
+
+        this.attemp = +attemp;
     }
 
+    /**
+     * allows access to the liste of role.
+     *
+     * @return List<RoleUser> type.
+     */
     public List<RoleUser> getListeRole() {
         return listeRole;
-    }
-
-    public void setListeRole(List<RoleUser> listeRole) {
-        this.listeRole = listeRole;
     }
 
 
@@ -273,8 +290,10 @@ public class User {
                 ", avatar='" + avatar + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", tentative='" + tentative + '\'' +
+                ", attemp=" + attemp +
+                ", cooki='" + cooki + '\'' +
                 ", listeRole=" + listeRole +
                 '}';
     }
 }
+
