@@ -72,8 +72,8 @@
             </div>
 
             <div>
-                <label for="titre" class="name">Titre de la page de bienvenue</label>
-                <input name="titre" type="text" required autofocus tabindex="1">
+                <label for="title" class="name">Titre de la page de bienvenue</label>
+                <input name="title" type="text" required autofocus tabindex="1">
             </div>
 
             <div>

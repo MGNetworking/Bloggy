@@ -6,15 +6,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class DaoArticle implements IDAO {
@@ -86,8 +83,8 @@ public class DaoArticle implements IDAO {
             articleBlog.setPage(request.getParameter("page"));
             preparedStatement.setString(3, articleBlog.getPage());
 
-            articleBlog.setTitre(request.getParameter("titre"));
-            preparedStatement.setString(4, articleBlog.getTitre());
+            articleBlog.setTitle(request.getParameter("titre"));
+            preparedStatement.setString(4, articleBlog.getTitle());
 
             articleBlog.setArticle(request.getParameter("article"));
             preparedStatement.setString(5, articleBlog.getArticle());
@@ -184,7 +181,7 @@ public class DaoArticle implements IDAO {
             preparedStatement.setLong(1, articleBlog.getId());
             preparedStatement.setTimestamp(2, articleBlog.getTimestamp());
             preparedStatement.setString(3, articleBlog.getPage());
-            preparedStatement.setString(4, articleBlog.getTitre());
+            preparedStatement.setString(4, articleBlog.getTitle());
             preparedStatement.setString(5, articleBlog.getArticle());
             preparedStatement.setString(6, articleBlog.getPathImage());
             preparedStatement.setString(7, articleBlog.getCommentImage());
@@ -263,7 +260,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setId(resultSet.getLong(1));
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
-                    articleBlog.setTitre(resultSet.getString(4));
+                    articleBlog.setTitle(resultSet.getString(4));
                     articleBlog.setArticle(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));
@@ -302,7 +299,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setId(resultSet.getLong(1));
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
-                    articleBlog.setTitre(resultSet.getString(4));
+                    articleBlog.setTitle(resultSet.getString(4));
                     articleBlog.setArticle(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));
@@ -359,7 +356,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setId(resultSet.getLong(1));
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
-                    articleBlog.setTitre(resultSet.getString(4));
+                    articleBlog.setTitle(resultSet.getString(4));
                     articleBlog.setArticle(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));

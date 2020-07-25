@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserTeste {
+public class UserTest {
 
     static User user;
 
@@ -125,7 +125,7 @@ public class UserTeste {
      * @param password
      */
     @ParameterizedTest
-    @ValueSource(strings = {"m@xim", "ÀÁÂ68"})
+    @ValueSource(strings = {"", " ","m@xim", "ÀÁÂ68"})
     @DisplayName("test setPassword")
     public void testSetPassword(String password) {
 
@@ -150,7 +150,7 @@ public class UserTeste {
      * @param userfirstName
      */
     @ParameterizedTest
-    @ValueSource(strings = {"user#domain.com", "@yahoo.com"})
+    @ValueSource(strings = {""," ","user#domain.com", "@yahoo.com"})
     @DisplayName("test SetEmail")
     public void testSetEmail(String email) {
 
@@ -175,7 +175,7 @@ public class UserTeste {
     public void testSetAttemp(int attemp) {
 
         assertThrows(RuntimeException.class,
-                () -> user.setAttemp(attemp), "non-compliant value"
+                () -> user.setAttemp(attemp), "non-compliant value : "
                         + attemp);
 
     }

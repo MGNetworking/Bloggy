@@ -74,8 +74,8 @@
             </div>
 
             <div>
-                <label for="titre" class="name">Titre de l'article</label>
-                <input name="titre" type="text" required autofocus tabindex="1">
+                <label for="title" class="name">Titre de l'article</label>
+                <input name="title" type="text" required autofocus tabindex="1">
             </div>
             <div>
                 <label for="article" class="name">Article :</label>

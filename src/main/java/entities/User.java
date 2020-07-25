@@ -42,20 +42,20 @@ public class User {
     /**
      * Mutator for the id. Id is an identifier for user object.
      *
-     * @param id Long type ( Object not primitive )
-     * @throws RuntimeException     if the name is empty.
+     * @param id Long type ( Object not a primitive )
+     * @throws RuntimeException     if the id is empty.
      * @throws NullPointerException if id is null.
      */
     public void setId(Long id) throws RuntimeException, NullPointerException {
 
-        if (name == null) {
-            log.debug("The id Value for type long is NULL");
-            throw new NullPointerException("The String Value is NULL");
+        if (id == null) {
+            log.debug("The id Value for type long is " + id);
+            throw new NullPointerException("The id Value for type long is " + id);
         }
 
-        if (name.isEmpty()) {
-            log.debug("The id Value for type long is empty");
-            throw new RuntimeException("The String Value is empty ");
+        if (id <= 0) {
+            log.debug("The id Value is : " + id);
+            throw new RuntimeException("The id Value is : " + id);
         }
 
         this.id = id;
@@ -92,7 +92,8 @@ public class User {
 
         // si champs moin de 4 lettre uniquement
         if (!(name.matches("^[a-z A-Z]{4,}$"))) {
-            throw new RuntimeException("The name < 3 character");
+            log.debug("The name not matching character");
+            throw new RuntimeException("The name not matching");
         }
 
         this.name = name;
@@ -118,7 +119,7 @@ public class User {
     public void setFirstName(String firstName) throws RuntimeException, NullPointerException {
 
         if (firstName == null) {
-            log.debug("The String Value is NULL");
+            log.debug("The String Value is " + firstName);
             throw new NullPointerException("The String Value is NULL");
         }
 
@@ -129,8 +130,8 @@ public class User {
 
         // si champs moin de 4 lettre uniquement
         if (!(firstName.matches("^[a-z A-Z]{4,}$"))) {
-            log.debug("The name < 3 character");
-            throw new RuntimeException("The name < 3 character");
+            log.debug("The first name not matching character " + firstName);
+            throw new RuntimeException("The first name not matching character " + firstName);
         }
         this.firstName = firstName;
     }
@@ -156,7 +157,7 @@ public class User {
     public void setAvatar(String avatar) throws RuntimeException, NullPointerException {
 
         if (avatar == null) {
-            log.debug("The String Value password is NULL");
+            log.debug("The String Value password is " + avatar);
             throw new NullPointerException("The String Value is NULL");
         }
 
@@ -166,8 +167,8 @@ public class User {
         }
 
         if (!(avatar.matches("^[a-z A-Z]{4,}$"))) {
-            log.debug("The password not matching");
-            throw new RuntimeException("The password not matching");
+            log.debug("The password not matching " + avatar);
+            throw new RuntimeException("The password not matching " + avatar);
         }
         this.avatar = avatar;
     }
@@ -231,18 +232,18 @@ public class User {
     public void setEmail(String email) throws RuntimeException, NullPointerException {
 
         if (email == null) {
-            log.debug("The String Value password is NULL");
+            log.debug("The String Value email is NULL");
             throw new NullPointerException("The String Value is NULL");
         }
 
         if (email.isEmpty()) {
-            log.debug("The String Value password is empty");
+            log.debug("The String Value email is empty");
             throw new RuntimeException("The String Value is empty ");
         }
 
         if (!(email.matches("^(.+)@(.+)$"))) {
-            log.debug("The password not matching");
-            throw new RuntimeException("The password not matching");
+            log.debug("The email not matching");
+            throw new RuntimeException("The email not matching");
         }
         this.email = email;
     }
@@ -265,7 +266,8 @@ public class User {
     public void setAttemp(int attemp) throws RuntimeException {
 
         if (attemp <= 0) {
-            throw new RuntimeException("la value of tentavie " + attemp + " is not good");
+            log.debug("the attemp value : " + attemp + " is not good");
+            throw new RuntimeException("the attemp value : " + attemp + " is not good");
         }
 
         this.attemp = +attemp;

@@ -91,7 +91,7 @@ CREATE table blog.article
     id_user      INTEGER NOT NULL ,
     date         TIMESTAMP    NOT NULL check ( date > '2020-07-20' ),
     page         varchar(30)  NOT NULL,
-    titre        varchar(50)  NOT NULL,
+    title        varchar(50)  NOT NULL,
     article      text         NOT NULL,
     pathimage    varchar(255) NOT NULL,
     commentimage varchar(50)  NOT NULL,
