@@ -51,15 +51,17 @@ CREATE TABLE blog.user
     firstName        varchar(255) NOT NULL,
     avatar        varchar(30)  NOT NULL,
     password_user varchar(255) NOT NULL,
-    email         varchar(255) NOT NULL
+    email         varchar(255) NOT NULL,
+    token       varchar(100),
+    tokenDate   TIMESTAMP check ( tokenDate > now() )
 
 );
 
 insert into blog.user(name, firstName, avatar, password_user, email)
-values ('maxime', 'ghalem', 'MG-netWork', '123', 'maxime@gmail.com'),
-       ('sylvain', 'syl-firstName', 'sy-net', '456', 'sylvain@gmail.com'),
-       ('fabien', 'fa-firstName', 'fa-net', '789', 'fabien@gmail.com'),
-       ('ernestas', 'er-firstName', 'er-net', '321', 'ernestas@gmail.com');
+values ('maxime', 'ghalem', 'MGAvatar', '123', 'maxime@gmail.com'),
+       ('sylvain', 'syl-firstName', 'sylAvatar', '456', 'sylvain@gmail.com'),
+       ('fabien', 'fa-firstName', 'fabAvatar', '789', 'fabien@gmail.com'),
+       ('ernestas', 'er-firstName', 'ernesAvatar', '321', 'ernestas@gmail.com');
 
 
 -- user_role : associtive table

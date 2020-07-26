@@ -81,13 +81,13 @@ public class User {
     public void setName(String name) throws RuntimeException, NullPointerException {
 
         if (name == null) {
-            log.debug("The String Value is NULL");
-            throw new NullPointerException("The String Value is NULL");
+            log.debug("The String Value name is NULL");
+            throw new NullPointerException("The String Value name is NULL");
         }
 
         if (name.isEmpty()) {
-            log.debug("The String Value is empty");
-            throw new RuntimeException("The String Value is empty ");
+            log.debug("The String Value name is empty");
+            throw new RuntimeException("The String Value name is empty ");
         }
 
         // si champs moin de 4 lettre uniquement
@@ -157,18 +157,18 @@ public class User {
     public void setAvatar(String avatar) throws RuntimeException, NullPointerException {
 
         if (avatar == null) {
-            log.debug("The String Value password is " + avatar);
-            throw new NullPointerException("The String Value is NULL");
+            log.debug("The String Value avatar is " + avatar);
+            throw new NullPointerException("The String Value avatar is " + avatar);
         }
 
         if (avatar.isEmpty()) {
-            log.debug("The String Value password is empty");
-            throw new RuntimeException("The String Value is empty ");
+            log.debug("The String Value avatar is empty");
+            throw new RuntimeException("The String Value avatar is empty");
         }
 
         if (!(avatar.matches("^[a-z A-Z]{4,}$"))) {
-            log.debug("The password not matching " + avatar);
-            throw new RuntimeException("The password not matching " + avatar);
+            log.debug("The avatar not matching " + avatar);
+            throw new RuntimeException("The avatar not matching " + avatar);
         }
         this.avatar = avatar;
     }
@@ -196,15 +196,15 @@ public class User {
 
         if (password == null) {
             log.debug("The String Value password is NULL");
-            throw new NullPointerException("The String Value is NULL");
+            throw new NullPointerException("The String Value password is NULL");
         }
 
         if (password.isEmpty()) {
             log.debug("The String Value password is empty");
-            throw new RuntimeException("The String Value is empty ");
+            throw new RuntimeException("The String Value password is empty");
         }
 
-        if (!(password.matches("^[A-Za-z0-9 @ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]{6,}$"))) {
+        if (!(password.matches("^[A-Za-z0-9 @ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]{3,}$"))) {
             log.debug("The password not matching");
             throw new RuntimeException("The password not matching");
         }

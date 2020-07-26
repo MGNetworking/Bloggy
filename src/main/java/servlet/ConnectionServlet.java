@@ -102,7 +102,7 @@ public class ConnectionServlet extends HttpServlet {
 
 
         User user = new User(
-                req.getParameter("nom"),
+                req.getParameter("name"),
                 req.getParameter("password"));
 
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import util.TokenHelper;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -131,6 +132,12 @@ public class ArticleTest {
                 () -> articleBlog.setCommentImage(null),
                 "Error comment Image is null");
 
+    }
+
+    @Test
+    public void teste(){
+
+        System.out.println("resultat : "+ TokenHelper.generateToken(50));
     }
 
 }

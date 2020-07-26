@@ -24,8 +24,8 @@ public class DaoAuthentification {
     public static User validation(DataSource dataSource, User user) {
 
 
-        String sqlAuthentification = "SELECT id_user, nom,prenom , surnom,password_user,email" +
-                " FROM blog.user where nom = ? AND password_user = ?";
+        String sqlAuthentification = "SELECT id_user, name ,firstname ,avatar , password_user ,email" +
+                " FROM blog.user where name = ? AND password_user = ?";
 
         String sqlDroit = "SELECT role_name FROM blog.user_role where id_user = ?";
 
