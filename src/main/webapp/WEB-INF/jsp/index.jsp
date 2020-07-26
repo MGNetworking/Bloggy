@@ -123,7 +123,7 @@
                         <li>Vos droit : ${sessionScope.user.listeRole}</li>
                     </c:if>
 
-                    <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un article de blog</a></li>
+                    <li><a href="<c:url value="/articletexte"/>?page=indexArticle">Créer un articletexte de blog</a></li>
                     <li><a href="<c:url value="/connection"/>?connect=deconnexion">Déconnexion</a></li>
                 </c:if>
 

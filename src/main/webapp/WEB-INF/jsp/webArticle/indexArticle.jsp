@@ -62,12 +62,12 @@
 
     <main id="mainContant">
 
-        <h2>Creation d'un article</h2>
+        <h2>Creation d'un articletexte</h2>
 
-        <form action="<c:url value="/article"/>?page=indexArticle" method="post" enctype="multipart/form-data">
+        <form action="<c:url value="/articletexte"/>?page=indexArticle" method="post" enctype="multipart/form-data">
 
             <div>
-                <p>Nom du createur de l'article : ${sessionScope.user.name}</p>
+                <p>Nom du createur de l'articletexte : ${sessionScope.user.name}</p>
                 <input  type="hidden" name="id" value="${sessionScope.user.id}">
             </div>
 
@@ -77,13 +77,13 @@
             </div>
 
             <div>
-                <label for="article" class="name">Le texte</label>
-                <textarea name="article" id="article" cols="30" rows="10" required tabindex="2"></textarea>
+                <label for="articletexte" class="name">Le texte</label>
+                <textarea name="articletexte" id="articletexte" cols="30" rows="10" required tabindex="2"></textarea>
             </div>
 
             <div>
                 <label for="file">Ajouté une image png ou jpeg au Texte</label>
-                <input type="file" name="image-article" accept="image/png, image/jpeg" tabindex="3">
+                <input type="file" name="image-articletexte" accept="image/png, image/jpeg" tabindex="3">
             </div>
 
             <div>

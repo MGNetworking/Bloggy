@@ -55,60 +55,60 @@
 <div id="mainbody" class="colonneMain">
 
     <main id="mainContant">
-        <article>
+        <articletexte>
 
             <header>
                 <h3>Titre 1 du blog</h3>
                 <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
             </header>
 
-            <p><img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
+            <p><img src="<c:url value="/static/image/articletexte/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
                 dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
             <p>
-                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+                <a href="<c:url value="/blog" />?articletexte=MyPc1">Lire la suite</a>
             </p>
-        </article>
-        <!-- fin de la article 1 -->
+        </articletexte>
+        <!-- fin de la articletexte 1 -->
 
 
-        <article>
+        <articletexte>
 
             <header>
                 <h3>Titre 2 du blog</h3>
                 <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
             </header>
 
-            <p><img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
+            <p><img src="<c:url value="/static/image/articletexte/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
                 dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
             <p>
-                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+                <a href="<c:url value="/blog" />?articletexte=MyPc1">Lire la suite</a>
             </p>
-        </article>
-        <!-- fin de la article 2-->
+        </articletexte>
+        <!-- fin de la articletexte 2-->
 
 
-        <article>
+        <articletexte>
             <header>
                 <h3>Titre 3 du blog</h3>
                 <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
             </header>
             <p>
-                <img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
+                <img src="<c:url value="/static/image/articletexte/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
                 dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
                 quasi odio porro, omnis corrupti ipsa beatae cumque natus
                 praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
                 doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
             <p>
-                <a href="<c:url value="/blog" />?article=MyPc1">Lire la suite</a>
+                <a href="<c:url value="/blog" />?articletexte=MyPc1">Lire la suite</a>
             </p>
-        </article>
-        <!-- fin de la article 3-->
+        </articletexte>
+        <!-- fin de la articletexte 3-->
 
         <p>
 

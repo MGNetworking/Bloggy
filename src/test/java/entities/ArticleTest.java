@@ -73,21 +73,21 @@ public class ArticleTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", " "})
-    @DisplayName("test setArticle")
+    @DisplayName("test setArticletexte")
     public void testSetArticle(String page) {
 
         assertThrows(RuntimeException.class,
-                () -> articleBlog.setArticle(page),
+                () -> articleBlog.setArticletexte(page),
                 "Error Article is empty");
 
     }
 
     @Test
-    @DisplayName("test setArticle to Article Null")
+    @DisplayName("test setArticletexte to Article Null")
     public void testSetArticleNull() {
 
         assertThrows(NullPointerException.class,
-                () -> articleBlog.setArticle(null),
+                () -> articleBlog.setArticletexte(null),
                 "Error article is null");
 
     }

@@ -11,7 +11,7 @@ public class ArticleBlog {
     private Timestamp timestamp;
     private String page;
     private String title;
-    private String article;
+    private String articletexte;
     private String pathImage;
     private String commentImage;
 
@@ -49,7 +49,7 @@ public class ArticleBlog {
     }
 
     /**
-     * Mutator for the creation date of the article.
+     * Mutator for the creation date of the articletexte.
      *
      * @param timestamp type object to timestamp
      * @throws NullPointerException if timestamp is null.
@@ -68,7 +68,7 @@ public class ArticleBlog {
     }
 
     /**
-     * Mutator for page article .
+     * Mutator for page articletexte .
      *
      * @param page String type
      * @throws RuntimeException     if page is empty.
@@ -94,7 +94,7 @@ public class ArticleBlog {
     }
 
     /**
-     * Mutator for title article .
+     * Mutator for title articletexte .
      *
      * @param title
      * @throws RuntimeException     if title is empty.
@@ -115,22 +115,22 @@ public class ArticleBlog {
         this.title = title;
     }
 
-    public String getArticle() {
-        return article;
+    public String getArticletexte() {
+        return articletexte;
     }
 
-    public void setArticle(String article) throws RuntimeException, NullPointerException {
+    public void setArticletexte(String articletexte) throws RuntimeException, NullPointerException {
 
-        if (article == null) {
-            log.debug("The Value of Article is " + article);
-            throw new NullPointerException("The title Article Value is " + article);
+        if (articletexte == null) {
+            log.debug("The Value of Article is " + articletexte);
+            throw new NullPointerException("The title Article Value is " + articletexte);
         }
 
-        if (article.trim().isEmpty()) {
+        if (articletexte.trim().isEmpty()) {
             log.debug("The Value of Article is Empty ");
             throw new RuntimeException("The Value of Article is Empty ");
         }
-        this.article = article;
+        this.articletexte = articletexte;
     }
 
     public String getPathImage() {
@@ -179,7 +179,7 @@ public class ArticleBlog {
                 ", timestamp=" + timestamp +
                 ", page='" + page + '\'' +
                 ", title='" + title + '\'' +
-                ", article='" + article + '\'' +
+                ", articletexte='" + articletexte + '\'' +
                 ", pathImage='" + pathImage + '\'' +
                 ", commentImage='" + commentImage + '\'' +
                 '}';

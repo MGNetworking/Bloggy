@@ -54,12 +54,12 @@
 <div id="mainbody" class="colonneMain">
 
     <main id="mainContant">
-        <article>
+        <articletexte>
             <header>
                 <h2>Dell precision 7520</h2>
             </header>
             <p>
-                <img src="<c:url value="/static/image/article/dellPrecision_7520.png" />" alt="image du dell precision"/>
+                <img src="<c:url value="/static/image/articletexte/dellPrecision_7520.png" />" alt="image du dell precision"/>
                 <span class="enteteParagraphe">
                 <a href="https://ark.intel.com/content/www/fr/fr/ark/products/88970/intel-core-i7-6820hq-processor-8m-cache-up-to-3-60-ghz.html"
                    target="_blank">Processeurs </a>haut de gamme:&nbsp;</span> Nous savons que vous vous
@@ -90,8 +90,8 @@
                 Dell Precision 7520 et 7720 sont les premières à être équipées de la technologie DisplayPort 1.4, qui
                 prend en charge la résolution
                 8K et la fonctionnalité HDR dans un câble unique</p>
-        </article>
-        <!-- Fin de l'article sur Dell -->
+        </articletexte>
+        <!-- Fin de l'articletexte sur Dell -->
 
 
         <p>

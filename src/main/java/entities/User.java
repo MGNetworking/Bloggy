@@ -2,6 +2,7 @@ package entities;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -16,9 +17,10 @@ public class User {
     private String avatar;
     private String password;
     private String email;
-    private int attemp;
+    private String token;
+    private Timestamp tokenDate;
 
-    private String cooki;
+    private int attemp;
 
     List<RoleUser> listeRole = new ArrayList<>(5);
 
@@ -283,6 +285,27 @@ public class User {
     }
 
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Timestamp getTokenDate() {
+        return tokenDate;
+    }
+
+    public void setTokenDate(Timestamp tokenDate) {
+        this.tokenDate = tokenDate;
+    }
+
+    public void deleteTokenUser(){
+        this.setToken(null);
+        this.setTokenDate(null);
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -292,8 +315,9 @@ public class User {
                 ", avatar='" + avatar + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
+                ", tokenDate=" + tokenDate +
                 ", attemp=" + attemp +
-                ", cooki='" + cooki + '\'' +
                 ", listeRole=" + listeRole +
                 '}';
     }

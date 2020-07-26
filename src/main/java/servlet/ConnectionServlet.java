@@ -1,31 +1,35 @@
 package servlet;
 
 import entities.User;
-import dao.DaoAuthentification;
+import dao.DaoUser;
+import lombok.extern.slf4j.Slf4j;
+import util.TokenHelper;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 @WebServlet(urlPatterns = "/connection")
 public class ConnectionServlet extends HttpServlet {
 
     /*    @Resource(name = "Myblog")*/
     private DataSource dataSource;
+    private DaoUser daoUser;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    // 2 Day in seconds
+    private static final int TIME_TOKEN_AUTH = 2 * 24 * 60 * 60;
 
     @Override
     public void init() throws ServletException {
@@ -39,10 +43,14 @@ public class ConnectionServlet extends HttpServlet {
                 this.dataSource = (DataSource) contextEnv.lookup("Myblog");
 
             }
+
+            if (daoUser == null){
+                daoUser = new DaoUser(dataSource);
+            }
+
         } catch (NamingException nex) {
 
-            // todo fair logger Error
-            System.out.println(nex);
+            log.warn("Error : " + nex.getCause() + " | " + nex.getRootCause());
             throw new ServletException(nex);
         }
 
@@ -57,29 +65,38 @@ public class ConnectionServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String connect = req.getParameter("connect") ;
+        String connect = req.getParameter("connect");
 
-        if (connect == null){
+        if (connect == null) {
 
             this.getServletContext()
                     .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
                     .forward(req, resp);
 
-        }else if (connect.equals("deconnexion")) {
+        } else if (connect.equals("deconnexion")) {
 
-            if (req.getSession().getAttribute("user") != null){
+            log.info("connection : " + req.getParameter("connect"));
 
-                req.getSession().removeAttribute("user");
-                // TODO supprimer le token des cookies
-                // TODO le cookies doit etre dans l'objet USER
-                System.out.println("connection : " + req.getParameter("connect"));
+            if (req.getSession().getAttribute("user") != null) {
+
+                User user = (User)req.getSession().getAttribute("user");
+                user.deleteTokenUser();
+
+                if( this.daoUser.update(user) == true ){
+                    req.getSession().removeAttribute("user");
+
+                    Cookie cookieDeconnection = new Cookie("token_auth", null);
+                    cookieDeconnection.setMaxAge(0);
+                    resp.addCookie(cookieDeconnection);
+
+                    log.info("value cookie deconnection : " + cookieDeconnection);
+                }
 
             }
-
-            System.out.println("passe ici ");
 
             this.getServletContext()
                     .getRequestDispatcher("/WEB-INF/jsp/index.jsp")
@@ -98,20 +115,42 @@ public class ConnectionServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req,
+                          HttpServletResponse resp) throws ServletException, IOException {
 
 
         User user = new User(
                 req.getParameter("name"),
                 req.getParameter("password"));
 
-
-        user = DaoAuthentification.validation(this.dataSource, user);
+        user = this.daoUser.Authentication(user);
 
         // Create user to session
         if (user.getId() != null) {
 
             req.getSession().setAttribute("user", user);
+
+            log.info("Remember me : " + req.getParameter("remember"));
+
+            if (req.getParameter("remember") != null) {
+
+                // add token user
+                user.setToken(TokenHelper.generateToken(60));
+                user.setTokenDate(Timestamp.valueOf(LocalDateTime.now().plusSeconds(TIME_TOKEN_AUTH)));
+
+
+                if (this.daoUser.update(user) == true) {
+
+                    Cookie cookieAuthentification = new Cookie("token_auth", user.getToken());
+                    cookieAuthentification.setHttpOnly(true);
+                    cookieAuthentification.setMaxAge(TIME_TOKEN_AUTH);
+                    resp.addCookie(cookieAuthentification);
+
+                } else {
+                    user.deleteTokenUser();
+                }
+
+            }
 
             // renvoi vers la page de retour formulaire
             this.getServletContext()
@@ -124,7 +163,7 @@ public class ConnectionServlet extends HttpServlet {
                     .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
                     .forward(req, resp);
 
-            // TODO redirection a voir ce qui est le mieux
+            // TODO redirection apres le decompte de tentative
             // resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }
 

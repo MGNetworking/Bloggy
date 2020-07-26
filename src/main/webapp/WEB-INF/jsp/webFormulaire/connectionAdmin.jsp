@@ -70,9 +70,15 @@
                 <label for="" class="name">Nom :</label>
                 <input name="name" type="text" required autofocus tabindex="1">
             </div>
+
             <div>
                 <label for="" class="name">Password :</label>
                 <input name="password" type="password" required autofocus tabindex="2">
+            </div>
+
+            <div>
+                <label for="remember">Remember Me</label>
+                <input name="remember" type="checkbox" tabindex="3">
             </div>
 
             <button type="submit" tabindex="3">Envoyer</button>

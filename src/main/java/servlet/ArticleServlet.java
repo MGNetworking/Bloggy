@@ -91,9 +91,9 @@ public class ArticleServlet extends HttpServlet {
 
 
 
-                req.setAttribute("validation", validatArticle);
+                req.setAttribute("Authentication", validatArticle);
 
-                // TODO dans la page passer la validation
+                // TODO dans la page passer la Authentication
                 this.getServletContext()
                         .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/retourformulaire.jsp");
             }

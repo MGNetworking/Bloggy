@@ -1,6 +1,7 @@
 package dao;
 
 import entities.ArticleBlog;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 public class DaoArticle implements IDAO {
 
     private DataSource dataSource;
@@ -25,21 +26,22 @@ public class DaoArticle implements IDAO {
 
 
     private static String INSERT_ARTICLE =
-            "insert into blog.article (id_user, date, page, titre, article, pathimage, commentimage)VALUES(?,?,?,?,?,?,?)";
+            "insert into blog.article (id_user, date, page, title, article, pathimage, commentimage) " +
+                    "VALUES(?,?,?,?,?,?,?)";
 
     private static String SELECT_ARTICLE =
             "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
                     "FROM blog.article where id_article = ?";
 
-    private static String SELECT_ALL = "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
+    private static String SELECT_ALL = "SELECT id_article, date, page, title, articletexte, pathimage, commentimage " +
             "FROM blog.article";
 
     private static String UPDATE_ARTICLE = "UPDATE blog.article " +
-            "SET date = ?,page = ?, titre = ?,article = ?,pathimage = ?,commentimage = ? where id_article = ?";
+            "SET date = ?,page = ?, title = ?,articletexte = ?,pathimage = ?,commentimage = ? where id_article = ?";
 
     private static String DELETE_ARTILCE = "DELETE FROM blog.article where id_article = ?";
 
-    private static String SELECT_OFFSET = "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
+    private static String SELECT_OFFSET = "SELECT id_article, date, page, title, articletexte, pathimage, commentimage " +
             "FROM blog.article order by id_article limit ? offset ?";
 
     public DaoArticle(DataSource dataSource) {
@@ -86,8 +88,8 @@ public class DaoArticle implements IDAO {
             articleBlog.setTitle(request.getParameter("titre"));
             preparedStatement.setString(4, articleBlog.getTitle());
 
-            articleBlog.setArticle(request.getParameter("article"));
-            preparedStatement.setString(5, articleBlog.getArticle());
+            articleBlog.setArticletexte(request.getParameter("article"));
+            preparedStatement.setString(5, articleBlog.getArticletexte());
 
             // add image to server
             DaoFile.createFile(request, articleBlog);
@@ -182,7 +184,7 @@ public class DaoArticle implements IDAO {
             preparedStatement.setTimestamp(2, articleBlog.getTimestamp());
             preparedStatement.setString(3, articleBlog.getPage());
             preparedStatement.setString(4, articleBlog.getTitle());
-            preparedStatement.setString(5, articleBlog.getArticle());
+            preparedStatement.setString(5, articleBlog.getArticletexte());
             preparedStatement.setString(6, articleBlog.getPathImage());
             preparedStatement.setString(7, articleBlog.getCommentImage());
 
@@ -261,7 +263,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
                     articleBlog.setTitle(resultSet.getString(4));
-                    articleBlog.setArticle(resultSet.getString(5));
+                    articleBlog.setArticletexte(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));
                 }
@@ -300,7 +302,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
                     articleBlog.setTitle(resultSet.getString(4));
-                    articleBlog.setArticle(resultSet.getString(5));
+                    articleBlog.setArticletexte(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));
 
@@ -357,7 +359,7 @@ public class DaoArticle implements IDAO {
                     articleBlog.setTimestamp(resultSet.getTimestamp(2));
                     articleBlog.setPage(resultSet.getString(3));
                     articleBlog.setTitle(resultSet.getString(4));
-                    articleBlog.setArticle(resultSet.getString(5));
+                    articleBlog.setArticletexte(resultSet.getString(5));
                     articleBlog.setPathImage(resultSet.getString(6));
                     articleBlog.setCommentImage(resultSet.getString(7));
 
