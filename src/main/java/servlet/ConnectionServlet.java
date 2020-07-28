@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -123,7 +122,7 @@ public class ConnectionServlet extends HttpServlet {
                 req.getParameter("name"),
                 req.getParameter("password"));
 
-        user = this.daoUser.Authentication(user);
+        user = this.daoUser.authentication(user);
 
         // Create user to session
         if (user.getId() != null) {

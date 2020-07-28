@@ -61,6 +61,14 @@
 
         <form action="<c:url value="/article"/>?page=indexArticle" method="post" enctype="multipart/form-data">
 
+<%--
+todo creer un filtre CSRF token pour l'ajoute des articles voir aussi autre formulaire du site
+
+            <c:set var="csrfToken" value="${ TokenHelper.generateCsrfToken() }" />
+            <c:set var="_csrfToken" value="${csrfToken}" scope="session" />
+            <input type="hidden" value="${csrfToken}" name="${ TokenHelper.CSRF_TOKEN_VALUE_NAME }" />
+--%>
+
             <div>
                 <p>Nom du createur de l'article : ${sessionScope.user.name}</p>
                 <input  type="hidden" name="id" value="${sessionScope.user.id}">

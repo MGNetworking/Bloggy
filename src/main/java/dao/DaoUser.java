@@ -4,6 +4,7 @@ import entities.RoleUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.Cookie;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.List;
 public class DaoUser {
 
     private DataSource dataSource;
+    private static String FIELD_USER= "id_user, name ,firstname ,avatar , email";
 
-    private static String SQL_GET_AUTHENTICATION =
-            "SELECT id_user, name ,firstname ,avatar , password_user ,email" +
+    private static String SQL_GET_AUTHENTICATION = "SELECT " + FIELD_USER +
                     " FROM blog.user where name = ? AND password_user = ?";
 
     private static String SQL_GET_DROIT =
@@ -29,6 +30,8 @@ public class DaoUser {
                     "token = ? ," +
                     "tokendate = ? where id_user = ?";
 
+    private static String SQL_SEARCH_TOKEN = "SELECT name,password_user FROM blog.user where token = ?";
+
     public DaoUser(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -39,7 +42,7 @@ public class DaoUser {
      * @param dataSource
      * @return User object
      */
-    public User Authentication(User user) {
+    public User authentication(User user) {
 
 
         try (Connection connection = this.dataSource.getConnection();
@@ -58,7 +61,7 @@ public class DaoUser {
                     user.setId(resultSetAut.getLong(1));
                     user.setFirstName(resultSetAut.getString(3));
                     user.setAvatar(resultSetAut.getString(4));
-                    user.setEmail(resultSetAut.getString(6));
+                    user.setEmail(resultSetAut.getString(5));
 
                 } else {
 
@@ -81,13 +84,13 @@ public class DaoUser {
                                         getString("role_name")));
 
                     }
-                    System.out.println("user : " + user.toString());
+                    log.info("User get : " + user.toString());
                 }
             }
 
         } catch (SQLException e) {
 
-            log.warn("Enter refuser " +
+            log.error("Enter refuser " +
                     e.getMessage() + " | " +
                     e.getSQLState());
         }
@@ -142,9 +145,51 @@ public class DaoUser {
         return false;
     }
 
+    /**
+     * Allows to get a user by his token , if user is find in databases
+     * so a searching in databases is execute for searching his user right
+     * @param cookie
+     * @return
+     * @throws SQLException
+     */
+    public User findUserByToken(Cookie cookie) throws SQLException {
 
-    public Object find(User user) throws SQLException {
-        return null;
+        User user = null;
+
+        try(Connection connection = this.dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_SEARCH_TOKEN)){
+
+            statement.setString(1,cookie.getValue());
+
+            log.info("get user by token ");
+
+            try(ResultSet resultSet = statement.executeQuery()){
+
+                if (resultSet.next()){
+                    user.setName(resultSet.getString(1));
+                    user.setPassword(resultSet.getString(2));
+
+                }
+            }
+
+            // search to user right
+            if (user != null) {
+                user = this.authentication(user);
+            }
+
+            log.info("User get by token : " + user.toString());
+
+        }catch (SQLException e) {
+
+            String message = "Enter refuser " +
+                    e.getMessage() + " | " +
+                    e.getSQLState();
+            log.error(message);
+
+            throw new SQLException(message);
+        }
+
+        return user;
     }
 
 
