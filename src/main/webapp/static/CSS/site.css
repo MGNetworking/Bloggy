@@ -5,12 +5,12 @@
 
 @font-face {
     font-family: "shadows";
-    src: url(./static/fonts/ShadowsIntoLight-Regular.ttf);
+    src: url(http://localhost:8080/Blog_Java_EE_JSP_war_exploded/static/fonts/ShadowsIntoLight-Regular.ttf);
 }
 
 @font-face {
     font-family: "dancing";
-    src: url(./static/fonts/DancingScript-VariableFont_wght.ttf);
+    src: url(http://localhost:8080/Blog_Java_EE_JSP_war_exploded/static/fonts/DancingScript-VariableFont_wght.ttf);
 }
 
 :root {
@@ -205,7 +205,7 @@ la couche d'affichage du font avec le contenu de mainContant */
 
 #mainbody {
     /*Ajoute l'image de font*/
-    background-image: url(./static/image/background/background_image_1.jpg);
+    background-image: url( http://localhost:8080/Blog_Java_EE_JSP_war_exploded/static/image/background/background_image_1.jpg);
     /*pas de repétition ici superflu */
     background-repeat: no-repeat;
     /* positionne le centre de l'image (trs grand image)*/

@@ -2,10 +2,10 @@ package service;
 
 import dao.DaoArticle;
 import entities.ArticleBlog;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sun.rmi.transport.ObjectTable;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -19,13 +19,14 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 public class ServiceArticle {
 
     private DataSource dataSource;
     private DaoArticle daoArticle;
-    private final static Logger LOGGER = LogManager.getLogger(ServiceArticle.class);
 
     private void initDataSource() throws RuntimeException {
+
         try {
             if (dataSource == null) {
 
@@ -37,54 +38,64 @@ public class ServiceArticle {
             }
 
         } catch (NamingException ne) {
+
             String message = "Naming Exception data Source : " +
                     ne.getStackTrace() + "\n" +
                     ne.getMessage() + "\n" +
                     ne.getCause();
 
-            LOGGER.error(message);
+            log.error(message);
             throw new RuntimeException(message);
         }
     }
 
-    public boolean createArticle(HttpServletRequest request)
-            throws IOException,
-            ServletException,
-            SQLException {
+    public boolean createArticle(HttpServletRequest request) throws IOException, ServletException, SQLException {
 
         this.initDataSource();
         boolean execute = false;
 
         try {
+
             execute = this.daoArticle.create(request);
+
         } catch (SQLException sql) {
 
-            LOGGER.error(sql.getMessage());
-            throw new RuntimeException("Erreur sur la creation de l'article");
+            String message = "Echec to create: " +
+                    sql.getStackTrace() + "\n" +
+                    sql.getMessage() + "\n" +
+                    sql.getCause();
+
+            log.error(message);
+            throw new RuntimeException(message);
         }
 
         return execute;
     }
 
-    public boolean updateArticle(HttpServletRequest request)
-            throws RuntimeException  {
+    public boolean updateArticle(HttpServletRequest request) throws RuntimeException {
 
         this.initDataSource();
         boolean execute = false;
 
         try {
+
             execute = this.daoArticle.update(request);
+
         } catch (SQLException sql) {
 
-            LOGGER.error(sql.getMessage());
-            throw new RuntimeException("Erreur sur la mise a jour de l'article");
+            String message = "Echec to update : " +
+                    sql.getStackTrace() + "\n" +
+                    sql.getMessage() + "\n" +
+                    sql.getCause();
+
+            log.error(message);
+            throw new RuntimeException(message);
         }
 
         return execute;
     }
 
-    public boolean deleteArticle(HttpServletRequest request)
-            throws RuntimeException {
+    public boolean deleteArticle(HttpServletRequest request) throws RuntimeException {
 
         this.initDataSource();
         boolean execute = false;
@@ -93,15 +104,19 @@ public class ServiceArticle {
             execute = this.daoArticle.delete(request);
         } catch (SQLException sql) {
 
-            LOGGER.error(sql.getMessage());
-            throw new RuntimeException("Erreur sur la suppression de l'article");
+            String message = "Echec to delete article : " +
+                    sql.getStackTrace() + "\n" +
+                    sql.getMessage() + "\n" +
+                    sql.getCause();
+
+            log.error(message);
+            throw new RuntimeException(message);
         }
 
         return execute;
     }
 
-    public List<ArticleBlog> findAllArticle(HttpServletRequest request)
-            throws RuntimeException {
+    public List<ArticleBlog> findAllArticle(HttpServletRequest request) throws RuntimeException {
 
         this.initDataSource();
         List<ArticleBlog> listArticle = null;
@@ -110,8 +125,13 @@ public class ServiceArticle {
             listArticle = this.daoArticle.findAll();
         } catch (SQLException sql) {
 
-            LOGGER.error(sql.getMessage());
-            throw new RuntimeException("Erreur sur la recherche de la liste des articles");
+            String message = "Echec to get find All article : " +
+                    sql.getStackTrace() + "\n" +
+                    sql.getMessage() + "\n" +
+                    sql.getCause();
+
+            log.error(message);
+            throw new RuntimeException(message);
         }
 
         return listArticle;

@@ -10,24 +10,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta name="description" content="Découvrez des information sur ghalem maxime son curriculum vitae"/>
 
-    <link rel="stylesheet" href="<c:url value="static/CSS/accessibiliter.css" />" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="static/CSS/normalize.css"/>" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="static/CSS/site.css"/> " type="text/css"/>
-
-    <!-- menu petit ecran -->
-    <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
-    <script src="<c:url value="static/js/menu.js" />"></script>
-
-    <!-- fonction dynamique  -->
-    <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
-
+    <link rel="stylesheet" href="<c:url value="/static/CSS/accessibiliter.css" />" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/CSS/normalize.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/CSS/site.css"/> " type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/fonts/*"/> " type="font/ttf"/>
+    <%--<c:import url="/jsp/elements/headImport.jsp"></c:import>--%>
 </head>
 
 <body>
 
 <header id="mainHearder">
-
     <a href="<c:url value="/home"/>#mainContant">
+
         <img src="<c:url value="/static/image/icon/max.png"/>"
              alt="image ico du site" title="retour a la page d'accueil"
              id="logo"/>
@@ -55,6 +49,7 @@
     </nav>
     <button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> "
                                  alt="ouvrir / Fermer le menu"/></button>
+    <%--<c:import url="/jsp/elements/navBar.jsp"></c:import>--%>
 </header>
 <!-- fin mainHearder -->
 
@@ -62,12 +57,12 @@
 
     <main id="mainContant">
 
-        <h2>Creation d'un articletexte</h2>
+        <h2>Creation d'un article</h2>
 
-        <form action="<c:url value="/articletexte"/>?page=indexArticle" method="post" enctype="multipart/form-data">
+        <form action="<c:url value="/article"/>?page=indexArticle" method="post" enctype="multipart/form-data">
 
             <div>
-                <p>Nom du createur de l'articletexte : ${sessionScope.user.name}</p>
+                <p>Nom du createur de l'article : ${sessionScope.user.name}</p>
                 <input  type="hidden" name="id" value="${sessionScope.user.id}">
             </div>
 
@@ -77,13 +72,13 @@
             </div>
 
             <div>
-                <label for="articletexte" class="name">Le texte</label>
-                <textarea name="articletexte" id="articletexte" cols="30" rows="10" required tabindex="2"></textarea>
+                <label for="article" class="name">Le texte</label>
+                <textarea name="article" id="article" cols="30" rows="10" required tabindex="2"></textarea>
             </div>
 
             <div>
                 <label for="file">Ajouté une image png ou jpeg au Texte</label>
-                <input type="file" name="image-articletexte" accept="image/png, image/jpeg" tabindex="3">
+                <input type="file" name="image-article" accept="image/png, image/jpeg" tabindex="3">
             </div>
 
             <div>
@@ -102,12 +97,40 @@
 
 
     <aside id="colonneDroitAside">
+        <section id="connection">
+            <h2>Connection</h2>
+            <ul>
+                <c:if test="${ not empty sessionScope.user.listeRole}">
+
+                    <li>Identité : ${sessionScope.user.name}</li>
+
+                    <c:if test="${sessionScope.user.listeRole == '[ADMIN, USER_ARTICLE]'}">
+                        <li>Vos droit : ${sessionScope.user.listeRole}</li>
+                        <li><a href="<c:url value="/A faire ...."/>">Gestion ADMIN</a></li>
+                    </c:if>
+
+                    <c:if test="${sessionScope.user.listeRole == '[USER_ARTICLE]'}">
+                        <li>Vos droit : ${sessionScope.user.listeRole}</li>
+                    </c:if>
+
+                    <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un article de blog</a></li>
+                    <li><a href="<c:url value="/connection"/>?connect=deconnexion">Déconnexion</a></li>
+                </c:if>
+
+                <c:if test="${ empty sessionScope.user.listeRole}">
+                    <li><a href="<c:url value="/connection"/>">Connection</a></li>
+                </c:if>
+
+
+            </ul>
+        </section>
 
         <section id="blogRecherche">
             <h2><label for="search">recherche</label></h2>
             <input type="search" name="search" id="search"/>
         </section>
         <!-- fin moteur de blogRecherche -->
+
 
         <section id="categories">
             <h2>categories</h2>
@@ -118,6 +141,8 @@
                 <li><a href="#">voyage&nbsp;<span>8</span></a></li>
             </ul>
         </section>
+
+
         <!-- fin Categories -->
 
         <section id="blogAchives">
@@ -143,8 +168,7 @@
 
         </section>
         <!-- fin blogAchives -->
-
-
+        <%--<c:import url="/jsp/elements/asideSection.jsp"></c:import>--%>
     </aside>
     <!-- fin colonneDroit-->
 
@@ -152,12 +176,17 @@
 </div>
 <!-- fin mainbody -->
 
+<!-- menu petit ecran -->
+<script src="<c:url value="/static/js/jquery-3.5.0.js" />"></script>
+<script src="<c:url value="/static/js/menu.js" />"></script>
+<!-- fonction dynamique  -->
+<script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
+<%--<c:import url="/jsp/elements/scriptImport.jsp"></c:import>--%>
+</body>
 
 <footer id="mainFooter">
     <p>&copy;copyright ghalem maxime - 2020</p>
 </footer>
 <!-- fin mainFooter -->
-
-</body>
 
 </html>

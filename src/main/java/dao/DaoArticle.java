@@ -18,31 +18,29 @@ import java.util.List;
 public class DaoArticle implements IDAO {
 
     private DataSource dataSource;
-    private final static Logger LOGGER = LogManager.getLogger(DaoArticle.class);
 
-    /**
-     * Chemin dans lequel les images seront sauvegardées.
-     */
-
+    private static final String SQL_PARAM = "id_article , date , page , title , articletexte , pathimage , commentimage";
 
     private static String INSERT_ARTICLE =
-            "insert into blog.article (id_user, date, page, title, article, pathimage, commentimage) " +
+            "insert into blog.article (id_user, date, page, title, articletexte, pathimage, commentimage ) " +
                     "VALUES(?,?,?,?,?,?,?)";
 
     private static String SELECT_ARTICLE =
-            "SELECT id_article, date, page, titre, article, pathimage, commentimage " +
-                    "FROM blog.article where id_article = ?";
+            "SELECT " + SQL_PARAM +
+                    " FROM blog.article where id_article = ?";
 
-    private static String SELECT_ALL = "SELECT id_article, date, page, title, articletexte, pathimage, commentimage " +
-            "FROM blog.article";
+    private static String SELECT_ALL = "SELECT " + SQL_PARAM +
+            " FROM blog.article";
 
     private static String UPDATE_ARTICLE = "UPDATE blog.article " +
-            "SET date = ?,page = ?, title = ?,articletexte = ?,pathimage = ?,commentimage = ? where id_article = ?";
+            "SET date = ?,page = ?, title = ?,articletexte = ?,pathimage = ?,commentimage = ? " +
+            "where id_article = ?";
 
-    private static String DELETE_ARTILCE = "DELETE FROM blog.article where id_article = ?";
+    private static String DELETE_ARTILCE = "DELETE FROM blog.article " +
+            "where id_article = ?";
 
-    private static String SELECT_OFFSET = "SELECT id_article, date, page, title, articletexte, pathimage, commentimage " +
-            "FROM blog.article order by id_article limit ? offset ?";
+    private static String SELECT_OFFSET = "SELECT " + SQL_PARAM +
+            " FROM blog.article order by id_article limit ? offset ?";
 
     public DaoArticle(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -71,10 +69,6 @@ public class DaoArticle implements IDAO {
             connection.setAutoCommit(false);                    // gestion de la transaction
             ArticleBlog articleBlog = new ArticleBlog();
 
-            System.out.println("local date time  : " + LocalDateTime.now());
-            System.out.println("local date time to valof Time stamps : " + Timestamp.valueOf(LocalDateTime.now()));
-            System.out.println("ID : " +Long.parseLong(request.getParameter("id")));
-
             articleBlog.setId(Long.parseLong(request.getParameter("id")));
             preparedStatement.setLong(1, articleBlog.getId());
 
@@ -85,7 +79,7 @@ public class DaoArticle implements IDAO {
             articleBlog.setPage(request.getParameter("page"));
             preparedStatement.setString(3, articleBlog.getPage());
 
-            articleBlog.setTitle(request.getParameter("titre"));
+            articleBlog.setTitle(request.getParameter("title"));
             preparedStatement.setString(4, articleBlog.getTitle());
 
             articleBlog.setArticletexte(request.getParameter("article"));
@@ -130,20 +124,20 @@ public class DaoArticle implements IDAO {
                     sql.getMessage() + "\n" +
                     sql.getCause();
 
-            LOGGER.error(message);
-            System.out.println(message);
+            log.error(message);
+
             connection.rollback();
 
 
-        }catch (IOException ioe) {
+        } catch (IOException ioe) {
 
             String message = "erreur ioe : " +
                     ioe.getStackTrace() + "\n" +
                     ioe.getMessage() + "\n" +
                     ioe.getCause();
 
-            LOGGER.error(message);
-            System.out.println(message);
+            log.error(message);
+
             connection.rollback();
 
         } catch (ServletException se) {
@@ -153,8 +147,8 @@ public class DaoArticle implements IDAO {
                     se.getMessage() + "\n" +
                     se.getCause();
 
-            LOGGER.error(message);
-            System.out.println(message);
+            log.error(message);
+
             connection.rollback();
 
         } finally {
@@ -162,7 +156,7 @@ public class DaoArticle implements IDAO {
             if (connection != null) {
 
                 connection.close();
-                System.out.println("Fermeture de la connection a la base de données");
+                log.info("Fermeture de la connection a la base de données");
             }
         }
 
@@ -188,7 +182,6 @@ public class DaoArticle implements IDAO {
             preparedStatement.setString(6, articleBlog.getPathImage());
             preparedStatement.setString(7, articleBlog.getCommentImage());
 
-
             preparedStatement.executeUpdate();                  // lancement de la requete
 
             execute = true;
@@ -201,7 +194,7 @@ public class DaoArticle implements IDAO {
                     sql.getStackTrace() + "\n" +
                     "Recherche Article par id : " + articleBlog;
 
-            LOGGER.error(Message);
+            log.error(Message);
             throw new SQLException(Message);
         }
 
@@ -229,7 +222,7 @@ public class DaoArticle implements IDAO {
                     sql.getSQLState() + "\n" +
                     sql.getStackTrace() + "\n";
 
-            LOGGER.error(Message);
+            log.error(Message);
             throw new SQLException(Message);
         }
 
@@ -271,14 +264,14 @@ public class DaoArticle implements IDAO {
 
         } catch (SQLException sql) {
 
-            String Message = "Problème sql find : " +
+            String message = "Problème sql find : " +
                     sql.getCause() + "\n" +
                     sql.getSQLState() + "\n" +
                     sql.getStackTrace() + "\n" +
                     "Recherche Article par id : " + articleBlog;
 
-            LOGGER.error(Message);
-            throw new SQLException(Message);
+            log.error(message);
+            throw new SQLException(message);
         }
 
         return articleBlog;
@@ -307,26 +300,22 @@ public class DaoArticle implements IDAO {
                     articleBlog.setCommentImage(resultSet.getString(7));
 
                     listArticle.add(articleBlog);
-
                 }
-
             }
 
         } catch (SQLException sql) {
 
-            String Message = "Problème sql findAll : " +
+            String message = "Problème sql findAll : " +
                     sql.getCause() + "\n" +
                     sql.getSQLState() + "\n" +
                     sql.getStackTrace() + "\n";
 
-            LOGGER.error(Message);
-            throw new SQLException(Message);
+            log.error(message);
+            throw new SQLException(message);
         }
 
         return listArticle;
     }
-
-
 
     /**
      * Methode permet la gestion d'une pagination. La pagination demande le nombre d'article limite
@@ -364,13 +353,8 @@ public class DaoArticle implements IDAO {
                     articleBlog.setCommentImage(resultSet.getString(7));
 
                     listArticle.add(articleBlog);
-
-
                 }
-
             }
-
-
         }
         return listArticle;
     }

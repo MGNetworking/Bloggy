@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
     <meta name="description" content="si vous voulez me contact"/>
 
-    <link rel="stylesheet" href="<c:url value="static/CSS/accessibiliter.css" />" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="static/CSS/normalize.css"/>" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="static/CSS/site.css"/> " type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/CSS/accessibiliter.css" />" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/CSS/normalize.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/static/CSS/site.css"/> " type="text/css"/>
 
     <!-- menu petit ecran -->
     <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>

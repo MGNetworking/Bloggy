@@ -206,7 +206,7 @@ public class User {
             throw new RuntimeException("The String Value password is empty");
         }
 
-        if (!(password.matches("^[A-Za-z0-9 @ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]{3,}$"))) {
+        if (!(password.matches("^[A-Za-z0-9 @ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ]{6,}$"))) {
             log.debug("The password not matching");
             throw new RuntimeException("The password not matching");
         }

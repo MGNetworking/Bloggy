@@ -1,6 +1,7 @@
 package dao;
 
 import entities.ArticleBlog;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
@@ -10,12 +11,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+@Slf4j
 public class DaoFile  {
 
     public static final String IMAGES_FOLDER = "static\\image\\article\\";
-
-    private final static Logger LOGGER = LogManager.getLogger(DaoArticle.class);
-
 
     public static void createFile(HttpServletRequest request,
                                   ArticleBlog articleBlog)
@@ -41,8 +40,7 @@ public class DaoFile  {
                                 ioe.getCause() + "\n" +
                                 ioe.getStackTrace() ;
 
-                        LOGGER.error(message);
-                        System.out.println(message);
+                        log.error(message);
                         throw new RuntimeException(message);
                     }
                 }
@@ -61,12 +59,10 @@ public class DaoFile  {
         for (String content : part.getHeader("content-disposition").split(";")) {
 
             if (content.trim().startsWith("filename")) {
+                log.info("filename : " + part.getName());
 
                 return content.substring(content.indexOf("=") + 2, content.length() - 1);
 
-            } else {
-                System.out.println("Error file name " + part.getName());
-               LOGGER.error("Error file name " + part.getName());
             }
 
         }

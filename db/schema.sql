@@ -58,10 +58,10 @@ CREATE TABLE blog.user
 );
 
 insert into blog.user(name, firstName, avatar, password_user, email)
-values ('maxime', 'ghalem', 'MGAvatar', '123', 'maxime@gmail.com'),
-       ('sylvain', 'syl-firstName', 'sylAvatar', '456', 'sylvain@gmail.com'),
-       ('fabien', 'fa-firstName', 'fabAvatar', '789', 'fabien@gmail.com'),
-       ('ernestas', 'er-firstName', 'ernesAvatar', '321', 'ernestas@gmail.com');
+values ('maxime', 'ghalem', 'MGAvatar', '123456', 'maxime@gmail.com'),
+       ('sylvain', 'syl-firstName', 'sylAvatar', '456123', 'sylvain@gmail.com'),
+       ('fabien', 'fa-firstName', 'fabAvatar', '789123', 'fabien@gmail.com'),
+       ('ernestas', 'er-firstName', 'ernesAvatar', '321123', 'ernestas@gmail.com');
 
 
 -- user_role : associtive table

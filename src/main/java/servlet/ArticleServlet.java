@@ -1,6 +1,7 @@
 package servlet;
 
 import entities.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB seuil de la taille du fichier
         maxFileSize = 1024 * 1024 * 10, // 10 MB
@@ -59,9 +60,7 @@ public class ArticleServlet extends HttpServlet {
         // si est contenu dans la liste
         if (pageArticle != null) {
 
-            LOGGER.info("Value of Key : " + pageListe.get(pageArticle));
-            System.out.println("Value of Key : " + pageListe.get(pageArticle));
-
+            log.info("Value of Key : " + pageListe.get(pageArticle));
             // renvoie vers la page de creation d'un article
             this.getServletContext()
                     .getRequestDispatcher(pageListe.get(pageArticle))
@@ -81,27 +80,23 @@ public class ArticleServlet extends HttpServlet {
             throws ServletException, IOException {
 
         boolean val = req.getParameter("page").equals("indexArticle");
-        System.out.println("val : " + val);
 
         try {
 
             if (req.getParameter("page").equals("indexArticle")) {
 
                 boolean validatArticle = new ServiceArticle().createArticle(req);
+                log.info("Ajoute de l'article en base : " + validatArticle);
 
+                req.setAttribute("validation", validatArticle);
 
-
-                req.setAttribute("Authentication", validatArticle);
-
-                // TODO dans la page passer la Authentication
                 this.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/retourformulaire.jsp");
+                        .getRequestDispatcher("/WEB-INF/jsp/webArticle/retourArticle.jsp")
+                        .forward(req,resp);
             }
 
         } catch (SQLException e) {
-
-            System.out.println("Une erreur SQl est survenu : " + e.getSQLState());
-            LOGGER.error("Une erreur SQl est survenu : " + e.getSQLState());
+            log.error("Une erreur SQl est survenu : " + e.getSQLState());
 
         }
     }

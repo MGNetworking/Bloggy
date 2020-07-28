@@ -125,12 +125,12 @@ public class UserTest {
      * @param password
      */
     @ParameterizedTest
-    @ValueSource(strings = {"", " ","m@xim", "ÀÁÂ68"})
+    @ValueSource(strings = {"", " ","m@xi", "ÀÁÂ6"})
     @DisplayName("test setPassword")
     public void testSetPassword(String password) {
 
         assertThrows(RuntimeException.class,
-                () -> user.setPassword(password), "format password Name not respect "
+                () -> user.setPassword(password), "format password not respect "
                         + password);
 
     }

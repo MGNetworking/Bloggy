@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="<c:url value="/static/CSS/normalize.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/static/CSS/site.css"/> " type="text/css"/>
 
+    <!-- menu petit ecran -->
+    <script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
+    <script src="<c:url value="static/js/menu.js" />"></script>
+
+    <!-- fonction dynamique  -->
+    <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
+
 </head>
 
 <body>
@@ -47,29 +54,32 @@
 
     <main id="mainContant" class="retrourForm">
 
-        <h2>Connection Reussi</h2>
-        <p>Vous etez connecter en tant que :
-            <c:forEach var="role" items="${sessionScope.user.listeRole}">
-                <c:out value="${role}"></c:out>
-            </c:forEach>
-        </p>
+        <c:if test="${requestScope.validation == true}">
+            <h2>Successfully</h2>
+            <p>Votre article de blog a été enregistré avec succès</p>
+            <p>Merci de votre contribution au blog</p>
+        </c:if>
+
+        <c:if test="${requestScope.validation == false}">
+            <h2>Echec</h2>
+            <p>Votre article de blog n'a pas été enregistré</p>
+            <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
+        </c:if>
+
+
     </main>
     <!-- fin mainContant-->
 
 </div>
 <!-- fin mainbody -->
 
-<!-- menu petit ecran -->
-<script src="<c:url value="static/js/jquery-3.5.0.js" />"></script>
-<script src="<c:url value="static/js/menu.js" />"></script>
-
-<!-- fonction dynamique  -->
-<script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
-</body>
 
 <footer id="mainFooter">
     <p>&copy;Copyright Ghalem Maxime - 2020</p>
 </footer>
 <!-- fin mainFooter -->
+
+
+</body>
 
 </html>
