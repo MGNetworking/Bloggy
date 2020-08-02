@@ -1,27 +1,16 @@
 package filtre;
 
-import dao.DaoUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @Slf4j
-@WebFilter(filterName = "authentication-Cookie-Filter")
-public class AuthenticationCookieFilter implements Filter {
-
-    private static DataSource dataSource;
-    private static DaoUser daoUser;
-
+@WebFilter(filterName = "session-filter")
+public class SessionFilter implements Filter {
     /**
      * <p>Called by the web container
      * to indicate to a filter that it is being placed into service.</p>
@@ -46,26 +35,6 @@ public class AuthenticationCookieFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
-        try {
-
-            if (dataSource == null) {
-
-                Context initContext = new InitialContext();
-                Context contextEnv = (Context) initContext.lookup("java:comp/env");
-
-                this.dataSource = (DataSource) contextEnv.lookup("Myblog");
-            }
-
-            if (daoUser == null){
-                daoUser = new DaoUser(dataSource);
-            }
-
-        } catch (NamingException nex) {
-
-            log.warn("Error : " + nex.getCause() + " | " + nex.getRootCause());
-            throw new ServletException(nex);
-        }
 
     }
 
@@ -111,32 +80,19 @@ public class AuthenticationCookieFilter implements Filter {
                          FilterChain chain)
             throws IOException, ServletException {
 
-        Cookie cookieAuth = getAuthTokenCookie((HttpServletRequest) request);
+        log.info("Filter session ");
 
         User user = (User) ((HttpServletRequest) request)
                 .getSession()
                 .getAttribute("user");
 
-        if (user.getId() == null){
-
-            if (cookieAuth != null){    // if user have token in browser
-
-                try{
-
-                    user = daoUser.findUserByToken(cookieAuth);
-
-                    ((HttpServletRequest) request)
-                            .getSession()
-                            .setAttribute("user", user);
-
-                }catch (SQLException sql){
-                    log.warn("doFilter authen : "+sql.getMessage());
-                }
-            }
+        if (user == null){
+            ((HttpServletRequest) request)
+                    .getSession()
+                    .setAttribute("user", new User());
         }
 
         chain.doFilter(request,response);
-
     }
 
     /**
@@ -159,28 +115,5 @@ public class AuthenticationCookieFilter implements Filter {
     @Override
     public void destroy() {
 
-    }
-
-    /**
-     * Allows get the cookie to token authentication in browser
-     *
-     * @param request
-     * @return
-     */
-    private static Cookie getAuthTokenCookie(HttpServletRequest request) {
-        Cookie tokenCookie = null;
-
-        if (request.getCookies() != null) {
-
-            for (Cookie cookie : request.getCookies()) {
-
-                if (cookie.getName().equals("token_auth")) {
-                    tokenCookie = cookie;
-                    break;
-                }
-            }
-        }
-
-        return tokenCookie;
     }
 }

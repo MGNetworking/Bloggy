@@ -22,7 +22,7 @@ public class User {
 
     private int attemp;
 
-    List<RoleUser> listeRole = new ArrayList<>(5);
+    Map<String,RoleUser> listeRole = new HashMap<>(5);
 
     public User() {
     }
@@ -272,7 +272,7 @@ public class User {
             throw new RuntimeException("the attemp value : " + attemp + " is not good");
         }
 
-        this.attemp = +attemp;
+        this.attemp = attemp;
     }
 
     /**
@@ -280,7 +280,7 @@ public class User {
      *
      * @return List<RoleUser> type.
      */
-    public List<RoleUser> getListeRole() {
+    public Map<String,RoleUser> getListeRole() {
         return listeRole;
     }
 

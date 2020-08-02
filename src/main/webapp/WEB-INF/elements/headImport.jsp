@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="<c:url value="/static/CSS/accessibiliter.css" />" type="text/css"/>
 <link rel="stylesheet" href="<c:url value="/static/CSS/normalize.css"/>" type="text/css"/>
 <link rel="stylesheet" href="<c:url value="/static/CSS/site.css"/> " type="text/css"/>
-<link rel="stylesheet" href="<c:url value="/static/fonts/*"/> " type="font/ttf"/>
+<link rel="stylesheet" href="<c:url value="/static/fonts/DancingScript-VariableFont_wght.ttf"/> " type="font/ttf"/>
+<link rel="stylesheet" href="<c:url value="/static/fonts/ShadowsIntoLight-Regular.ttf"/> " type="font/ttf"/>
 
 

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<head>
 <a href="<c:url value="/home"/>#mainContant">
 
     <img src="<c:url value="/static/image/icon/max.png"/>"
@@ -29,10 +30,13 @@
         <li><a href="<c:url value="/galerie"/>" title="Vers la page des galeries de photographies">Galeries</a></li>
         <li><a href="<c:url value="/contact"/>" title="Vers la page de contact">Contact</a></li>
         <li><a href="<c:url value="/about" />" title="Vers la page de l'à propos">A propos</a></li>
-        <li><a href="<c:url value="/blog"/>" title="Vers la page de mon Blog">Blog</a></li>
+        <li><a href="<c:url value="/article"/>?page=visite" title="Vers la page d'article">Article</a></li>
         <li><a href="https://github.com/MGNetworking" title="Vers Mon github">My github</a></li>
         <li><a href="<c:url value="/cv"/>" title="Vers la page de mon CV">CV</a></li>
     </ul>
 </nav>
-<button id="menuButton"><img src="<c:url value="/static/image/icon/hamburger.svg"/> "
-                             alt="ouvrir / Fermer le menu"/></button>
+<button id="menuButton">
+    <img src="<c:url value="/static/image/icon/hamburger.svg"/> "
+                             alt="ouvrir / Fermer le menu"/>
+</button>
+</head>

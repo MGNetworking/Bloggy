@@ -1,5 +1,6 @@
 package servlet;
 
+import entities.RoleUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Slf4j
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB seuil de la taille du fichier
@@ -38,15 +40,9 @@ import java.util.Map;
 public class ArticleServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1273074928096412095L;
-    private final static Logger LOGGER = LogManager.getLogger(ServiceArticle.class);
-    Map<String, String> pageListe = null;
 
     @Override
     public void init() throws ServletException {
-
-        pageListe = new HashMap<>(10);
-        pageListe.put("indexArticle", "/WEB-INF/jsp/webArticle/indexArticle.jsp");
-        pageListe.put("blogArticle", "/WEB-INF/jsp/webArticle/blogArticle.jsp");
 
     }
 
@@ -55,21 +51,55 @@ public class ArticleServlet extends HttpServlet {
                          HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String pageArticle = req.getParameter("page");
 
-        // si est contenu dans la liste
-        if (pageArticle != null) {
+        String paramPage = req.getParameter("page");
+        String paramArticle =  req.getParameter("article");
 
-            log.info("Value of Key : " + pageListe.get(pageArticle));
-            // renvoie vers la page de creation d'un article
-            this.getServletContext()
-                    .getRequestDispatcher(pageListe.get(pageArticle))
-                    .forward(req, resp);
+        if (paramPage != null){
 
-        } else {
-            // redirection vers la page d'index
-            resp.sendRedirect(req.getContextPath() + "/WEB-INF/jsp/index.jsp");
+
+            if (paramPage.equals("articleCreate")) {    // Pour la creation d'article
+
+                User user = (User) req.getSession().getAttribute("user");
+
+                log.info("User Artilce : " + user.getListeRole());
+
+                String role = ((RoleUser) user.getListeRole().get("USER_ARTICLE")).getRole();
+
+                // si a les droit de creation d'article
+                if (role.equals("USER_ARTICLE")) {
+
+
+                    req.setAttribute("formulaire","creationArticle" );
+
+                    // renvoie vers la page de creation d'un article
+                    this.getServletContext()
+                            .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
+                            .forward(req, resp);
+
+                }
+            }
+
+
+            if (paramPage.equals("visite")) {   // Pour la visiste des articles
+
+                if (paramArticle != null){
+                    if (paramArticle.equals("MyPc1")) {
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/webArticle/dellPrecision7520.jsp")
+                                .forward(req, resp);
+                    }
+                }
+
+                // Les articles de projet
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/principale/blog.jsp")
+                        .forward(req, resp);
+
+            }
         }
+
+
 
 
     }
@@ -79,24 +109,29 @@ public class ArticleServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException, IOException {
 
-        boolean val = req.getParameter("page").equals("indexArticle");
-
         try {
 
-            if (req.getParameter("page").equals("indexArticle")) {
+            boolean validatArticle = new ServiceArticle().createArticle(req);
+            log.info("l'article a etait ajoute : " + validatArticle);
 
-                boolean validatArticle = new ServiceArticle().createArticle(req);
-                log.info("Ajoute de l'article en base : " + validatArticle);
+            req.setAttribute("validation", validatArticle);
+            req.setAttribute("retour", "article");
 
-                req.setAttribute("validation", validatArticle);
+            this.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                    .forward(req, resp);
 
-                this.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/jsp/webArticle/retourArticle.jsp")
-                        .forward(req,resp);
-            }
 
         } catch (SQLException e) {
-            log.error("Une erreur SQl est survenu : " + e.getSQLState());
+
+            log.error("l'article n'a pas etait ajouter : " + e.getSQLState());
+
+            req.setAttribute("error", "400");
+
+            this.getServletContext()
+                    .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                    .forward(req, resp);
+
 
         }
     }

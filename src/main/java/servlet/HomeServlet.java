@@ -14,7 +14,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         this.getServletContext()
-                .getRequestDispatcher("/WEB-INF/jsp/index.jsp")
+                .getRequestDispatcher("/WEB-INF/principale/index.jsp")
                 .forward(req,resp);
 
     }

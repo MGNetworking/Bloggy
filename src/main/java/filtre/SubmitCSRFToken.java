@@ -1,27 +1,17 @@
 package filtre;
 
-import dao.DaoUser;
-import entities.User;
 import lombok.extern.slf4j.Slf4j;
+import util.TokenHelper;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @Slf4j
-@WebFilter(filterName = "authentication-Cookie-Filter")
-public class AuthenticationCookieFilter implements Filter {
-
-    private static DataSource dataSource;
-    private static DaoUser daoUser;
-
+@WebFilter(filterName = "submit-csrf-token")
+public class SubmitCSRFToken implements Filter {
     /**
      * <p>Called by the web container
      * to indicate to a filter that it is being placed into service.</p>
@@ -46,26 +36,6 @@ public class AuthenticationCookieFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
-        try {
-
-            if (dataSource == null) {
-
-                Context initContext = new InitialContext();
-                Context contextEnv = (Context) initContext.lookup("java:comp/env");
-
-                this.dataSource = (DataSource) contextEnv.lookup("Myblog");
-            }
-
-            if (daoUser == null){
-                daoUser = new DaoUser(dataSource);
-            }
-
-        } catch (NamingException nex) {
-
-            log.warn("Error : " + nex.getCause() + " | " + nex.getRootCause());
-            throw new ServletException(nex);
-        }
 
     }
 
@@ -109,33 +79,53 @@ public class AuthenticationCookieFilter implements Filter {
     public void doFilter(ServletRequest request,
                          ServletResponse response,
                          FilterChain chain)
-            throws IOException, ServletException {
+            throws IOException,
+            ServletException {
 
-        Cookie cookieAuth = getAuthTokenCookie((HttpServletRequest) request);
 
-        User user = (User) ((HttpServletRequest) request)
-                .getSession()
-                .getAttribute("user");
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
-        if (user.getId() == null){
+        if (req.getMethod().equals("POST")) {
 
-            if (cookieAuth != null){    // if user have token in browser
+            String tokenSession = (String) req.
+                    getSession().
+                    getAttribute(TokenHelper.CSRF_TOKEN_VALUE_NAME);
 
-                try{
+            log.info("token session : " + tokenSession);
 
-                    user = daoUser.findUserByToken(cookieAuth);
+            String tokenParam = req.
+                    getParameter(TokenHelper.CSRF_TOKEN_VALUE_NAME);
 
-                    ((HttpServletRequest) request)
-                            .getSession()
-                            .setAttribute("user", user);
+            log.info("token param : " + tokenParam);
 
-                }catch (SQLException sql){
-                    log.warn("doFilter authen : "+sql.getMessage());
+            if (tokenSession != null) {
+                log.info("Session csrf not null");
+
+                if (tokenParam != null) {
+                    log.info("Param csrf not null");
+                    chain.doFilter(request, response);
+
+                } else {
+
+                    res.sendError(403, TokenHelper.
+                            CSRF_TOKEN_VALUE_NAME + " is empty ");
+
+                    log.warn(TokenHelper.
+                            CSRF_TOKEN_VALUE_NAME + " to param is null");
                 }
+            } else {
+
+                res.sendError(403, TokenHelper.
+                        CSRF_TOKEN_VALUE_NAME + " is empty");
+
+                log.warn(TokenHelper.
+                        CSRF_TOKEN_VALUE_NAME + " to session is null");
             }
+        }else{
+            chain.doFilter(request, response);
         }
 
-        chain.doFilter(request,response);
 
     }
 
@@ -159,28 +149,5 @@ public class AuthenticationCookieFilter implements Filter {
     @Override
     public void destroy() {
 
-    }
-
-    /**
-     * Allows get the cookie to token authentication in browser
-     *
-     * @param request
-     * @return
-     */
-    private static Cookie getAuthTokenCookie(HttpServletRequest request) {
-        Cookie tokenCookie = null;
-
-        if (request.getCookies() != null) {
-
-            for (Cookie cookie : request.getCookies()) {
-
-                if (cookie.getName().equals("token_auth")) {
-                    tokenCookie = cookie;
-                    break;
-                }
-            }
-        }
-
-        return tokenCookie;
     }
 }

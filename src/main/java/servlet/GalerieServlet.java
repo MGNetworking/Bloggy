@@ -1,5 +1,7 @@
 package servlet;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @WebServlet(urlPatterns = "/galerie")
 public class GalerieServlet extends HttpServlet {
 
@@ -18,20 +21,17 @@ public class GalerieServlet extends HttpServlet {
 
         if ( identifiant != null){
 
-            System.out.println("param : " + identifiant );
+            log.info("info choix user : " + identifiant);
             if (identifiant.equals("nancy") || identifiant.equals("paris")) {
 
-                System.out.println("envoir vers " + identifiant);
-                req.getRequestDispatcher("/WEB-INF/jsp/webGaleries/galerieImage.jsp")
+                log.info("envoir vers la page concernant : " + identifiant);
+                req.getRequestDispatcher("/WEB-INF/webGaleries/galerieImage.jsp")
                         .forward(req, resp);
             }
         }
 
-
-
-
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/galeries.jsp")
+        /* retrour a la page d'entré des galeries*/
+        this.getServletContext().getRequestDispatcher("/WEB-INF/principale/galeries.jsp")
                 .forward(req, resp);
 
     }

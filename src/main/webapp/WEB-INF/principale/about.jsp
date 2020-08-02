@@ -4,13 +4,13 @@
 <html lang="fr">
 
 <head>
-    <c:import url="elements/headImport.jsp"></c:import>
+    <c:import url="../elements/headImport.jsp"></c:import>
 </head>
 
 <body>
 
 <header id="mainHearder">
-    <c:import url="elements/navBar.jsp"></c:import>
+    <c:import url="../elements/navBar.jsp"></c:import>
 </header>
 <!-- fin mainHearder -->
 

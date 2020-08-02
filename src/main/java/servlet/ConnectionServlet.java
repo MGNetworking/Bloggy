@@ -43,7 +43,7 @@ public class ConnectionServlet extends HttpServlet {
 
             }
 
-            if (daoUser == null){
+            if (daoUser == null) {
                 daoUser = new DaoUser(dataSource);
             }
 
@@ -65,15 +65,17 @@ public class ConnectionServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req,
-                         HttpServletResponse resp) throws ServletException, IOException {
-
+                         HttpServletResponse resp)
+            throws ServletException,
+            IOException {
 
         String connect = req.getParameter("connect");
 
         if (connect == null) {
 
+            req.setAttribute("formulaire", "connection");
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
+                    .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
                     .forward(req, resp);
 
         } else if (connect.equals("deconnexion")) {
@@ -82,10 +84,10 @@ public class ConnectionServlet extends HttpServlet {
 
             if (req.getSession().getAttribute("user") != null) {
 
-                User user = (User)req.getSession().getAttribute("user");
+                User user = (User) req.getSession().getAttribute("user");
                 user.deleteTokenUser();
 
-                if( this.daoUser.update(user) == true ){
+                if (this.daoUser.update(user) == true) {
                     req.getSession().removeAttribute("user");
 
                     Cookie cookieDeconnection = new Cookie("token_auth", null);
@@ -98,7 +100,7 @@ public class ConnectionServlet extends HttpServlet {
             }
 
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/index.jsp")
+                    .getRequestDispatcher("/WEB-INF/principale/index.jsp")
                     .forward(req, resp);
         }
 
@@ -115,8 +117,9 @@ public class ConnectionServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req,
-                          HttpServletResponse resp) throws ServletException, IOException {
-
+                          HttpServletResponse resp)
+            throws ServletException,
+            IOException {
 
         User user = new User(
                 req.getParameter("name"),
@@ -135,7 +138,12 @@ public class ConnectionServlet extends HttpServlet {
 
                 // add token user
                 user.setToken(TokenHelper.generateToken(60));
-                user.setTokenDate(Timestamp.valueOf(LocalDateTime.now().plusSeconds(TIME_TOKEN_AUTH)));
+                user.setTokenDate(Timestamp
+                        .valueOf(LocalDateTime
+                                .now()
+                                .plusSeconds(TIME_TOKEN_AUTH)
+                        )
+                );
 
 
                 if (this.daoUser.update(user) == true) {
@@ -153,13 +161,19 @@ public class ConnectionServlet extends HttpServlet {
 
             // renvoi vers la page de retour formulaire
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/retourConnection.jsp")
+                    .getRequestDispatcher("/WEB-INF/webFormulaire/retourConnection.jsp")
                     .forward(req, resp);
 
         } else {
+
+            // ajout une tentavive
+            user.setAttemp(user.getAttemp() + 1);
+
+            req.getSession().setAttribute("user", user);
+
             // renvoir sur la page d'authentification
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/webFormulaire/connectionAdmin.jsp")
+                    .getRequestDispatcher("/WEB-INF/webFormulaire/connectionUser.jsp")
                     .forward(req, resp);
 
             // TODO redirection apres le decompte de tentative

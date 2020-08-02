@@ -17,7 +17,7 @@ public class AboutServlet extends HttpServlet {
             throws ServletException, IOException {
 
         this.getServletContext()
-                .getRequestDispatcher("/WEB-INF/jsp/about.jsp")
+                .getRequestDispatcher("/WEB-INF/principale/about.jsp")
                 .forward(req, resp);
     }
 

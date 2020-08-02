@@ -13,10 +13,10 @@ import java.util.List;
 public class DaoUser {
 
     private DataSource dataSource;
-    private static String FIELD_USER= "id_user, name ,firstname ,avatar , email";
+    private static String FIELD_USER = "id_user, name ,firstname ,avatar , email";
 
     private static String SQL_GET_AUTHENTICATION = "SELECT " + FIELD_USER +
-                    " FROM blog.user where name = ? AND password_user = ?";
+            " FROM blog.user where name = ? AND password_user = ?";
 
     private static String SQL_GET_DROIT =
             "SELECT role_name FROM blog.user_role where id_user = ?";
@@ -49,6 +49,8 @@ public class DaoUser {
              PreparedStatement statementAuth = connection.prepareStatement(SQL_GET_AUTHENTICATION);
              PreparedStatement statementDroit = connection.prepareStatement(SQL_GET_DROIT)) {
 
+            log.info("user dao :" + user.toString());
+
             // recherche du user
             statementAuth.setString(1, user.getName());
             statementAuth.setString(2, user.getPassword());
@@ -79,9 +81,11 @@ public class DaoUser {
 
                     while (resultSetDroit.next()) {
 
-                        user.getListeRole().add(
-                                new RoleUser(resultSetDroit.
-                                        getString("role_name")));
+                        String name = resultSetDroit.
+                                getString("role_name");
+
+                        user.getListeRole().
+                                put(name , new RoleUser(name));
 
                     }
                     log.info("User get : " + user.toString());
@@ -93,6 +97,11 @@ public class DaoUser {
             log.error("Enter refuser " +
                     e.getMessage() + " | " +
                     e.getSQLState());
+
+        } catch (Exception e) {
+            log.error("Execption " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace());
         }
 
         return user;
@@ -120,7 +129,7 @@ public class DaoUser {
             statementToken.setString(6, user.getToken());
             statementToken.setTimestamp(7, user.getTokenDate());
 
-            statementToken.setLong(8,user.getId());
+            statementToken.setLong(8, user.getId());
 
             int resultat = statementToken.executeUpdate();
 
@@ -148,24 +157,25 @@ public class DaoUser {
     /**
      * Allows to get a user by his token , if user is find in databases
      * so a searching in databases is execute for searching his user right
+     *
      * @param cookie
      * @return
      * @throws SQLException
      */
     public User findUserByToken(Cookie cookie) throws SQLException {
 
-        User user = null;
+        User user = new User();
 
-        try(Connection connection = this.dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(SQL_SEARCH_TOKEN)){
+        try (Connection connection = this.dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SEARCH_TOKEN)) {
 
-            statement.setString(1,cookie.getValue());
+            statement.setString(1, cookie.getValue());
 
             log.info("get user by token ");
 
-            try(ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
 
-                if (resultSet.next()){
+                if (resultSet.next()) {
                     user.setName(resultSet.getString(1));
                     user.setPassword(resultSet.getString(2));
 
@@ -179,14 +189,20 @@ public class DaoUser {
 
             log.info("User get by token : " + user.toString());
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
 
-            String message = "Enter refuser " +
+            String message = "Error query : " +
                     e.getMessage() + " | " +
                     e.getSQLState();
             log.error(message);
 
             throw new SQLException(message);
+        } catch (Exception e) {
+
+            String message = "Error to excution softwar : " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace();
+            log.error(message);
         }
 
         return user;

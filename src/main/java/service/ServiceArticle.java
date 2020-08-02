@@ -49,7 +49,10 @@ public class ServiceArticle {
         }
     }
 
-    public boolean createArticle(HttpServletRequest request) throws IOException, ServletException, SQLException {
+    public boolean createArticle(HttpServletRequest request)
+            throws IOException,
+            ServletException,
+            SQLException {
 
         this.initDataSource();
         boolean execute = false;

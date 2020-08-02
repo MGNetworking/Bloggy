@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- menu petit ecran -->
 <script src="<c:url value="/static/js/jquery-3.5.0.js" />"></script>
 <script src="<c:url value="/static/js/menu.js" />"></script>

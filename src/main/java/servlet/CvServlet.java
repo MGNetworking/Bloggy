@@ -16,13 +16,21 @@ public class CvServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp)
+            throws ServletException,
+            IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CV.jsp").forward(req,resp);
+        this.getServletContext()
+                .getRequestDispatcher("/WEB-INF/principale/CV.jsp")
+                .forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req,
+                          HttpServletResponse resp)
+            throws ServletException,
+            IOException {
 
     }
 }

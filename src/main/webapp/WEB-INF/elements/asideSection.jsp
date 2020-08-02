@@ -13,23 +13,30 @@
         <ul>
             <c:if test="${ not empty sessionScope.user.listeRole}">
 
-                <li>Identité : ${sessionScope.user.name}</li>
+                <li>Identité : ${sessionScope.user.avatar}</li>
 
-                <c:if test="${sessionScope.user.listeRole == '[ADMIN, USER_ARTICLE]'}">
-                    <li>Vos droit : ${sessionScope.user.listeRole}</li>
+                <c:if test="${sessionScope.user.listeRole['ADMIN'] == 'ADMIN'}">
+                    <li>Vos droit : ${sessionScope.user.listeRole['ADMIN']}</li>
                     <li><a href="<c:url value="/A faire ...."/>">Gestion ADMIN</a></li>
                 </c:if>
 
-                <c:if test="${sessionScope.user.listeRole == '[USER_ARTICLE]'}">
-                    <li>Vos droit : ${sessionScope.user.listeRole}</li>
+                <c:if test="${sessionScope.user.listeRole['USER_ARTICLE'] == 'USER_ARTICLE'}">
+                    <li>Vos droit : ${sessionScope.user.listeRole['USER_ARTICLE']}</li>
                 </c:if>
 
-                <li><a href="<c:url value="/article"/>?page=indexArticle">Créer un articletexte de blog</a></li>
+                <li><a href="<c:url value="/article"/>?page=articleCreate">Créer un articletexte de blog</a></li>
                 <li><a href="<c:url value="/connection"/>?connect=deconnexion">Déconnexion</a></li>
             </c:if>
 
             <c:if test="${ empty sessionScope.user.listeRole}">
-                <li><a href="<c:url value="/connection"/>">Connection</a></li>
+                <c:if test="${sessionScope.user.attemp <3}">
+                    <li><a href="<c:url value="/connection"/>">Connection</a></li>
+                </c:if>
+
+                <c:if test="${sessionScope.user.attemp >= 3}">
+                    <li><a href="">Echec de connection</a></li>
+                </c:if>
+
             </c:if>
 
 

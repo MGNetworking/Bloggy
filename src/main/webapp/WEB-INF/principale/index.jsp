@@ -5,15 +5,13 @@
 <html lang="fr">
 
 <head>
-    <c:import url="elements/headImport.jsp"></c:import>
-    <%-- fin import head --%>
+    <c:import url="../elements/headImport.jsp"></c:import>
 </head>
 
 <body>
 
 <header id="mainHearder">
-    <c:import url="elements/navBar.jsp"></c:import>
-    <%-- fin import nav bar --%>
+    <c:import url="../elements/navBar.jsp"></c:import>
 </header>
 <!-- fin mainHearder -->
 
@@ -65,9 +63,7 @@
     <!-- fin colonneGauche-->
 
     <aside id="colonneDroitAside">
-
-        <c:import url="elements/asideSection.jsp"></c:import>
-        <%-- fin import aside --%>
+        <c:import url="../elements/asideSection.jsp"></c:import>
     </aside>
     <!-- fin colonneDroit-->
 
@@ -75,8 +71,7 @@
 </div>
 <!-- fin mainbody -->
 
-<c:import url="elements/scriptImport.jsp"></c:import>
-<%-- fin import script JS --%>
+<c:import url="../elements/scriptImport.jsp"></c:import>
 </body>
 
 <footer id="mainFooter">

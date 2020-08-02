@@ -3,15 +3,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <c:import url="elements/headImport.jsp"></c:import>
+    <c:import url="../elements/headImport.jsp"></c:import>
     <%-- fin import head --%>
-</head>
 
 <body>
 
 <header id="mainHearder">
-    <c:import url="elements/navBar.jsp"></c:import>
+    <c:import url="../elements/navBar.jsp"></c:import>
     <%-- fin import nav bar --%>
 </header>
 <!-- fin mainHearder -->
@@ -31,7 +29,7 @@
     <img src="" alt="agrandissament de l'image click">
 </figure>
 
-<c:import url="elements/scriptImport.jsp"></c:import>
+<c:import url="../elements/scriptImport.jsp"></c:import>
 <%-- fin import script JS --%>
 <script src="<c:url value="/static/js/lienDynamique.js" />"></script>
 
