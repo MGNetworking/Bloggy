@@ -169,15 +169,5 @@ public class UserTest {
 
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {0, -1})
-    @DisplayName("test SetAttemp")
-    public void testSetAttemp(int attemp) {
-
-        assertThrows(RuntimeException.class,
-                () -> user.setAttemp(attemp), "non-compliant value : "
-                        + attemp);
-
-    }
 
 }

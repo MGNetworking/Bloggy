@@ -25,16 +25,19 @@
                 </c:if>
 
                 <li><a href="<c:url value="/article"/>?page=articleCreate">Créer un articletexte de blog</a></li>
-                <li><a href="<c:url value="/connection"/>?connect=deconnexion">Déconnexion</a></li>
+                <li><a href="<c:url value="/connection"/>?deconnexion=deconnexion">Déconnexion</a></li>
             </c:if>
 
             <c:if test="${ empty sessionScope.user.listeRole}">
                 <c:if test="${sessionScope.user.attemp <3}">
-                    <li><a href="<c:url value="/connection"/>">Connection</a></li>
+                    <li><a href="<c:url value="/connection"/>?connection=connection">Connection</a></li>
                 </c:if>
 
-                <c:if test="${sessionScope.user.attemp >= 3}">
-                    <li><a href="">Echec de connection</a></li>
+                <c:if test="${sessionScope.user.attemp == 3}">
+                    <li>Echec de la connection</li>
+                    <li>apres 3 tentavie</li>
+                    <li>Reconnection possible a </li>
+                    <li>${sessionScope.user.waitingConnectionFormater}</li>
                 </c:if>
 
             </c:if>

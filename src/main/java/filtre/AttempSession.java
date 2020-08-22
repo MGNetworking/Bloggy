@@ -1,17 +1,17 @@
 package filtre;
 
+import entities.User;
 import lombok.extern.slf4j.Slf4j;
-import util.TokenHelper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @Slf4j
-@WebFilter(filterName = "submit-csrf-token")
-public class SubmitCSRFToken implements Filter {
+@WebFilter(filterName = "session-Attemp")
+public class AttempSession implements Filter {
     /**
      * <p>Called by the web container
      * to indicate to a filter that it is being placed into service.</p>
@@ -79,53 +79,27 @@ public class SubmitCSRFToken implements Filter {
     public void doFilter(ServletRequest request,
                          ServletResponse response,
                          FilterChain chain)
-            throws IOException,
-            ServletException {
+            throws IOException, ServletException {
 
+        log.info("Filter Attemp ");
 
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
 
-        if (req.getMethod().equals("POST")) {
+        User user = (User) req.getSession().getAttribute("user");
 
-            String tokenSession = (String) req.
-                    getSession().
-                    getAttribute(TokenHelper.CSRF_TOKEN_VALUE_NAME);
+        if (user != null) {
 
-            log.info("csrfToken session : " + tokenSession);
+            if (user.getAttemp() == 3) {
 
-            String tokenParam = req.
-                    getParameter(TokenHelper.CSRF_TOKEN_VALUE_NAME);
-
-            log.info("csrfToken param : " + tokenParam);
-
-            if (tokenSession != null && tokenParam != null) {
-                log.info("Session csrf and param not null");
-
-                if (tokenParam.equals(tokenSession)) {
-                    log.info("csrf Param equal csrf token Session");
-                    chain.doFilter(request, response);
-
-                } else {
-
-                    res.sendError(403, TokenHelper.
-                            CSRF_TOKEN_VALUE_NAME + " is empty ");
-
-                    log.warn(TokenHelper.
-                            CSRF_TOKEN_VALUE_NAME + " to param is null");
+                // comparaison du delais d'attente pour la reconnection
+                if (user.getWaitingConnection().getTime() <= new Date(System.currentTimeMillis()).getTime()) {
+                    user.addAttemp(true);
+                    log.info("delais désactivé");
                 }
-            } else {
-
-                res.sendError(403, TokenHelper.
-                        CSRF_TOKEN_VALUE_NAME + " is empty");
-
-                log.warn(TokenHelper.
-                        CSRF_TOKEN_VALUE_NAME + " to session is null");
             }
-        }else{
-            chain.doFilter(request, response);
         }
 
+        chain.doFilter(request, response);
 
     }
 

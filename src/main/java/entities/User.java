@@ -3,6 +3,7 @@ package entities;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -21,6 +22,9 @@ public class User {
     private Timestamp tokenDate;
 
     private int attemp;
+
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+    private Date waitingConnection;
 
     Map<String,RoleUser> listeRole = new HashMap<>(5);
 
@@ -261,18 +265,17 @@ public class User {
 
     /**
      * Allows to add attempts connect.
-     *
-     * @param attemp int primitive type
-     * @throws RuntimeException if attemp less than or equal to zero.
+     * @param reste to reste attemp
+     * @throws RuntimeException
      */
-    public void setAttemp(int attemp) throws RuntimeException {
+    public void addAttemp(boolean reste) throws RuntimeException {
 
-        if (attemp <= 0) {
-            log.debug("the attemp value : " + attemp + " is not good");
-            throw new RuntimeException("the attemp value : " + attemp + " is not good");
+        if (reste == true){
+            this.attemp = 0;
+        }else{
+            this.attemp += 1;
         }
 
-        this.attemp = attemp;
     }
 
     /**
@@ -282,6 +285,21 @@ public class User {
      */
     public Map<String,RoleUser> getListeRole() {
         return listeRole;
+    }
+
+    public String getWaitingConnectionFormater() {
+
+        return formatter.format(waitingConnection);
+    }
+
+    public Date getWaitingConnection() {
+        return waitingConnection;
+    }
+
+    public void addWaitingConnection() {
+
+        // ajoute 900000 millisecondes = 15 min , 1 in 60000
+        this.waitingConnection = new Date(System.currentTimeMillis()+ 60000);
     }
 
 

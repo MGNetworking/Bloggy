@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Slf4j
 @WebServlet(urlPatterns = "/connection")
@@ -69,39 +70,18 @@ public class ConnectionServlet extends HttpServlet {
             throws ServletException,
             IOException {
 
-        String connect = req.getParameter("connect");
+        String connection = req.getParameter("connection");
 
-        if (connect == null) {
+        if (connection != null) {
 
             req.setAttribute("formulaire", "connection");
             this.getServletContext()
                     .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
                     .forward(req, resp);
 
-        } else if (connect.equals("deconnexion")) {
+        } else {
 
-            log.info("connection : " + req.getParameter("connect"));
-
-            if (req.getSession().getAttribute("user") != null) {
-
-                User user = (User) req.getSession().getAttribute("user");
-                user.deleteTokenUser();
-
-                if (this.daoUser.update(user) == true) {
-                    req.getSession().removeAttribute("user");
-
-                    Cookie cookieDeconnection = new Cookie("token_auth", null);
-                    cookieDeconnection.setMaxAge(0);
-                    resp.addCookie(cookieDeconnection);
-
-                    log.info("value cookie deconnection : " + cookieDeconnection);
-                }
-
-            }
-
-            this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/principale/index.jsp")
-                    .forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/home");
         }
 
 
@@ -120,12 +100,43 @@ public class ConnectionServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException,
             IOException {
+        User user = (User) req.getSession().getAttribute("user");
 
-        User user = new User(
-                req.getParameter("name"),
-                req.getParameter("password"));
+        // authentification test
+        try {
 
-        user = this.daoUser.authentication(user);
+            user.setName(req.getParameter("name"));
+            user.setPassword(req.getParameter("password"));
+            user = this.daoUser.authentication(user);
+
+        } catch (RuntimeException re) {
+
+            log.info("tantative ");
+            user.addAttemp(false);
+
+            if (user.getAttemp() == 3){
+
+                // initialise le delais d'attente
+                if (user.getWaitingConnection() == null){
+                    user.addWaitingConnection();
+
+                    log.info("delais de d'attente : " + user.getWaitingConnectionFormater());
+                }
+
+                resp.sendRedirect(req.getContextPath() + "/home");
+
+            }else{
+
+                // referral to the authentication page
+                req.setAttribute("formulaire", "connection");
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
+                        .forward(req, resp);
+
+            }
+
+        }
+
 
         // Create user to session
         if (user.getId() != null) {
@@ -164,22 +175,10 @@ public class ConnectionServlet extends HttpServlet {
                     .getRequestDispatcher("/WEB-INF/webFormulaire/retourConnection.jsp")
                     .forward(req, resp);
 
-        } else {
-
-            // ajout une tentavive
-            user.setAttemp(user.getAttemp() + 1);
-
-            req.getSession().setAttribute("user", user);
-
-            // renvoir sur la page d'authentification
-            this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/webFormulaire/connectionUser.jsp")
-                    .forward(req, resp);
-
-            // TODO redirection apres le decompte de tentative
-            // resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }
 
 
     }
+
+
 }
