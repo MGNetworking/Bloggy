@@ -32,6 +32,10 @@
             <c:import url="../formulaireElement/formulaireConnection.jsp"></c:import>
         </c:if>
 
+        <c:if test="${requestScope.formulaire == 'inscription'}">
+            <c:import url="../formulaireElement/formulaireInscription.jsp"></c:import>
+        </c:if>
+
     </main>
 
 

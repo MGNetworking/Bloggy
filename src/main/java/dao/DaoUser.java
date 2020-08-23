@@ -7,7 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.Cookie;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class DaoUser {
@@ -32,6 +35,12 @@ public class DaoUser {
 
     private static String SQL_SEARCH_TOKEN = "SELECT name,password_user FROM blog.user where token = ?";
 
+    private static String SQL_INSERT = "insert into blog.user" +
+            "(name, firstName , avatar , password_user, email )" +
+            "values (?,?,?,?,?)";
+
+    private static String SQL_SELECT_ALL = "SELECT id_user , name , firstname , avatar , email FROM blog.user";
+
     public DaoUser(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -42,7 +51,7 @@ public class DaoUser {
      * @param dataSource
      * @return User object
      */
-    public User authentication(User user) {
+    public User authentication(User user) throws RuntimeException {
 
 
         try (Connection connection = this.dataSource.getConnection();
@@ -67,7 +76,11 @@ public class DaoUser {
 
                 } else {
 
-                    log.info("user not found for : " + user.toString());
+                    String message = "user not found for : " + user.toString() +
+                            " or password : " + user.getPassword();
+
+                    log.error(message);
+                    throw new SQLException(message);
                 }
             }
 
@@ -85,7 +98,7 @@ public class DaoUser {
                                 getString("role_name");
 
                         user.getListeRole().
-                                put(name , new RoleUser(name));
+                                put(name, new RoleUser(name));
 
                     }
                     log.info("User get : " + user.toString());
@@ -98,10 +111,15 @@ public class DaoUser {
                     e.getMessage() + " | " +
                     e.getSQLState());
 
+            throw new RuntimeException("Une erreur est survenue " + e.getMessage());
+
         } catch (Exception e) {
+
             log.error("Execption " +
                     e.getMessage() + " | " +
                     e.getStackTrace());
+
+            throw new RuntimeException("Une erreur est survenue " + e.getMessage());
         }
 
         return user;
@@ -148,6 +166,15 @@ public class DaoUser {
 
         return execute;
     }
+
+    /**
+     * Allows to update right user
+     * @param listUser
+     * @return
+     */
+/*    public boolean updateRight(List listUser){
+
+    }*/
 
 
     public boolean delete(User user) throws SQLException {
@@ -208,8 +235,119 @@ public class DaoUser {
         return user;
     }
 
+    /**
+     * @return
+     * @throws Exception
+     */
+    public List findAll() throws Exception {
 
-    public List findAll() throws SQLException {
-        return null;
+        List<User> listUser = new ArrayList<>();
+
+
+        try (Connection connection = this.dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL);) {
+
+            ResultSet rst = statement.executeQuery();
+            log.info("Find All : " + SQL_SELECT_ALL);
+            int indic = 0;
+
+            // creation de la list des users
+            while (rst.next()) {
+
+                try (PreparedStatement statementDroit = connection.prepareStatement(SQL_GET_DROIT)) {
+
+                    statementDroit.setLong(1, rst.getLong("id_user"));
+
+                    try (ResultSet rstdroit = statementDroit.executeQuery()) {
+
+                        log.info(rst.getLong("id_user") + "\n" +
+                                rst.getString("name") + "\n" +
+                                rst.getString("firstname") + "\n" +
+                                rst.getString("avatar") + "\n" +
+                                rst.getString("email"));
+
+                        listUser.add(new User(rst.getLong("id_user"),
+                                rst.getString("name"),
+                                rst.getString("firstname"),
+                                rst.getString("avatar"),
+                                rst.getString("email"),
+                                new HashMap<String, RoleUser>()
+                        ));
+
+                        while (rstdroit.next()){
+                            // ajoute des droits
+                            String name = rstdroit. getString("role_name");
+                            listUser.get(indic).getListeRole().put(name, new RoleUser(name));
+
+                        }
+                        indic++;
+
+                    }
+
+                }
+
+            }
+
+        } catch (SQLException sqle) {
+
+            String message = "Error query : " +
+                    sqle.getMessage() + " | " +
+                    sqle.getSQLState();
+
+            log.error(message);
+            throw new SQLException(message);
+
+        } catch (Exception e) {
+
+            String message = "Error to excution softwar : " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace();
+            log.error(message);
+
+            throw new Exception(message);
+
+        }
+
+        return listUser;
     }
+
+    public boolean insert(User user) throws RuntimeException {
+        boolean insert = false;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getAvatar());
+            statement.setString(4, user.getPassword());
+            statement.setString(5, user.getEmail());
+
+            if (statement.executeUpdate() == 0) {
+                insert = false;
+            } else {
+                insert = true;
+            }
+
+        } catch (SQLException e) {
+
+            String message = "Error query : " +
+                    e.getMessage() + " | " +
+                    e.getSQLState();
+            log.error(message);
+
+            throw new RuntimeException(message);
+
+        } catch (Exception e) {
+
+            String message = "Error to excution softwar : " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace();
+            log.error(message);
+        }
+
+        return insert;
+    }
+
+
 }

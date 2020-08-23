@@ -18,12 +18,26 @@
 
     <main id="mainContant" class="retrourForm">
 
+        <c:if test="${requestScope.retourUser == 'connection'}">
         <h2>Connection Reussi</h2>
         <p>Vous etez connecter en tant que :
             <c:forEach var="role" items="${sessionScope.user.listeRole}">
                 <c:out value="${role}"></c:out>
             </c:forEach>
         </p>
+
+        </c:if>
+
+        <c:if test="${requestScope.retourUser == 'inscription'}">
+            <h2>Inscription Reussi</h2>
+            <p>Vous etez inscrit en tant que ${requestScope.user.avatar}<br>
+                Aprés verification au prét de nos service vos droits vous seront donnée dans 24H <br>
+                Merci de votre compréhension.
+            </p>
+
+        </c:if>
+
+
     </main>
     <!-- fin mainContant-->
 

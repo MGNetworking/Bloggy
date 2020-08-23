@@ -16,12 +16,16 @@
                 <li>Identité : ${sessionScope.user.avatar}</li>
 
                 <c:if test="${sessionScope.user.listeRole['ADMIN'] == 'ADMIN'}">
+
                     <li>Vos droit : ${sessionScope.user.listeRole['ADMIN']}</li>
-                    <li><a href="<c:url value="/A faire ...."/>">Gestion ADMIN</a></li>
+                    <li><a href="<c:url value="/gestionAdmin"/>">Gestion ADMIN</a></li>
+
                 </c:if>
 
                 <c:if test="${sessionScope.user.listeRole['USER_ARTICLE'] == 'USER_ARTICLE'}">
+
                     <li>Vos droit : ${sessionScope.user.listeRole['USER_ARTICLE']}</li>
+
                 </c:if>
 
                 <li><a href="<c:url value="/article"/>?page=articleCreate">Créer un articletexte de blog</a></li>
@@ -29,6 +33,7 @@
             </c:if>
 
             <c:if test="${ empty sessionScope.user.listeRole}">
+
                 <c:if test="${sessionScope.user.attemp <3}">
                     <li><a href="<c:url value="/connection"/>?connection=connection">Connection</a></li>
                 </c:if>

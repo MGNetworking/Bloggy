@@ -17,12 +17,12 @@
     <input type="hidden" value="${csrfToken}" name="${ TokenHelper.CSRF_TOKEN_VALUE_NAME }"/>
 
     <div>
-        <label for="" class="name">Nom :</label>
+        <label for="name" class="name">Nom :</label>
         <input name="name" type="text" required autofocus tabindex="1">
     </div>
 
     <div>
-        <label for="" class="name">Password :</label>
+        <label for="password" class="password">Password :</label>
         <input name="password" type="password" required autofocus tabindex="2">
     </div>
 
@@ -33,6 +33,13 @@
 
     <button type="submit" tabindex="4">Envoyer</button>
 
+    <div>
+        <p>Si vous etez nouveau sur le site, créer votre espace utilisateur ci-dessous</p>
+        <a href="<c:url value="/inscription">Nouvelle inscription</c:url>">
+            <button type="button">inscrit toi ICI</button>
+        </a>
+    </div>
+
 </form>
 
-<!-- fin bouton de retour  -->
+<!-- fin bouton de retour -->

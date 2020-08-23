@@ -38,6 +38,11 @@
             <p>Accèes interdit </p>
         </c:if>
 
+        <c:if test="${requestScope.error == '500'}">
+            <h2>ERROR 500</h2>
+            <p>Un problème interne au serveur est survenu</p>
+        </c:if>
+
 
     </main>
     <!-- fin mainContant-->

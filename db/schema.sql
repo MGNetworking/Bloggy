@@ -61,7 +61,9 @@ insert into blog.user(name, firstName, avatar, password_user, email)
 values ('maxime', 'ghalem', 'MGAvatar', '123456', 'maxime@gmail.com'),
        ('sylvain', 'syl-firstName', 'sylAvatar', '456123', 'sylvain@gmail.com'),
        ('fabien', 'fa-firstName', 'fabAvatar', '789123', 'fabien@gmail.com'),
-       ('ernestas', 'er-firstName', 'ernesAvatar', '321123', 'ernestas@gmail.com');
+       ('ernestas', 'er-firstName', 'ernesAvatar', '321123', 'ernestas@gmail.com'),
+       ('ghalem','maximeTest','SuperToto','$2a$10$lvRbl7k8m7qGLHcPM3L40uCs6TzoO45JMgdum67SLJI0QKEQA5tNu',
+        'ghalem.maxime@gmail.com');
 
 
 -- user_role : associtive table

@@ -1,6 +1,7 @@
 package entities;
 
 import lombok.extern.slf4j.Slf4j;
+import util.CryptageUtile;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -34,6 +35,15 @@ public class User {
     public User(String name, String password) {
         this.setName(name);
         this.setPassword(password);
+    }
+
+    public User(Long id, String name, String firstName, String avatar, String email, Map<String, RoleUser> listeRole) {
+        this.id = id;
+        this.name = name;
+        this.firstName = firstName;
+        this.avatar = avatar;
+        this.email = email;
+        this.listeRole = listeRole;
     }
 
     /**
@@ -215,6 +225,8 @@ public class User {
             throw new RuntimeException("The password not matching");
         }
 
+       // this.password = CryptageUtile.hash(password);
+
         this.password = password;
     }
 
@@ -298,8 +310,8 @@ public class User {
 
     public void addWaitingConnection() {
 
-        // ajoute 900000 millisecondes = 15 min , 1 in 60000
-        this.waitingConnection = new Date(System.currentTimeMillis()+ 60000);
+        // ajoute 900000 millisecondes = 15 min , 1 min = 60000
+        this.waitingConnection = new Date(System.currentTimeMillis()+ 900000);
     }
 
 

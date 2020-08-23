@@ -111,7 +111,8 @@ public class ConnectionServlet extends HttpServlet {
 
         } catch (RuntimeException re) {
 
-            log.info("tantative ");
+            log.info("Echec de la tentative de connection " + re.getMessage());
+
             user.addAttemp(false);
 
             if (user.getAttemp() == 3){
@@ -170,9 +171,10 @@ public class ConnectionServlet extends HttpServlet {
 
             }
 
-            // renvoi vers la page de retour formulaire
+            // renvoi vers la page de retour de connection
+            req.setAttribute("retourUser" , "connection");
             this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/webFormulaire/retourConnection.jsp")
+                    .getRequestDispatcher("/WEB-INF/webFormulaire/interaction.jsp")
                     .forward(req, resp);
 
         }
