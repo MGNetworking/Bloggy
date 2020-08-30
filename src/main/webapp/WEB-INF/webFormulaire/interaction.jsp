@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="entities.RoleUser" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,7 +23,7 @@
         <h2>Connection Reussi</h2>
         <p>Vous etez connecter en tant que :
             <c:forEach var="role" items="${sessionScope.user.listeRole}">
-                <c:out value="${role}"></c:out>
+                <c:out value="${role.value}"></c:out>
             </c:forEach>
         </p>
 

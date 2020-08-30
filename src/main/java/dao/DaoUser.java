@@ -16,6 +16,7 @@ import java.util.Map;
 public class DaoUser {
 
     private DataSource dataSource;
+
     private static String FIELD_USER = "id_user, name ,firstname ,avatar , email";
 
     private static String SQL_GET_AUTHENTICATION = "SELECT " + FIELD_USER +
@@ -167,6 +168,44 @@ public class DaoUser {
         return execute;
     }
 
+    public boolean insert(User user) throws RuntimeException {
+        boolean insert = false;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getAvatar());
+            statement.setString(4, user.getPassword());
+            statement.setString(5, user.getEmail());
+
+            if (statement.executeUpdate() == 0) {
+                insert = false;
+            } else {
+                insert = true;
+            }
+
+        } catch (SQLException e) {
+
+            String message = "Error query : " +
+                    e.getMessage() + " | " +
+                    e.getSQLState();
+            log.error(message);
+
+            throw new RuntimeException(message);
+
+        } catch (Exception e) {
+
+            String message = "Error to excution softwar : " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace();
+            log.error(message);
+        }
+
+        return insert;
+    }
+
     /**
      * Allows to update right user
      * @param listUser
@@ -180,6 +219,7 @@ public class DaoUser {
     public boolean delete(User user) throws SQLException {
         return false;
     }
+
 
     /**
      * Allows to get a user by his token , if user is find in databases
@@ -274,11 +314,13 @@ public class DaoUser {
                                 new HashMap<String, RoleUser>()
                         ));
 
+                        // ajoute des droits
                         while (rstdroit.next()){
-                            // ajoute des droits
-                            String name = rstdroit. getString("role_name");
+
+                            String name = rstdroit.getString("role_name");
                             listUser.get(indic).getListeRole().put(name, new RoleUser(name));
 
+                            log.info("Droit user DAO : "+listUser.get(indic).getListeRole());
                         }
                         indic++;
 
@@ -311,43 +353,7 @@ public class DaoUser {
         return listUser;
     }
 
-    public boolean insert(User user) throws RuntimeException {
-        boolean insert = false;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_INSERT)) {
-
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getAvatar());
-            statement.setString(4, user.getPassword());
-            statement.setString(5, user.getEmail());
-
-            if (statement.executeUpdate() == 0) {
-                insert = false;
-            } else {
-                insert = true;
-            }
-
-        } catch (SQLException e) {
-
-            String message = "Error query : " +
-                    e.getMessage() + " | " +
-                    e.getSQLState();
-            log.error(message);
-
-            throw new RuntimeException(message);
-
-        } catch (Exception e) {
-
-            String message = "Error to excution softwar : " +
-                    e.getMessage() + " | " +
-                    e.getStackTrace();
-            log.error(message);
-        }
-
-        return insert;
-    }
 
 
 }

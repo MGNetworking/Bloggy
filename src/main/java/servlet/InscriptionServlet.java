@@ -79,7 +79,7 @@ public class InscriptionServlet extends HttpServlet {
 
         try{
 
-            User user = TraitementFormulaire.FormulaireInscription(req);
+            User user = TraitementFormulaire.formulaireInscription(req);
 
             if (user != null){
 

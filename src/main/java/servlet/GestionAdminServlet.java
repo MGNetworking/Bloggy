@@ -2,9 +2,11 @@ package servlet;
 
 import dao.DaoRole;
 import dao.DaoUser;
+import dao.DaoUserRole;
 import entities.RoleUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
+import util.TraitementFormulaire;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -26,7 +28,9 @@ public class GestionAdminServlet extends HttpServlet {
 
     private DataSource dataSource;
     private DaoUser daoUser;
-    private DaoRole daoRole;
+    private DaoUserRole daoUserRole;
+
+    private List<User> listUser;
 
     @Override
     public void init() throws ServletException {
@@ -45,8 +49,8 @@ public class GestionAdminServlet extends HttpServlet {
                 daoUser = new DaoUser(dataSource);
             }
 
-            if (daoRole == null){
-                daoRole = new DaoRole(dataSource);
+            if (daoUserRole == null) {
+                daoUserRole = new DaoUserRole(dataSource);
             }
 
         } catch (NamingException nex) {
@@ -57,7 +61,6 @@ public class GestionAdminServlet extends HttpServlet {
     }
 
     /**
-     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -65,57 +68,61 @@ public class GestionAdminServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo acces a la page de gestion des droit admin
-        // todo fait un find user sur tout les user de la base
 
         log.info("Gestion des droit admin do get");
 
         try {
-            List<User> listUser = daoUser.findAll();
 
-            log.info("List des utilisateur "+ "\n" +
-                    listUser);
-
-            if (listUser != null){
+            if ((listUser = daoUser.findAll()) != null) {
 
                 req.setAttribute("ListUser", listUser);
                 this.getServletContext().getRequestDispatcher("/WEB-INF/gestion/gestionAdmin.jsp")
-                        .forward(req,resp);
+                        .forward(req, resp);
 
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException sql) {
 
-            // todo faire traitement
-            e.printStackTrace();
+            log.error("Une erreur est survenu : " + sql.getMessage());
+
+            req.setAttribute("error", "400");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                    .forward(req, resp);
+
         } catch (Exception e) {
-            e.printStackTrace();
+
+            log.error("Une erreur est survenu : " + e.getMessage());
+
+            req.setAttribute("error", "500");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                    .forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // todo apres verification des droits de modification des droit fait par le filtre scrf
-        // todo insert ou update des droits du ouo des user selectionné
+        try {
 
-        String tb =  req.getParameter("tb");
+            TraitementFormulaire.formulaireGestionDroit(req, listUser, daoUserRole);
 
-        log.info(tb);
+            this.doGet(req, resp);
 
-        try{
-
-            Map<Long , RoleUser> mapRole = daoRole.findAll();
-
-
-
-        }catch (SQLException sql){
+        } catch (SQLException sql) {
 
             log.error(sql.getMessage());
 
-        }catch (Exception e){
+            req.setAttribute("error", "400");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                    .forward(req, resp);
+
+        } catch (Exception e) {
 
             log.error(e.getMessage());
+
+            req.setAttribute("error", "500");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                    .forward(req, resp);
         }
 
     }

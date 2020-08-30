@@ -7,6 +7,7 @@
 --%>
 <%@ page info="colonne de droit" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="entities.RoleUser" %>
 
     <section id="connection">
         <h2>Connection</h2>

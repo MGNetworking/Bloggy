@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * this class Allows role management.
+ */
 @Slf4j
 public class DaoRole {
 
@@ -23,6 +26,12 @@ public class DaoRole {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Allows to get role list.
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     public Map<Long, RoleUser> findAll()throws SQLException, Exception{
 
         Map<Long , RoleUser> mapRole = new HashMap<>();

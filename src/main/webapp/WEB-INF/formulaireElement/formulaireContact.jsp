@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="util.TokenHelper" %>
+
 <header>
     <h2>Contactez-moi</h2>
     <p>Merci de compléter le formulaire suivant pour me contacter. Tout les champs de ce formulaire sont
