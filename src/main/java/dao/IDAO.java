@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface IDAO<T> {
 
-    abstract boolean create(HttpServletRequest request) throws SQLException;
+    abstract boolean create(HttpServletRequest request) throws SQLException, Exception;
 
-    abstract boolean update(HttpServletRequest request) throws SQLException;
+    abstract boolean update(HttpServletRequest request) throws SQLException, Exception;
 
-    abstract boolean delete(HttpServletRequest request) throws SQLException;
+    abstract boolean delete(HttpServletRequest request) throws SQLException, Exception;
 
     abstract T find(String request) throws SQLException;
 

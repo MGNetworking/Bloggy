@@ -25,7 +25,7 @@
         <c:set var="csrfToken" value="${TokenHelper.generateCsrfToken()}"/>
 
         <c:forEach var="article" items="${requestScope.listArticle}">
-            <articletexte>
+            <article>
 
                 <header>
                     <h3>${article.title}</h3>
@@ -33,7 +33,8 @@
                 </header>
 
                 <p>
-                    <img src="<c:url value="${article.pathImage}" />" alt="image dillustration"/>
+                    <img src="<c:url value="${article.pathImage}" />" alt="${article.commentImage}"
+                         title="${article.commentImage}"/>
                         ${article.articletexte}
                 </p>
 
@@ -61,7 +62,7 @@
                     </form>
                 </c:if>
 
-            </articletexte>
+            </article>
         </c:forEach>
 
         <c:forEach var="page" end="${requestScope.numberOfPage}" begin="0" step="1">

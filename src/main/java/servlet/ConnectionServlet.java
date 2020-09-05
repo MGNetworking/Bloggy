@@ -107,6 +107,7 @@ public class ConnectionServlet extends HttpServlet {
 
             user.setName(req.getParameter("name"));
             user.setPassword(req.getParameter("password"));
+            user.setFirstName(req.getParameter("firstName"));
             user = this.daoUser.authentication(user);
 
         } catch (RuntimeException re) {

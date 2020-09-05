@@ -69,54 +69,30 @@ public class DaoArticle implements IDAO {
         Connection connection = connection = dataSource.getConnection();
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(
-                        INSERT_ARTICLE,
-                        Statement.RETURN_GENERATED_KEYS)
+                        INSERT_ARTICLE, Statement.RETURN_GENERATED_KEYS)
         ) {
 
             connection.setAutoCommit(false);                    // gestion de la transaction
-            ArticleBlog articleBlog = new ArticleBlog();
 
-            articleBlog.setId(Long.parseLong(request.getParameter("id")));
-            preparedStatement.setLong(1, articleBlog.getId());
 
-            // add to values article and data
-            articleBlog.setDate(Timestamp.valueOf(LocalDateTime.now()));
-            preparedStatement.setTimestamp(2, articleBlog.getDate());
+            preparedStatement.setLong(1, Long.parseLong(request.getParameter("id")));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setString(3, request.getParameter("page"));
 
-            articleBlog.setPage(request.getParameter("page"));
-            preparedStatement.setString(3, articleBlog.getPage());
+            preparedStatement.setString(4, new String(request.getParameter("title").
+                    getBytes("ISO-8859-1"), "UTF-8"));
 
-            articleBlog.setTitle(new String( request.getParameter("title").getBytes("ISO-8859-1"), "UTF-8"));
-            preparedStatement.setString(4, articleBlog.getTitle());
+            preparedStatement.setString(5, new String(request.getParameter("article").
+                    getBytes("ISO-8859-1"), "UTF-8"));
 
-            articleBlog.setArticletexte(new String( request.getParameter("article").getBytes("ISO-8859-1"), "UTF-8"));
-            preparedStatement.setString(5, articleBlog.getArticletexte());
-
-            // add image to server
-            DaoFile.createFile(request, articleBlog);
-
-            preparedStatement.setString(6, articleBlog.getPathImage());
-
-            articleBlog.setCommentImage(request.getParameter("image-commentaire"));
-            preparedStatement.setString(7, articleBlog.getCommentImage());
+            // add image to server tomact and SGBDR
+            preparedStatement.setString(6, DaoFile.createFile(request).getPathImage());
+            preparedStatement.setString(7, request.getParameter("image-commentaire"));
 
 
             // excution de la requete
-            int resultatOperation = preparedStatement.executeUpdate();
-
-            if (resultatOperation == 0) {
+            if (preparedStatement.executeUpdate() == 0) {
                 throw new SQLException("Echec operation insert ");
-            }
-
-
-            // Get keygen to data
-            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
-
-                if (resultSet.next()) {
-
-                    int keyGen = resultSet.getInt(1);
-                    articleBlog.setId((long) keyGen);
-                }
             }
 
             connection.commit();
@@ -147,9 +123,9 @@ public class DaoArticle implements IDAO {
 
             connection.rollback();
 
-        } catch (ServletException se) {
+        } catch (Exception se) {
 
-            String message = "erreur Servlet Exception : " +
+            String message = "Erreur type Exception in create methode : " +
                     se.getStackTrace() + "\n" +
                     se.getMessage() + "\n" +
                     se.getCause();
@@ -175,58 +151,49 @@ public class DaoArticle implements IDAO {
 
         boolean execute = false;
 
-        ArticleBlog articleBlog = (ArticleBlog) request.getAttribute("article");
-
         try (Connection connection = this.dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ARTICLE)) {
 
             preparedStatement.setString(1, request.getParameter("page"));
 
-            preparedStatement.setString(2, new String( request.getParameter("title").
+            preparedStatement.setString(2, new String(request.getParameter("title").
                     getBytes("ISO-8859-1"), "UTF-8"));
 
-            preparedStatement.setString(3, new String( request.getParameter("article").
+            preparedStatement.setString(3, new String(request.getParameter("article").
                     getBytes("ISO-8859-1"), "UTF-8"));
 
             // if image no changed
-            if (request.getParameter("image-article-befort") != null){
+            if (request.getParameter("image-article-befort") != null) {
                 preparedStatement.setString(4, request.getParameter("image-article-befort"));
 
-            }else{
-                // add image to server
-                DaoFile.createFile(request, articleBlog);
-                preparedStatement.setString(4, request.getParameter("pathImage"));
+            } else {
+                // if not change, add image to server SGBR and Tomcat
+                preparedStatement.setString(4, DaoFile.createFile(request).getPathImage());
             }
-
 
             preparedStatement.setString(5, request.getParameter("image-commentaire"));
             preparedStatement.setLong(6, Long.parseLong(request.getParameter("id_article")));
 
 
             // excution de la requete
-            int resultatOperation = preparedStatement.executeUpdate();
-
-            if (resultatOperation == 0) {
-                throw new SQLException("Echec operation update ");
+            if (preparedStatement.executeUpdate() == 1) {
+                execute = true;
             }
 
-
-            execute = true;
 
         } catch (SQLException sql) {
 
             String Message = "Problème sql update : " +
                     sql.getCause() + "\n" +
                     sql.getSQLState() + "\n" +
-                    sql.getStackTrace() + "\n" +
-                    "Recherche Article par id : " + articleBlog;
+                    sql.getStackTrace() + "\n";
 
             log.error(Message);
             throw new SQLException(Message);
 
         } catch (IOException ioe) {
 
-            String message = "erreur ioe : " +
+            String message = "Erreur type IOException in update methode : " +
                     ioe.getStackTrace() + "\n" +
                     ioe.getMessage() + "\n" +
                     ioe.getCause();
@@ -234,8 +201,8 @@ public class DaoArticle implements IDAO {
             log.error(message);
 
 
-        } catch (ServletException e) {
-            String message = "erreur Servlet Exception : " +
+        } catch (Exception e) {
+            String message = "Erreur type Exception in update methode : " +
                     e.getStackTrace() + "\n" +
                     e.getMessage() + "\n" +
                     e.getCause();
@@ -247,7 +214,7 @@ public class DaoArticle implements IDAO {
     }
 
     @Override
-    public boolean delete(HttpServletRequest request) throws SQLException {
+    public boolean delete(HttpServletRequest request) throws SQLException, Exception {
 
         boolean execute = false;
 
@@ -257,7 +224,7 @@ public class DaoArticle implements IDAO {
 
             preparedStatement.setLong(1, Long.valueOf(request.getParameter("id_article")));
 
-            if (preparedStatement.executeUpdate() == 1){
+            if (preparedStatement.executeUpdate() == 1) {
                 execute = true;
             }
 
@@ -272,6 +239,15 @@ public class DaoArticle implements IDAO {
 
             log.error(Message);
             throw new SQLException(Message);
+
+        }catch (Exception e) {
+            String message = "Erreur type Exception in delete methode : " +
+                    e.getStackTrace() + "\n" +
+                    e.getMessage() + "\n" +
+                    e.getCause();
+
+            log.error(message);
+            throw new Exception(message);
         }
 
 

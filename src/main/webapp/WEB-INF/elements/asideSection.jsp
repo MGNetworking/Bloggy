@@ -8,6 +8,7 @@
 <%@ page info="colonne de droit" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="entities.RoleUser" %>
+<%@ page import="util.NameRole" %>
 
     <section id="connection">
         <h2>Connection</h2>
@@ -16,16 +17,16 @@
 
                 <li>Identité : ${sessionScope.user.avatar}</li>
 
-                <c:if test="${sessionScope.user.listeRole['ADMIN'] == 'ADMIN'}">
+                <c:if test="${sessionScope.user.listeRole[NameRole.ADMIN.name] eq NameRole.ADMIN.name}">
 
-                    <li>Vos droit : ${sessionScope.user.listeRole['ADMIN']}</li>
+                    <li>Vos droit : ${sessionScope.user.listeRole[NameRole.ADMIN.name]}</li>
                     <li><a href="<c:url value="/gestionAdmin"/>">Gestion ADMIN</a></li>
 
                 </c:if>
 
-                <c:if test="${sessionScope.user.listeRole['USER_ARTICLE'] == 'USER_ARTICLE'}">
+                <c:if test="${sessionScope.user.listeRole[NameRole.USER_ARTICLE.name] eq NameRole.USER_ARTICLE.name}">
 
-                    <li>Vos droit : ${sessionScope.user.listeRole['USER_ARTICLE']}</li>
+                    <li>Vos droit : ${sessionScope.user.listeRole[NameRole.USER_ARTICLE.name]}</li>
 
                 </c:if>
 

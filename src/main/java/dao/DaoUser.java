@@ -3,6 +3,8 @@ package dao;
 import entities.RoleUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
+import org.mindrot.jbcrypt.BCrypt;
+import util.CryptageUtile;
 
 import javax.servlet.http.Cookie;
 import javax.sql.DataSource;
@@ -17,10 +19,8 @@ public class DaoUser {
 
     private DataSource dataSource;
 
-    private static String FIELD_USER = "id_user, name ,firstname ,avatar , email";
-
-    private static String SQL_GET_AUTHENTICATION = "SELECT " + FIELD_USER +
-            " FROM blog.user where name = ? AND password_user = ?";
+    private static String SQL_GET_AUTHENTICATION = "SELECT " + "id_user,firstname ,avatar , password_user,email" +
+            " FROM blog.user where name = ? AND firstname = ? ";
 
     private static String SQL_GET_DROIT =
             "SELECT role_name FROM blog.user_role where id_user = ?";
@@ -34,7 +34,8 @@ public class DaoUser {
                     "token = ? ," +
                     "tokendate = ? where id_user = ?";
 
-    private static String SQL_SEARCH_TOKEN = "SELECT name,password_user FROM blog.user where token = ?";
+    private static String SQL_SEARCH_TOKEN = "SELECT name,firstname ,password_user " +
+            "FROM blog.user where token = ?";
 
     private static String SQL_INSERT = "insert into blog.user" +
             "(name, firstName , avatar , password_user, email )" +
@@ -63,7 +64,7 @@ public class DaoUser {
 
             // recherche du user
             statementAuth.setString(1, user.getName());
-            statementAuth.setString(2, user.getPassword());
+            statementAuth.setString(2, user.getFirstName());
 
             // Si il existe on mappe les valeurs du user
             try (ResultSet resultSetAut = statementAuth.executeQuery()) {
@@ -71,17 +72,23 @@ public class DaoUser {
                 if (resultSetAut.next()) {
 
                     user.setId(resultSetAut.getLong(1));
-                    user.setFirstName(resultSetAut.getString(3));
-                    user.setAvatar(resultSetAut.getString(4));
+                    user.setFirstName(resultSetAut.getString(2));
+                    user.setAvatar(resultSetAut.getString(3));
                     user.setEmail(resultSetAut.getString(5));
+
+                    if (CryptageUtile.verifyHash(user.getPassword(), resultSetAut.getString(4))) {
+                        String message = "Error password : " + user.getPassword();
+
+                        log.error(message);
+                        throw new RuntimeException(message);
+                    }
 
                 } else {
 
-                    String message = "user not found for : " + user.toString() +
-                            " or password : " + user.getPassword();
+                    String message = "user name or firstname not found for : " + user.toString();
 
                     log.error(message);
-                    throw new SQLException(message);
+                    throw new RuntimeException(message);
                 }
             }
 
@@ -114,6 +121,13 @@ public class DaoUser {
 
             throw new RuntimeException("Une erreur est survenue " + e.getMessage());
 
+        } catch (RuntimeException e) {
+
+            log.error("Enter refuser " +
+                    e.getMessage() + " | " +
+                    e.getStackTrace());
+
+            throw new RuntimeException("Une erreur est survenue " + e.getMessage());
         } catch (Exception e) {
 
             log.error("Execption " +
@@ -208,14 +222,13 @@ public class DaoUser {
 
     /**
      * Allows to update right user
+     *
      * @param listUser
      * @return
      */
 /*    public boolean updateRight(List listUser){
 
     }*/
-
-
     public boolean delete(User user) throws SQLException {
         return false;
     }
@@ -244,7 +257,8 @@ public class DaoUser {
 
                 if (resultSet.next()) {
                     user.setName(resultSet.getString(1));
-                    user.setPassword(resultSet.getString(2));
+                    user.setFirstName(resultSet.getString(2));
+                    user.setPassword(resultSet.getString(3));
 
                 }
             }
@@ -315,12 +329,12 @@ public class DaoUser {
                         ));
 
                         // ajoute des droits
-                        while (rstdroit.next()){
+                        while (rstdroit.next()) {
 
                             String name = rstdroit.getString("role_name");
                             listUser.get(indic).getListeRole().put(name, new RoleUser(name));
 
-                            log.info("Droit user DAO : "+listUser.get(indic).getListeRole());
+                            log.info("Droit user DAO : " + listUser.get(indic).getListeRole());
                         }
                         indic++;
 
@@ -352,8 +366,6 @@ public class DaoUser {
 
         return listUser;
     }
-
-
 
 
 }

@@ -22,8 +22,13 @@
     </div>
 
     <div>
+        <label for="firstName" class="firstName">Prenom :</label>
+        <input name="firstName" type="text" required autofocus tabindex="2">
+    </div>
+
+    <div>
         <label for="password" class="password">Password :</label>
-        <input name="password" type="password" required autofocus tabindex="2">
+        <input name="password" type="password" required autofocus tabindex="3">
     </div>
 
     <div>

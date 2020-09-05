@@ -18,6 +18,7 @@
     --transwhite: hsla(0, 0%, 100%, 0.500);
     --red: rgb(245, 41, 41);
     --redSurVol: rgba(245, 41, 41, 0.425);
+    --Article: rgba(219, 160, 237, 0.42);
     /* cette propriete sera hériter par tout les élément de la page*/
     /*Modifie le comportement pour inclure la largeur et la hauteur dans le contenu*/
     box-sizing: border-box;
@@ -267,7 +268,7 @@ est even veux pair*/
 }
 
 #mainContant article:nth-child(even) {
-    background-color: var(--redSurVol);
+    background-color: var(--Article);
 }
 
 #mainContant article header p {
