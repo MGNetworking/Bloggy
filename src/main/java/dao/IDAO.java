@@ -17,7 +17,7 @@ public interface IDAO<T> {
 
     abstract boolean delete(HttpServletRequest request) throws SQLException;
 
-    abstract T find(HttpServletRequest request) throws SQLException;
+    abstract T find(String request) throws SQLException;
 
     abstract List<T> findAll() throws SQLException;
 }

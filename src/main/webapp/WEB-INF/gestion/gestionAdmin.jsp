@@ -67,30 +67,30 @@
                     <c:if test="${ not empty user.listeRole}">
 
 
-                        <c:if test="${fn:contains(user.listeRole ,NameRole.ADMIN.name())}">
+                        <c:if test="${fn:contains(user.listeRole ,NameRole.ADMIN)}">
                             <td>
-                                <input type='checkbox' name="${user.id}${NameRole.ADMIN.name()}"  checked tabindex="1">
+                                <input type='checkbox' name="${user.id}${NameRole.ADMIN}"  checked tabindex="1">
                             </td>
 
                         </c:if>
 
-                        <c:if test="${not fn:contains(user.listeRole ,NameRole.ADMIN.name())}">
+                        <c:if test="${not fn:contains(user.listeRole ,NameRole.ADMIN)}">
                             <td>
-                                <input type='checkbox' name="${user.id}${NameRole.ADMIN.name()}" tabindex="1">
+                                <input type='checkbox' name="${user.id}${NameRole.ADMIN}" tabindex="1">
                             </td>
 
                         </c:if>
 
-                        <c:if test="${fn:contains(user.listeRole ,NameRole.USER_ARTICLE.name())}">
+                        <c:if test="${fn:contains(user.listeRole ,NameRole.USER_ARTICLE)}">
                             <td>
-                                <input type='checkbox' name="${user.id}${NameRole.USER_ARTICLE.name()}"  checked tabindex="2">
+                                <input type='checkbox' name="${user.id}${NameRole.USER_ARTICLE}"  checked tabindex="2">
                             </td>
 
                         </c:if>
 
-                        <c:if test="${not fn:contains(user.listeRole ,NameRole.USER_ARTICLE.name())}">
+                        <c:if test="${not fn:contains(user.listeRole ,NameRole.USER_ARTICLE)}">
                             <td>
-                                <input type='checkbox' name="${user.id}${NameRole.USER_ARTICLE.name()}" tabindex="2">
+                                <input type='checkbox' name="${user.id}${NameRole.USER_ARTICLE}" tabindex="2">
                             </td>
                         </c:if>
 

@@ -119,6 +119,12 @@ public class ServiceArticle {
         return execute;
     }
 
+    /**
+     * Allows to get list of article
+     * @param request
+     * @return
+     * @throws RuntimeException
+     */
     public List<ArticleBlog> findAllArticle(HttpServletRequest request) throws RuntimeException {
 
         this.initDataSource();

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class ArticleBlog {
 
     private Long id;
-    private Timestamp timestamp;
+    private Timestamp date;
     private String page;
     private String title;
     private String articletexte;
@@ -44,23 +44,23 @@ public class ArticleBlog {
         this.id = id;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Timestamp getDate() {
+        return date;
     }
 
     /**
      * Mutator for the creation date of the articletexte.
      *
-     * @param timestamp type object to timestamp
-     * @throws NullPointerException if timestamp is null.
+     * @param date type object to date
+     * @throws NullPointerException if date is null.
      */
-    public void setTimestamp(Timestamp timestamp) throws NullPointerException {
+    public void setDate(Timestamp date) throws NullPointerException {
 
-        if (timestamp == null) {
-            log.debug("The Value of timestamp Article is " + timestamp);
-            throw new NullPointerException("The timestamp Article Value is " + timestamp);
+        if (date == null) {
+            log.debug("The Value of date Article is " + date);
+            throw new NullPointerException("The date Article Value is " + date);
         }
-        this.timestamp = timestamp;
+        this.date = date;
     }
 
     public String getPage() {
@@ -72,7 +72,7 @@ public class ArticleBlog {
      *
      * @param page String type
      * @throws RuntimeException     if page is empty.
-     * @throws NullPointerException if timestamp is null.
+     * @throws NullPointerException if date is null.
      */
     public void setPage(String page) throws RuntimeException, NullPointerException {
 
@@ -176,7 +176,7 @@ public class ArticleBlog {
     public String toString() {
         return "ArticleBlog{" +
                 "id=" + id +
-                ", timestamp=" + timestamp +
+                ", date=" + date +
                 ", page='" + page + '\'' +
                 ", title='" + title + '\'' +
                 ", articletexte='" + articletexte + '\'' +

@@ -44,7 +44,7 @@ public class ArticleTest {
     public void testSetTimestampNull() {
 
         assertThrows(NullPointerException.class,
-                () -> articleBlog.setTimestamp(null),
+                () -> articleBlog.setDate(null),
                 "Error timestamps is null");
 
     }

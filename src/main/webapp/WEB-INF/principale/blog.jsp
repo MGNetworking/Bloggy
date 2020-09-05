@@ -1,5 +1,8 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="util.TokenHelper" %>
+<%@ page import="util.NameRole" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,60 +22,53 @@
 <div id="mainbody" class="colonneMain">
 
     <main id="mainContant">
-        <articletexte>
+        <c:set var="csrfToken" value="${TokenHelper.generateCsrfToken()}"/>
 
-            <header>
-                <h3>Titre 1 du blog</h3>
-                <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
-            </header>
+        <c:forEach var="article" items="${requestScope.listArticle}">
+            <articletexte>
 
-            <p><img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
-                dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
-                quasi odio porro, omnis corrupti ipsa beatae cumque natus
-                praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
-                doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p>
-                <a href="<c:url value="/article" />?page=visiste&article=MyPc1">Lire la suite</a>
-            </p>
-        </articletexte>
-        <!-- fin de la articletexte 1 -->
+                <header>
+                    <h3>${article.title}</h3>
+                    <p><strong>${article.date}</strong> | ${article.avatar} </p>
+                </header>
+
+                <p>
+                    <img src="<c:url value="${article.pathImage}" />" alt="image dillustration"/>
+                        ${article.articletexte}
+                </p>
 
 
-        <articletexte>
+                <c:if test="${article.name eq sessionScope.user.name or fn:contains(user.listeRole ,NameRole.ADMIN)}">
 
-            <header>
-                <h3>Titre 2 du blog</h3>
-                <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
-            </header>
-ROOT
-            <p><img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
-                dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
-                quasi odio porro, omnis corrupti ipsa beatae cumque natus
-                praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
-                doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p>
-                <a href="<c:url value="/article" />?page=visiste&article=MyPc1">Lire la suite</a>
-            </p>
-        </articletexte>
-        <!-- fin de la articletexte 2-->
+                    <form action="<c:url value="/article" />?page=modifier" method="post">
 
+                        <c:set var="_csrfToken" value="${csrfToken}" scope="session"/>
+                        <input type="hidden" value="${csrfToken}" name="${ TokenHelper.CSRF_TOKEN_VALUE_NAME }"/>
 
-        <articletexte>
-            <header>
-                <h3>Titre 3 du blog</h3>
-                <p><strong>JJ - MM - AAAA</strong> | Maxime Ghalem | 3 commentaire</p>
-            </header>
-            <p>
-                <img src="<c:url value="/static/image/article/pcDell1.png" />" alt="image dillustration"/>Lorem, ipsum
-                dolor sit amet consectetur adipisicing elit. Perferendis dolor quas obcaecati iste facilis incidunt
-                quasi odio porro, omnis corrupti ipsa beatae cumque natus
-                praesentium et sequi sed ea consequuntur. Tempora repellendus fuga inventore id totam suscipit expedita
-                doloribus vero laborum ducimus! Doloribus maxime amet voluptates magni quod totam itaque?</p>
-            <p>
-                <a href="<c:url value="/article" />?page=visiste&article=MyPc1">Lire la suite</a>
-            </p>
-        </articletexte>
-        <!-- fin de la articletexte 3-->
+                        <input type="hidden" value="${ article.id_article }" name="id_article"/>
+
+                        <button type="submit">Modifier</button>
+                    </form>
+
+                    <form action="<c:url value="/article" />?page=supprimer" method="post">
+
+                        <c:set var="_csrftoken" value="${csrfToken}" scope="session"></c:set>
+                        <input type="hidden" value="${csrfToken}" name="${TokenHelper.CSRF_TOKEN_VALUE_NAME}"/>
+
+                        <input type="hidden" value="${ article.id_article }" name="id_article"/>
+
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </c:if>
+
+            </articletexte>
+        </c:forEach>
+
+        <c:forEach var="page" end="${requestScope.numberOfPage}" begin="0" step="1">
+            <a href="<c:url value="/article"/>?paginable=${page}&page=visite">${page}</a>
+        </c:forEach>
+
+        <!-- fin bouton de retour  -->
 
         <p>
 
@@ -83,9 +79,6 @@ ROOT
             </a>
 
         </p>
-        <!-- fin bouton de retour  -->
-
-
     </main>
     <!-- fin du mainContant-->
 

@@ -1,5 +1,8 @@
 package servlet;
 
+import dao.DaoArticle;
+import dto.DtoArticle;
+import entities.ArticleBlog;
 import entities.RoleUser;
 import entities.User;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ServiceArticle;
+import util.NameRole;
+import util.TokenHelper;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -30,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static util.NameRole.USER_ARTICLE;
+
 @Slf4j
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB seuil de la taille du fichier
@@ -41,8 +48,42 @@ public class ArticleServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1273074928096412095L;
 
+    private DataSource dataSource;
+    private DaoArticle daoArticle;
+    private int numberArticle = 0;
+
     @Override
     public void init() throws ServletException {
+
+        try {
+            if (dataSource == null) {
+
+                Context initContext = new InitialContext();
+                Context contextEnv = (Context) initContext.lookup("java:comp/env");
+                this.dataSource = (DataSource) contextEnv.lookup("Myblog");
+
+                if (daoArticle == null) {
+                    daoArticle = new DaoArticle(this.dataSource);
+                }
+
+                numberArticle = daoArticle.countArticle();
+            }
+
+
+        } catch (NamingException ne) {
+
+            String message = "Naming Exception data Source : " +
+                    ne.getStackTrace() + "\n" +
+                    ne.getMessage() + "\n" +
+                    ne.getCause();
+
+            log.error(message);
+            throw new RuntimeException(message);
+
+        } catch (SQLException sql) {
+
+            log.error(sql.getMessage());
+        }
 
     }
 
@@ -53,24 +94,64 @@ public class ArticleServlet extends HttpServlet {
 
 
         String paramPage = req.getParameter("page");
-        String paramArticle =  req.getParameter("article");
+        User user = (User) req.getSession().getAttribute("user");
 
-        if (paramPage != null){
+        boolean actionRight = false;
+
+        // if visit the artciles
+        if (paramPage.equals("visite")) {
 
 
-            if (paramPage.equals("articleCreate")) {    // Pour la creation d'article
+            List<DtoArticle> listArticlePaginable = null;
 
-                User user = (User) req.getSession().getAttribute("user");
+            try {
+                String paginable = req.getParameter("paginable");
+                int page = 0;
 
-                log.info("User Artilce : " + user.getListeRole());
+                if (paginable != null) {
+                    page = Integer.parseInt(paginable);
+                    log.info("paginable parse: " + page);
+                }
 
-                String role = ((RoleUser) user.getListeRole().get("USER_ARTICLE")).getRole();
+                page = page * 10;
+                log.info("paginable : " + page);
+                listArticlePaginable = daoArticle.findPaginate(req, 10, page);
 
-                // si a les droit de creation d'article
+
+                // calculating the number of pages for pagination
+                int calcul = (int) Math.ceil(this.numberArticle / 10.0) - 1;
+
+                log.info("number de page : " + calcul);
+                log.info("nomber of article" +listArticlePaginable.size());
+
+                req.setAttribute("numberOfPage", calcul);
+                req.setAttribute("listArticle", listArticlePaginable);
+
+
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/principale/blog.jsp")
+                        .forward(req, resp);
+
+            } catch (SQLException sqle) {
+
+                req.setAttribute("error", 500);
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+            }
+        } else if (user != null) {
+
+            // for article create
+            if (paramPage.equals("articleCreate")) {
+
+                String role = ((RoleUser) user.getListeRole().get(USER_ARTICLE.getName())).getRole();
+
+                // if has the article creation rights
                 if (role.equals("USER_ARTICLE")) {
 
+                    log.info("create article ");
 
-                    req.setAttribute("formulaire","creationArticle" );
+                    req.setAttribute("formulaire", "Article");
 
                     // renvoie vers la page de creation d'un article
                     this.getServletContext()
@@ -78,30 +159,11 @@ public class ArticleServlet extends HttpServlet {
                             .forward(req, resp);
 
                 }
+
+
             }
 
-
-            if (paramPage.equals("visite")) {   // Pour la visiste des articles
-
-                if (paramArticle != null){
-                    if (paramArticle.equals("MyPc1")) {
-                        this.getServletContext()
-                                .getRequestDispatcher("/WEB-INF/webArticle/dellPrecision7520.jsp")
-                                .forward(req, resp);
-                    }
-                }
-
-                // Les articles de projet
-                this.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/principale/blog.jsp")
-                        .forward(req, resp);
-
-            }
         }
-
-
-
-
     }
 
     @Override
@@ -109,32 +171,169 @@ public class ArticleServlet extends HttpServlet {
                           HttpServletResponse resp)
             throws ServletException, IOException {
 
-        try {
+        String ActionArticle = req.getParameter("ActionArticle");
+        String page = req.getParameter("page");
 
-            boolean validatArticle = new ServiceArticle().createArticle(req);
-            log.info("l'article a etait ajoute : " + validatArticle);
+        // modify and delete article
+        if (ActionArticle != null) {
 
-            req.setAttribute("validation", validatArticle);
-            req.setAttribute("retour", "article");
+            switch (ActionArticle) {
+                case "modifier": {
 
-            this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
-                    .forward(req, resp);
+                    try {
 
 
-        } catch (SQLException e) {
+                        req.setAttribute("validation", daoArticle.update(req));
+                        req.setAttribute("retour", "update");
 
-            log.error("l'article n'a pas etait ajouter : " + e.getSQLState());
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                                .forward(req, resp);
 
-            req.setAttribute("error", "400");
+                    } catch (SQLException sql) {
 
-            this.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
-                    .forward(req, resp);
+                        log.error(sql.getMessage());
+
+                        req.setAttribute("error", "400");
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                                .forward(req, resp);
+                    }
+                }
+                break;
+                case "supprimer": {
+
+                    try {
+
+                        req.setAttribute("validation", daoArticle.delete(req));
+                        req.setAttribute("retour", "delete");
+
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                                .forward(req, resp);
+
+                    } catch (SQLException sql) {
+                        log.error(sql.getMessage());
+
+                        req.setAttribute("error", "400");
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                                .forward(req, resp);
+
+                    } catch (Exception e) {
+                        log.error("l'article n'a pas etait ajouter : " + e.getMessage());
+
+                        req.setAttribute("error", "400");
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                                .forward(req, resp);
+                    }
+                }
+                break;
+                case "create": {
+
+                    // create article
+                    try {
+
+                        boolean validatArticle = daoArticle.create(req);
+
+                        if (validatArticle == true) {
+                            numberArticle++;
+                        }
+
+                        log.info("l'article a etait ajoute : " + validatArticle);
+
+                        req.setAttribute("validation", validatArticle);
+                        req.setAttribute("retour", "article");
+
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                                .forward(req, resp);
+
+
+                    } catch (SQLException e) {
+
+                        log.error("l'article n'a pas etait ajouter : " + e.getSQLState());
+
+                        req.setAttribute("error", "400");
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                                .forward(req, resp);
+
+
+                    } catch (Exception e) {
+                        log.error("l'article n'a pas etait ajouter : " + e.getMessage());
+
+                        req.setAttribute("error", "400");
+                        this.getServletContext()
+                                .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                                .forward(req, resp);
+                    }
+                    break;
+                }
+
+                default: {
+                    req.setAttribute("error", "401");
+                    this.getServletContext()
+                            .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                            .forward(req, resp);
+                }
+
+            }
+
+
+        } else if (page != null) {
+
+            // after selection in jsp the article for delete or modify
+            log.info(page.toString() + " Article");
+
+            switch (page) {
+                case "modifier": {
+                    req.setAttribute("action", "modifier");
+                }
+                break;
+                case "supprimer": {
+                    req.setAttribute("action", "supprimer");
+                }
+                break;
+            }
+
+            try {
+
+                // get article for affichage
+                ArticleBlog articleBlog = daoArticle.find(req.getParameter("id_article"));
+
+                // for selection form in formulaire.jsp
+                req.setAttribute("formulaire", "Article");
+                req.setAttribute("article", articleBlog);
+
+                // add article in jsp or delete or modify
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
+                        .forward(req, resp);
+
+            } catch (SQLException sqle) {
+                log.error(sqle.getMessage());
+
+                req.setAttribute("error", "400");
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+
+                req.setAttribute("error", "400");
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+
+            }
 
 
         }
     }
 
-
 }
+
+

@@ -36,6 +36,38 @@
             </c:if>
         </c:if>
 
+        <c:if test="${requestScope.retour == 'update'}">
+
+            <%-- teste l'article a etait ajouter --%>
+            <c:if test="${requestScope.validation == true}">
+                <h2>Successfully</h2>
+                <p>Votre article de blog a été modifier avec succès</p>
+                <p>Merci de votre contribution au blog</p>
+            </c:if>
+
+            <c:if test="${requestScope.validation == false}">
+                <h2>Echec</h2>
+                <p>Votre article de blog n'a pas été modifier</p>
+                <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
+            </c:if>
+        </c:if>
+
+        <c:if test="${requestScope.retour == 'delete'}">
+
+            <%-- teste l'article a etait ajouter --%>
+            <c:if test="${requestScope.validation == true}">
+                <h2>Successfully</h2>
+                <p>Votre article de blog a été supprimer avec succès</p>
+                <p>Merci de votre contribution au blog</p>
+            </c:if>
+
+            <c:if test="${requestScope.validation == false}">
+                <h2>Echec</h2>
+                <p>Votre article de blog n'a pas été supprimer</p>
+                <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
+            </c:if>
+        </c:if>
+
         <%-- si un retour du formulaire de prise de contact --%>
         <c:if test="${requestScope.retour == 'contact'}">
 

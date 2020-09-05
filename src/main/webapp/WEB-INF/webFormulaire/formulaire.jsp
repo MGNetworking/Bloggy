@@ -20,7 +20,7 @@
 
     <main id="mainContant">
 
-        <c:if test="${requestScope.formulaire == 'creationArticle'}">
+        <c:if test="${requestScope.formulaire == 'Article'}">
             <c:import url="../formulaireElement/formulaireArticle.jsp"></c:import>
         </c:if>
 

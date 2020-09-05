@@ -28,6 +28,7 @@ public class DaoFile  {
 
                     try {
 
+                        log.info("path image : "+IMAGES_FOLDER + getFileName(part));
                         articleBlog.setPathImage(IMAGES_FOLDER + getFileName(part));
 
                         part.write(request.getServletContext().getRealPath("") +

@@ -108,21 +108,20 @@ public class SubmitCSRFToken implements Filter {
 
                 } else {
 
-                    res.sendError(403, TokenHelper.
-                            CSRF_TOKEN_VALUE_NAME + " is empty ");
+                    res.sendError(403, "You don't have the right for this action");
 
                     log.warn(TokenHelper.
                             CSRF_TOKEN_VALUE_NAME + " to param is null");
                 }
             } else {
 
-                res.sendError(403, TokenHelper.
-                        CSRF_TOKEN_VALUE_NAME + " is empty");
+                res.sendError(403, "You don't have the right for this action");
 
                 log.warn(TokenHelper.
                         CSRF_TOKEN_VALUE_NAME + " to session is null");
             }
         }else{
+
             chain.doFilter(request, response);
         }
 

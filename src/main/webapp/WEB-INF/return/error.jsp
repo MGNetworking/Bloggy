@@ -19,8 +19,8 @@
     <main id="mainContant" class="retrourForm">
 
         <c:if test="${requestScope.error == '400'}">
-                <h2>ERROR 400</h2>
-                <p>Bad Request, une erreur est sur venu pendant le traitement.</p>
+            <h2>ERROR 400</h2>
+            <p>Bad Request, une erreur est sur venu pendant le traitement.</p>
         </c:if>
 
         <c:if test="${requestScope.error == '401'}">
