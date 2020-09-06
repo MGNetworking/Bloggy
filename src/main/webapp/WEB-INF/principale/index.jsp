@@ -21,7 +21,7 @@
 
         <h2>bienvenu sur le site de Ghalem Maxime</h2>
         <%--        <figure class="imgFigure">--%>
-        <div class="imgFigure">
+        <div >
             <img class="imgFigure" src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
                  alt="image de l'arc de triomphe"/>
             <figcaption>L'arc de triomphe</figcaption>
@@ -69,6 +69,78 @@
                 natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
                 eaque
                 natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+            Ab
+            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+            rem
+            perferendis cumque laudantium
+            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+            eaque
+            natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+
 
         </div>
             <%--        </figure>--%>

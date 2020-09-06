@@ -104,12 +104,7 @@ public class InscriptionServlet extends HttpServlet {
                     .forward(req, resp);
 
         }catch (RuntimeException re){
-
-            // TODO renvoi vers la page de formulaire pour cause d'erreur sur
-            // TODO le fait que le user existe deja ou autre ...
-            // TODO fonction trigger a implementer
-
-
+            
             req.setAttribute("formulaire", "inscription");
             this.getServletContext()
                     .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")

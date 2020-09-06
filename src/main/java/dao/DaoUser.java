@@ -60,7 +60,7 @@ public class DaoUser {
              PreparedStatement statementAuth = connection.prepareStatement(SQL_GET_AUTHENTICATION);
              PreparedStatement statementDroit = connection.prepareStatement(SQL_GET_DROIT)) {
 
-            log.info("user dao :" + user.toString());
+            log.info("authentication :" + user.toString());
 
             // recherche du user
             statementAuth.setString(1, user.getName());
@@ -109,7 +109,7 @@ public class DaoUser {
                                 put(name, new RoleUser(name));
 
                     }
-                    log.info("User get : " + user.toString());
+                    log.info("authentication after get right : " + user.toString());
                 }
             }
 
@@ -164,16 +164,15 @@ public class DaoUser {
 
             statementToken.setLong(8, user.getId());
 
-            int resultat = statementToken.executeUpdate();
 
-            if (resultat == 0) {
+            if (statementToken.executeUpdate() == 0) {
                 throw new SQLException();
             }
 
             execute = true;
         } catch (SQLException e) {
 
-            log.error("Token not create : " +
+            log.error("error sql in update methode : " +
                     e.getMessage() + " | " +
                     e.getSQLState());
 

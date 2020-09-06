@@ -195,14 +195,9 @@ img {
 
 div .imgFigure{
     max-height: 35em;
-    margin: 1em 20px;
+    margin: 0em 20px;
     float: left;
 }
-
-/*img .imgFigure{
-    max-height: 50em;
-    float: left;
-}*/
 
 /*figure {
     !*permet de mettre du texte a droit*!

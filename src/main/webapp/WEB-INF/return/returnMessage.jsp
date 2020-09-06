@@ -82,6 +82,22 @@
             </c:if>
         </c:if>
 
+        <c:if test="${requestScope.retour == 'newIdentity'}">
+
+            <%-- teste l'article a etait ajouter --%>
+            <c:if test="${requestScope.validation eq true}">
+                <h2>Successfully</h2>
+                <p>Les droit ont été modifier avec succés</p>
+                <p>Merci de votre contribution au blog</p>
+            </c:if>
+
+            <c:if test="${requestScope.validation eq false}">
+                <h2>Echec</h2>
+                <p>Les droit n'ont pas été modifier </p>
+                <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
+            </c:if>
+        </c:if>
+
         <%-- si un retour du formulaire de prise de contact --%>
         <c:if test="${requestScope.retour == 'contact'}">
 

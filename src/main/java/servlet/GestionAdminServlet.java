@@ -71,63 +71,119 @@ public class GestionAdminServlet extends HttpServlet {
 
         log.info("Gestion des droit admin do get");
 
-        try {
+        String identiter = req.getParameter("identiter");
 
-            if ((listUser = daoUser.findAll()) != null) {
+        // modify identity
+        if (identiter != null ) {
 
-                req.setAttribute("ListUser", listUser);
-                this.getServletContext().getRequestDispatcher("/WEB-INF/gestion/gestionAdmin.jsp")
+            if(identiter.equals("formulaire")){
+
+                req.setAttribute("formulaire", "inscription");
+                req.setAttribute("identiter", "new");
+
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/webFormulaire/formulaire.jsp")
                         .forward(req, resp);
-
             }
 
-        } catch (SQLException sql) {
+        } else {
 
-            log.error("Une erreur est survenu : " + sql.getMessage());
 
-            req.setAttribute("error", "400");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
-                    .forward(req, resp);
+            try {
 
-        } catch (Exception e) {
+                if ((listUser = daoUser.findAll()) != null) {
 
-            log.error("Une erreur est survenu : " + e.getMessage());
+                    req.setAttribute("ListUser", listUser);
+                    this.getServletContext().getRequestDispatcher("/WEB-INF/gestion/gestionAdmin.jsp")
+                            .forward(req, resp);
 
-            req.setAttribute("error", "500");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
-                    .forward(req, resp);
+                }
+
+            } catch (SQLException sql) {
+
+                log.error("Une erreur est survenu : " + sql.getMessage());
+
+                req.setAttribute("error", "400");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+
+            } catch (Exception e) {
+
+                log.error("Une erreur est survenu : " + e.getMessage());
+
+                req.setAttribute("error", "500");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+            }
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        try {
+        String newForm = req.getParameter("newForm");
 
-            TraitementFormulaire.formulaireGestionDroit(req, listUser, daoUserRole);
+        if (newForm != null) {
 
-            req.setAttribute("retour", "droit");
-            req.setAttribute("validation", true );
+            if(newForm.equals("newId")){
+
+            // tranforme request in user object
+            User user = TraitementFormulaire.formulaireInscription(req);
+            boolean modify = false;
+
+
+
+            if (user != null) {
+
+                // add id user for update
+                user.setId(((User) req.getSession().
+                        getAttribute("user")).
+                        getId());
+
+                modify = daoUser.update(user);          // update new identity
+            }
+
+            if (modify == true) {
+
+                user = daoUser.authentication(user);   // Get user right white new identity
+                req.getSession().setAttribute("user", user);
+            }
+
+
+            req.setAttribute("retour", "newIdentity");
+            req.setAttribute("validation", modify);
             this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
                     .forward(req, resp);
+            }
 
-        } catch (SQLException sql) {
+        } else {
 
-            log.error(sql.getMessage());
+            try {
 
-            req.setAttribute("retour", "droit");
-            req.setAttribute("validation", false );
-            this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
-                    .forward(req, resp);
+                TraitementFormulaire.formulaireGestionDroit(req, listUser, daoUserRole);
 
-        } catch (Exception e) {
+                req.setAttribute("retour", "droit");
+                req.setAttribute("validation", true);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                        .forward(req, resp);
 
-            log.error(e.getMessage());
+            } catch (SQLException sql) {
 
-            req.setAttribute("error", "500");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
-                    .forward(req, resp);
+                log.error(sql.getMessage());
+
+                req.setAttribute("retour", "droit");
+                req.setAttribute("validation", false);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                        .forward(req, resp);
+
+            } catch (Exception e) {
+
+                log.error(e.getMessage());
+
+                req.setAttribute("error", "500");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+                        .forward(req, resp);
+            }
         }
-
     }
 }
