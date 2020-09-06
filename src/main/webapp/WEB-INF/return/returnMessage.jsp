@@ -19,17 +19,15 @@
 
     <main id="mainContant" class="retrourForm">
 
-        <%-- si c'est un retour d'ajout d'article--%>
         <c:if test="${requestScope.retour == 'article'}">
 
-            <%-- teste l'article a etait ajouter --%>
-            <c:if test="${requestScope.validation == true}">
+            <c:if test="${requestScope.validation eq true}">
                 <h2>Successfully</h2>
                 <p>Votre article de blog a été enregistré avec succès</p>
                 <p>Merci de votre contribution au blog</p>
             </c:if>
 
-            <c:if test="${requestScope.validation == false}">
+            <c:if test="${requestScope.validation eq false}">
                 <h2>Echec</h2>
                 <p>Votre article de blog n'a pas été enregistré</p>
                 <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
@@ -38,14 +36,13 @@
 
         <c:if test="${requestScope.retour == 'update'}">
 
-            <%-- teste l'article a etait ajouter --%>
-            <c:if test="${requestScope.validation == true}">
+            <c:if test="${requestScope.validation eq true}">
                 <h2>Successfully</h2>
                 <p>Votre article de blog a été modifier avec succès</p>
                 <p>Merci de votre contribution au blog</p>
             </c:if>
 
-            <c:if test="${requestScope.validation == false}">
+            <c:if test="${requestScope.validation eq false}">
                 <h2>Echec</h2>
                 <p>Votre article de blog n'a pas été modifier</p>
                 <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
@@ -54,16 +51,33 @@
 
         <c:if test="${requestScope.retour == 'delete'}">
 
-            <%-- teste l'article a etait ajouter --%>
-            <c:if test="${requestScope.validation == true}">
+
+            <c:if test="${requestScope.validation eq true}">
                 <h2>Successfully</h2>
                 <p>Votre article de blog a été supprimer avec succès</p>
                 <p>Merci de votre contribution au blog</p>
             </c:if>
 
-            <c:if test="${requestScope.validation == false}">
+            <c:if test="${requestScope.validation eq false}">
                 <h2>Echec</h2>
                 <p>Votre article de blog n'a pas été supprimer</p>
+                <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
+            </c:if>
+        </c:if>
+
+
+        <c:if test="${requestScope.retour == 'droit'}">
+
+            <%-- teste l'article a etait ajouter --%>
+            <c:if test="${requestScope.validation eq true}">
+                <h2>Successfully</h2>
+                <p>Les droit ont été modifier avec succés</p>
+                <p>Merci de votre contribution au blog</p>
+            </c:if>
+
+            <c:if test="${requestScope.validation eq false}">
+                <h2>Echec</h2>
+                <p>Les droit n'ont pas été modifier </p>
                 <p>Merci de contacter les services ADMIN de ce blog, Merci de votre compréhension</p>
             </c:if>
         </c:if>

@@ -187,18 +187,27 @@ img {
     max-width: 100%;
     /*hauteur calcul automatiquement*/
     height: auto;
+
+
 }
 
 /*image dans la page d'index*/
 
-img .imgFigure{
-    max-height: 50em;
-}
-
-figure {
-    /*permet de mettre du texte a droit*/
+div .imgFigure{
+    max-height: 35em;
+    margin: 1em 20px;
     float: left;
 }
+
+/*img .imgFigure{
+    max-height: 50em;
+    float: left;
+}*/
+
+/*figure {
+    !*permet de mettre du texte a droit*!
+    float: left;
+}*/
 
 /*===============================================================*/
 /* gestion de l'image de fond | l'id mainbody a permis de séparé

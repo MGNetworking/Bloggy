@@ -43,6 +43,21 @@ public class TraitementFormulaire {
         return user;
     }
 
+    /**
+     * Allows to management right for create and delete article.
+     *
+     * If the user has ADMIN right , he will not be able to create an article.
+     * He will be able to management the right user.
+     *
+     * If the user has USER_ARTICLE, he will not be able to management Right user.
+     * He will be able to create articles
+     *
+     * @param request
+     * @param listUser
+     * @param daoUserRole
+     * @throws SQLException
+     * @throws Exception
+     */
     public static void formulaireGestionDroit(HttpServletRequest request, List<User> listUser, DaoUserRole daoUserRole)
             throws SQLException, Exception {
 
@@ -53,21 +68,13 @@ public class TraitementFormulaire {
 
             for (int i = 0; i < listUser.size(); i++) {
 
-                log.info("---------------");
-                log.info("User : " + listUser.get(i).getName());
-                log.info("ID : " + listUser.get(i).getId());
-                log.info("ADMIN : " + request.getParameter(listUser.get(i).getId() + ADMIN.getName()));
-                log.info("USER_ARTICLE : " + request.getParameter(listUser.get(i).getId() + USER_ARTICLE.getName()));
-                log.info("liste : " + listUser.get(i).getListeRole());
-
-
                 // gestion du droit ADMIN
                 // Si la valeur de l'input correspondant au User + ADMIN possede on ( ADMIN est checked )
                 if (request.getParameter(listUser.get(i).getId() + ADMIN.getName()) != null) {
 
                     log.info("ADMIN : " + listUser.get(i));
 
-                    //si le user ne possede pas le droit ADMIN, on lui ajoute
+                    // si le user ne possede pas le droit ADMIN, on lui ajoute
                     if (!listUser.get(i).getListeRole().containsKey(roleAdmin.getRole())) {
                         daoUserRole.create(listUser.get(i), roleAdmin);
                         log.info("create ADMIN : " + listUser.get(i));
@@ -75,7 +82,7 @@ public class TraitementFormulaire {
 
                 } else {
 
-                    //si le user possede le droit ADMIN, on lui enlève
+                    // si le user possede le droit ADMIN, on lui enlève
                     if (listUser.get(i).getListeRole().containsKey(roleAdmin.getRole())) {
                         daoUserRole.delete(listUser.get(i), roleAdmin);
                         log.info("delete ADMIN : " + listUser.get(i));

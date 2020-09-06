@@ -20,34 +20,58 @@
     <main id="mainContant">
 
         <h2>bienvenu sur le site de Ghalem Maxime</h2>
-        <%--<figure class="imgFigure">--%>
-        <img class="imgFigure" src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
-             alt="image de l'arc de triomphe"/>
-        <figcaption>L'arc de triomphe</figcaption>
-        <%--  </figure>--%>
-        <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les activités
-            seront de type informatique principalement mais pas que. Sur ce site vous avez mes coordonnées ainsi que mon
-            curriculum Vitae au format
-            PDF
-        </p>
+        <%--        <figure class="imgFigure">--%>
+        <div class="imgFigure">
+            <img class="imgFigure" src="<c:url value="/static/image/galeries/paris/IMG_7_Paris.jpg" />"
+                 alt="image de l'arc de triomphe"/>
+            <figcaption>L'arc de triomphe</figcaption>
 
-        <p>Actuellement ce site est en cours de construction.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam. Ab
-            adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi rem
-            perferendis cumque laudantium
-            natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur, eaque
-            natus reiciendis!</p>
+            <p>Bonjour est bienvenu sur mon blog. Ce blog a été conçu pour être une vitre de mes activités .Les
+                activités
+                seront de type informatique principalement mais pas que. Sur ce site vous avez mes coordonnées ainsi que
+                mon
+                curriculum Vitae au format
+                PDF
+            </p>
 
+            <p>Actuellement ce site est en cours de construction.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic tempore sed consectetur nisi quas magnam.
+                Ab
+                adipisci velit laboriosam eveniet sunt, porro accusantium a delectus nulla beatae error harum eligendi
+                rem
+                perferendis cumque laudantium
+                natus alias veniam! Optio repellat, obcaecati temporibus eveniet nisi cum, nostrum ipsam aspernatur,
+                eaque
+                natus reiciendis!</p>
+
+        </div>
+            <%--        </figure>--%>
 
         <p>
             <a href="#mainContant">

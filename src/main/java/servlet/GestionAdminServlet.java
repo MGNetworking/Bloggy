@@ -106,14 +106,18 @@ public class GestionAdminServlet extends HttpServlet {
 
             TraitementFormulaire.formulaireGestionDroit(req, listUser, daoUserRole);
 
-            this.doGet(req, resp);
+            req.setAttribute("retour", "droit");
+            req.setAttribute("validation", true );
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
+                    .forward(req, resp);
 
         } catch (SQLException sql) {
 
             log.error(sql.getMessage());
 
-            req.setAttribute("error", "400");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/return/error.jsp")
+            req.setAttribute("retour", "droit");
+            req.setAttribute("validation", false );
+            this.getServletContext().getRequestDispatcher("/WEB-INF/return/returnMessage.jsp")
                     .forward(req, resp);
 
         } catch (Exception e) {
