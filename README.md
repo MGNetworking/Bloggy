@@ -1,6 +1,6 @@
 ## Configuration de Tomcat
 
-Ce projet tomact de configurer le multipart a 150MB
+Il faut pour ce projet Tomcat de configurer le multipart a 150MB
 pour changer la config se rendre dans :
 ```bash
 Program Files\Apache Software Foundation\Tomcat 9.0\webapps\manager\WEB-INF
@@ -17,3 +17,19 @@ Puis modifier :
       <file-size-threshold>0</file-size-threshold>
     </multipart-config>
 ```
+
+Ce projet fonctionne avec une base de donnes postgres tu trouvera un Backup dans 
+le repertoire 
+* db => Backup-Webblog-postgreSQL
+
+Pour lancer ce projet avec maven :
+```bash
+mvn clean package cargo:deploy
+```
+
+Mot de passe pour toi fabien :
+* Nom : fabien
+* Prenom : fabienFirstName
+* Password : 123456
+
+Biensur il fonctionne mais j'ai plein de chose a amélioré.
