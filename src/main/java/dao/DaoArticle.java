@@ -164,9 +164,13 @@ public class DaoArticle implements IDAO {
 
             // if image no changed
             if (request.getParameter("image-article-befort") != null) {
+
+                log.info("garde ancienne image ... ");
                 preparedStatement.setString(4, request.getParameter("image-article-befort"));
 
             } else {
+
+                log.info("Ajout image ... ");
                 // if not change, add image to server SGBR and Tomcat
                 preparedStatement.setString(4, DaoFile.createFile(request).getPathImage());
             }

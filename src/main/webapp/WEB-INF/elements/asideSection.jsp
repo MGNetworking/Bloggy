@@ -21,7 +21,7 @@
 
                 <c:when test="${fn:contains(sessionScope.user.listeRole[NameRole.ADMIN.name], NameRole.ADMIN.name) and
                 fn:contains(sessionScope.user.listeRole[NameRole.USER_ARTICLE.name], NameRole.USER_ARTICLE.name)}">
-
+                    <li>Avatar : ${sessionScope.user.avatar} </li>
                     <li>Vos droit :
                             ${sessionScope.user.listeRole[NameRole.ADMIN.name]} ET
                             ${sessionScope.user.listeRole[NameRole.USER_ARTICLE.name]}
@@ -34,6 +34,7 @@
 
                 <c:when test="${fn:contains(sessionScope.user.listeRole[NameRole.ADMIN.name], NameRole.ADMIN.name)}">
 
+                    <li>Avatar : ${sessionScope.user.avatar} </li>
                     <li>Vos droit : ${sessionScope.user.listeRole[NameRole.ADMIN.name]} </li>
                     <li><a href="<c:url value="/gestionAdmin"/>">GESTION DES ROLES</a></li>
                     <li><a href="<c:url value="/gestionAdmin"/>?identiter=formulaire">MODIFIER VOTRE IDENTITER</a></li>
@@ -42,6 +43,7 @@
 
                 <c:when test="${fn:contains(sessionScope.user.listeRole[NameRole.USER_ARTICLE.name], NameRole.USER_ARTICLE.name)}">
 
+                    <li>Avatar : ${sessionScope.user.avatar} </li>
                     <li>Vos droit : ${sessionScope.user.listeRole[NameRole.USER_ARTICLE.name]}</li>
                     <li><a href="<c:url value="/article"/>?page=articleCreate">CRÉATION D'ARTICLE</a></li>
                     <li><a href="<c:url value="/gestionAdmin"/>?identiter=formulaire">MODIFIER VOTRE IDENTITER</a></li>

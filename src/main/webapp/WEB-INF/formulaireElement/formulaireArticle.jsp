@@ -78,9 +78,13 @@
     </c:if>
     <c:if test="${requestScope.action eq 'modifier' or requestScope.action eq 'supprimer'}">
         <label for="file">Modification de l'image de l'article</label>
-        <p>Gardé l'image precedente <input type="checkbox" name="image-article-befort" value="${ requestScope.article.pathImage }" checked> </p>
-        <p>Pour changé d'image </p>
-        <input type="file" value="" name="image-article" accept="image/png, image/jpeg" tabindex="3">
+
+        <p>Gardé l'image precedente
+            <input type="checkbox" name="image-article" value="${ requestScope.article.pathImage }" checked> </p>
+
+        <p>Pour changé d'image
+            <input type="checkbox" name="image-article" > </p>
+            <input type="file" value="" name="image-article" accept="image/png, image/jpeg" tabindex="3"></p>
 
     </c:if>
 
@@ -101,4 +105,5 @@
 
 <button type="submit" tabindex="5">Envoyer</button>
 
+<script src="<c:url value="/static/js/checkboxArticle.js" />" async></script>
 </form>

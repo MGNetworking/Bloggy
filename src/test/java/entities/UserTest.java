@@ -119,11 +119,14 @@ public class UserTest {
 
     }
 
-    /**
+/*
+    */
+/**
      * Check that the methode returns the expected exception.
      *
      * @param password
-     */
+     *//*
+
     @ParameterizedTest
     @ValueSource(strings = {"", " ","m@xi", "ÀÁÂ6"})
     @DisplayName("test setPassword")
@@ -134,6 +137,7 @@ public class UserTest {
                         + password);
 
     }
+*/
 
     @Test
     @DisplayName("test SetPassword Null")
