@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class DaoArticle implements IDAO {
+public class DaoArticle implements IDAO<HttpServletRequest> {
 
     private DataSource dataSource;
 
@@ -57,10 +57,10 @@ public class DaoArticle implements IDAO {
      * Methode pour l'ajoute en base de données d'un article.
      * Si le requete d'insertion est en échéc,
      * aucun image ne sera ajouter sur le serveur.
-     *
-     * @param articleBlog
+     * @param request
      * @return
      * @throws SQLException
+     * @throws RuntimeException
      */
     public boolean create(HttpServletRequest request) throws SQLException, RuntimeException {
 
@@ -258,6 +258,12 @@ public class DaoArticle implements IDAO {
         return execute;
     }
 
+    @Override
+    public HttpServletRequest find(HttpServletRequest request) throws SQLException {
+        return null;
+    }
+
+
     /**
      * Methode qui permet de recherche d'un Article par son id
      *
@@ -306,7 +312,7 @@ public class DaoArticle implements IDAO {
         return articleBlog;
     }
 
-    @Override
+
     public List<ArticleBlog> findAll() throws SQLException {
 
         List<ArticleBlog> listArticle = new ArrayList<>();

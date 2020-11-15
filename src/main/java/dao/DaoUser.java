@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class DaoUser {
+public class DaoUser  {
 
     private DataSource dataSource;
 
@@ -140,9 +140,6 @@ public class DaoUser {
         return user;
     }
 
-    public boolean create(User user) throws SQLException {
-        return false;
-    }
 
 
     public boolean update(User user) {
@@ -220,20 +217,6 @@ public class DaoUser {
     }
 
     /**
-     * Allows to update right user
-     *
-     * @param listUser
-     * @return
-     */
-/*    public boolean updateRight(List listUser){
-
-    }*/
-    public boolean delete(User user) throws SQLException {
-        return false;
-    }
-
-
-    /**
      * Allows to get a user by his token , if user is find in databases
      * so a searching in databases is execute for searching his user right
      *
@@ -292,7 +275,7 @@ public class DaoUser {
      * @return
      * @throws Exception
      */
-    public List findAll() throws Exception {
+    public List<User> findAll() throws Exception {
 
         List<User> listUser = new ArrayList<>();
 

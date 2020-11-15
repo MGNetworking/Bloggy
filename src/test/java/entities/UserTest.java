@@ -22,7 +22,7 @@ public class UserTest {
     /**
      * Check that the methode returns the expected exception.
      *
-     * @param userName
+     * @param id
      */
     @ParameterizedTest
     @ValueSource(longs = {0, -1})

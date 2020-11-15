@@ -1,5 +1,7 @@
 package dao;
 
+import entities.ArticleBlog;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,15 +11,18 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface IDAO<T> {
+public interface IDAO<Type> {
 
-    abstract boolean create(HttpServletRequest request) throws SQLException, Exception;
+     boolean create(Type request) throws SQLException, Exception;
 
-    abstract boolean update(HttpServletRequest request) throws SQLException, Exception;
+     boolean update(Type request) throws SQLException, Exception;
 
-    abstract boolean delete(HttpServletRequest request) throws SQLException, Exception;
+     boolean delete(Type request) throws SQLException, Exception;
 
-    abstract T find(String request) throws SQLException;
+     Type find(Type request) throws SQLException;
 
-    abstract List<T> findAll() throws SQLException;
+     ArticleBlog find(String id_Article) throws SQLException;
+
+     List<ArticleBlog> findAll() throws SQLException, Exception;
+
 }
