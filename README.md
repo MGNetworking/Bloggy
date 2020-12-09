@@ -1,6 +1,6 @@
 ### préambule 
-Ce projet et ECF : évaluation en cours de formation
-Le sujet était libre, j’ai donc choisi de créer un site web de type blog 
+Ce projet et un ECF : évaluation en cours de formation
+Le sujet libre, j’ai donc choisi de créer un site web de type blog 
 en Java EE. 
 
 Il a était développer avec les technologie suivant :
@@ -33,7 +33,7 @@ Ce projet fonctionne avec une base de donnes postgres.
 Vous trouverez un backup dans le repertoire 
 * db => Backup-Webblog-postgreSQL
 
-Pour lancer ce projet avec maven :
+goal utiliser pour maven
 ```bash
 mvn clean package cargo:deploy
 ```
