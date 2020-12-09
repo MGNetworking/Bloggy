@@ -9,8 +9,8 @@
 
             defaultReadOnly="false"
 
-            username="postgres"
-            password="root"
+            username="maxime"
+            password="max"
             url="jdbc:postgresql://localhost:5432/webblog?currentSchema=blog"
     />
 </Context>
