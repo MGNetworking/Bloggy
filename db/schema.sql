@@ -41,7 +41,6 @@ insert into blog.role(role)
 values ('ADMIN'),
        ('USER_ARTICLE');
 
-
 -- user
 ------------------------------------------------------
 CREATE TABLE blog.user
