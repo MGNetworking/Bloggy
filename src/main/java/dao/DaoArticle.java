@@ -89,11 +89,14 @@ public class DaoArticle implements IDAO<HttpServletRequest> {
             preparedStatement.setString(6, DaoFile.createFile(request).getPathImage());
             preparedStatement.setString(7, request.getParameter("image-commentaire"));
 
+            preparedStatement.executeUpdate();
 
             // excution de la requete
+/*
             if (preparedStatement.executeUpdate() == 0) {
                 throw new SQLException("Echec operation insert ");
             }
+*/
 
             connection.commit();
             connection.setAutoCommit(true);

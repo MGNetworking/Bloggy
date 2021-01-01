@@ -9,6 +9,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="util.TokenHelper" %>
 
+<script type="text/javascript" src="<c:url value="/static/ckeditor/ckeditor.js" />"></script>
+
 <c:if test="${ empty requestScope.action}">
     <h2>Creation d'un article</h2>
     <form action="<c:url value="/article"/>?ActionArticle=create" method="post" enctype="multipart/form-data">
@@ -101,9 +103,21 @@
 
     </c:if>
 
+
+
+</div>
+
+<div>
+
+    <script type="text/javascript">
+        CKEDITOR.replace("article");
+    </script>
 </div>
 
 <button type="submit" tabindex="5">Envoyer</button>
 
 <script src="<c:url value="/static/js/checkboxArticle.js" />" async></script>
+
+
+
 </form>

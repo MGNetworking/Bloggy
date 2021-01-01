@@ -21,7 +21,7 @@ CREATE SCHEMA blog
 
 COMMENT ON SCHEMA blog
     IS 'schema to user management and web site articletexte';*/
-
+------------------------------------------------------
 -- for delete table
 ------------------------------------------------------
 drop table IF EXISTS blog.role CASCADE;
@@ -29,7 +29,7 @@ drop table IF EXISTS blog.user CASCADE;
 drop table IF EXISTS blog.user_role CASCADE;
 drop table IF EXISTS blog.article CASCADE;
 
-
+------------------------------------------------------
 -- role
 ------------------------------------------------------
 CREATE TABLE blog.role
@@ -41,7 +41,7 @@ insert into blog.role(role)
 values ('ADMIN'),
        ('USER_ARTICLE');
 
-
+------------------------------------------------------
 -- user
 ------------------------------------------------------
 CREATE TABLE blog.user
@@ -57,15 +57,9 @@ CREATE TABLE blog.user
 
 );
 
-insert into blog.user(name, firstName, avatar, password_user, email)
-values ('maxime', 'ghalem', 'MGAvatar', '123456', 'maxime@gmail.com'),
-       ('sylvain', 'syl-firstName', 'sylAvatar', '456123', 'sylvain@gmail.com'),
-       ('fabien', 'fa-firstName', 'fabAvatar', '789123', 'fabien@gmail.com'),
-       ('ernestas', 'er-firstName', 'ernesAvatar', '321123', 'ernestas@gmail.com'),
-       ('ghalem','maximeTest','SuperToto','$2a$10$lvRbl7k8m7qGLHcPM3L40uCs6TzoO45JMgdum67SLJI0QKEQA5tNu',
-        'ghalem.maxime@gmail.com');
 
 
+------------------------------------------------------
 -- user_role : associtive table
 ------------------------------------------------------
 CREATE TABLE blog.user_role
@@ -78,14 +72,7 @@ CREATE TABLE blog.user_role
 
 );
 
-insert into blog.user_role(id_user, role_name)
-values ('1', 'ADMIN'),
-       ('1', 'USER_ARTICLE'),
-       ('2', 'USER_ARTICLE'),
-       ('3', 'USER_ARTICLE'),
-       ('4', 'USER_ARTICLE');
-
-
+------------------------------------------------------
 -- - Table articletexte
 ------------------------------------------------------
 CREATE table blog.article

@@ -38,9 +38,9 @@ import static util.NameRole.USER_ARTICLE;
 
 @Slf4j
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB seuil de la taille du fichier
-        maxFileSize = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize = 1024 * 1024 * 5 * 5 // 25 MB
+        fileSizeThreshold = 1024 * 1024 * 10,  // 10 MB seuil de la taille du fichier
+        maxFileSize = 1024 * 1024 * 50, // 50 MB
+        maxRequestSize = 1024 * 1024 * 100// 100 MB
 )
 @WebServlet(urlPatterns = "/article")
 public class ArticleServlet extends HttpServlet {

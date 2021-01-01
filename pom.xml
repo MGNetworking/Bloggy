@@ -118,7 +118,10 @@
     </dependencies>
 
     <build>
-        <finalName>blog-JEE</finalName>
+        <!-- nom du fichier .war est sera aussi le context de l'application
+               <finalName>blog-JEE</finalName> -->
+        <finalName>ROOT</finalName>
+
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
 

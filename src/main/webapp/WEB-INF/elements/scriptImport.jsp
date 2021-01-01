@@ -12,3 +12,5 @@
 <script src="<c:url value="/static/js/menu.js" />"></script>
 <!-- fonction dynamique  -->
 <script src="<c:url value="/static/js/backgroundDynamique.js" />" async></script>
+
+
