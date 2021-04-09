@@ -13,3 +13,8 @@ values ('1', 'ADMIN'),
        ('2', 'USER_ARTICLE'),
        ('3', 'USER_ARTICLE'),
        ('4', 'USER_ARTICLE');
+
+
+insert into blog.role(role)
+values ('ADMIN'),
+       ('USER_ARTICLE');

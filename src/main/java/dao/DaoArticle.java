@@ -99,7 +99,7 @@ public class DaoArticle implements IDAO<HttpServletRequest> {
 */
 
             connection.commit();
-            connection.setAutoCommit(true);
+
             execute = true;
 
         } catch (SQLException sql) {
@@ -144,6 +144,7 @@ public class DaoArticle implements IDAO<HttpServletRequest> {
                 connection.close();
                 log.info("Fermeture de la connection a la base de données");
             }
+            connection.setAutoCommit(true);
         }
 
         return execute;
