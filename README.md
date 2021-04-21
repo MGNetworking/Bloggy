@@ -1,18 +1,15 @@
 ### préambule 
-Ce projet et un ECF : évaluation en cours de formation
-Le sujet libre, j’ai donc choisi de créer un site web de type blog 
-en Java EE. 
+Ce projet et un blog codé en Java EE sans frameWork 
 
 Il a était développer avec les technologie suivant :
+* HTML, CSS, Javascript pour la manipulation du DOM
 * JDBC pour le développement des objets d’accès au données
-* la JSTL et EL pour gestion du coté Front
-
-Il ne contient aucun Framework et permet de voir le fonctionnement des bases 
-en programmation. Ce projet n’a pas pour but de d’être mis en production dans l’état.    
+* la JSTL et les "EL" expression langage de Java pour gestion du coté Front.   
 
 ### Configuration de Tomcat 
-Pour ce projet il faut configurer Tomcat le multipart a 150MB
-Pour changer la config se rendre dans :
+Pour ce projet le conteneur Tomcat a etait configurer avec un
+multipart a 150MB.
+La configuration ce trouve dans le repertoire :
 ```bash
 Program Files\Apache Software Foundation\Tomcat 9.0\webapps\manager\WEB-INF
 ```
@@ -30,16 +27,10 @@ Puis modifier :
 ```
 
 Ce projet fonctionne avec une base de donnes postgres.
-Vous trouverez un backup dans le repertoire 
-* db => Backup-Webblog-postgreSQL
 
 goal utiliser pour maven
 ```bash
 mvn clean package cargo:deploy
 ```
 
-Mot de passe Teste
-* Nom : fabien
-* Prenom : fabienFirstName
-* Password : 123456
 

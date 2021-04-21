@@ -7,14 +7,13 @@ values ('maxime', 'ghalem', 'MGAvatar', '123456', 'maxime@gmail.com'),
        ('ernestas', 'er-firstName', 'ernesAvatar', '321123', 'ernestas@gmail.com');
 
 
+insert into blog.role(role)
+values ('ADMIN'),
+       ('USER_ARTICLE');
+
 insert into blog.user_role(id_user, role_name)
 values ('1', 'ADMIN'),
        ('1', 'USER_ARTICLE'),
        ('2', 'USER_ARTICLE'),
        ('3', 'USER_ARTICLE'),
        ('4', 'USER_ARTICLE');
-
-
-insert into blog.role(role)
-values ('ADMIN'),
-       ('USER_ARTICLE');

@@ -1,6 +1,6 @@
 -- this diagram is used for the management of the site
 ------------------------------------------------------
-/*DROP DATABASE IF EXISTS webblog;
+DROP DATABASE IF EXISTS webblog;
 -- create to web site database
 ------------------------------------------------------
 CREATE DATABASE webblog
@@ -10,7 +10,7 @@ CREATE DATABASE webblog
     CONNECTION LIMIT = -1;
 
 COMMENT ON DATABASE webblog
-    IS 'Databases for ECF number 3';
+    IS 'Base de donées blog & expérience';
 
 
 -- create to schema for webblog
@@ -20,7 +20,7 @@ CREATE SCHEMA blog
     AUTHORIZATION postgres;
 
 COMMENT ON SCHEMA blog
-    IS 'schema to user management and web site articletexte';*/
+    IS 'schema to user management and web site articletexte';
 ------------------------------------------------------
 -- for delete table
 ------------------------------------------------------
@@ -36,10 +36,6 @@ CREATE TABLE blog.role
 (
     role varchar(30) not null primary key
 );
-
-insert into blog.role(role)
-values ('ADMIN'),
-       ('USER_ARTICLE');
 
 ------------------------------------------------------
 -- user
