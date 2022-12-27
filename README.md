@@ -4,7 +4,9 @@ Ce projet et un blog codé en Java EE sans frameWork
 Il a était développer avec les technologie suivant :
 * HTML, CSS, Javascript pour la manipulation du DOM
 * JDBC pour le développement des objets d’accès au données
-* la JSTL et les "EL" expression langage de Java pour gestion du coté Front.   
+* la JSTL qui et un ensemble de tags personnalisés développé 
+* L’EL est un langage d’expression efficace pour remplacer le Java dans les pages JSP
+* Les JSP (Java Server Pages) sont une technologie Java qui permet la génération de pages web dynamiques.
 
 ### Configuration de Tomcat 
 Pour ce projet le conteneur Tomcat a etait configurer avec un
